@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>CMS · Marketographers / Estudio Graphica</title>
+<style>
+  :root{
+    --bg:#111214; --panel:#191a1d; --border:#2a2b2f; --text:#f2f0ea;
+    --muted:#9a9a9e; --gold:#d9b45c; --red:#c0392b; --green:#3f9142;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;}
+  header{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--border);}
+  header h1{font-size:16px;margin:0;font-weight:600;}
+  .wrap{max-width:900px;margin:0 auto;padding:24px;}
+  .tabs{display:flex;gap:8px;margin-bottom:20px;}
+  .tab{padding:8px 16px;border-radius:999px;border:1px solid var(--border);background:var(--panel);color:var(--muted);cursor:pointer;font-size:14px;}
+  .tab.active{background:var(--gold);color:#1a1a1a;border-color:var(--gold);font-weight:600;}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+  .post-row{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);}
+  .post-row:last-child{border-bottom:none;}
+  .post-row img{width:70px;height:44px;object-fit:cover;border-radius:6px;flex-shrink:0;background:#222;}
+  .post-row .info{flex:1;min-width:0;}
+  .post-row .info b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .post-row .info span{color:var(--muted);font-size:12px;}
+  .post-row .actions{display:flex;gap:6px;}
+  button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--border);background:#232427;color:var(--text);padding:7px 14px;}
+  button.primary{background:var(--gold);border-color:var(--gold);color:#1a1a1a;font-weight:600;}
+  button.danger{background:transparent;border-color:var(--red);color:#e07568;}
+  button:disabled{opacity:.5;cursor:default;}
+  input,textarea,select{width:100%;background:#0f1011;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:9px 11px;font:inherit;margin-top:4px;}
+  textarea{min-height:260px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;}
+  label{display:block;margin-bottom:14px;font-size:13px;color:var(--muted);}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .row3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px;}
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .banner{padding:12px 14px;border-radius:8px;margin-bottom:14px;font-size:14px;}
+  .banner.ok{background:#173a1c;color:#8fe39a;border:1px solid #2b5c31;}
+  .banner.err{background:#3a1717;color:#e39a8f;border:1px solid #5c2b2b;}
+  .hint{color:var(--muted);font-size:12px;margin-top:4px;}
+  a{color:var(--gold);}
+  .login-box{max-width:340px;margin:100px auto;text-align:center;}
+  .login-box img{width:56px;margin-bottom:16px;}
+  #app{display:none;}
+</style>
+</head>
+<body>
+
+<div id="login" class="login-box">
+  <h2>Panel de contenido</h2>
+  <p class="hint">Marketographers / Estudio Graphica</p>
+  <label>Contraseña
+    <input type="password" id="pw" autofocus>
+  </label>
+  <button class="primary" style="width:100%" onclick="login()">Entrar</button>
+  <p id="loginError" class="hint" style="color:#e39a8f"></p>
+</div>
+
+<div id="app">
+  <header>
+    <h1>CMS de contenido</h1>
+    <button onclick="logout()">Salir</button>
+  </header>
+  <div class="wrap">
+    <div class="tabs">
+      <div class="tab" data-site="mkt" onclick="switchSite('mkt')">The Marketographers</div>
+      <div class="tab" data-site="eg" onclick="switchSite('eg')">Estudio Graphica</div>
+    </div>
+
+    <div id="banner"></div>
+
+    <div id="listView">
+      <div class="toolbar">
+        <span class="hint" id="siteLabel"></span>
+        <button class="primary" onclick="openForm()">+ Nuevo post</button>
+      </div>
+      <div class="card" id="postList">Cargando…</div>
+    </div>
+
+    <div id="formView" style="display:none">
+      <div class="toolbar">
+        <span class="hint" id="formTitle">Nuevo post</span>
+        <button onclick="closeForm()">← Volver al listado</button>
+      </div>
+      <div class="card">
+        <label>Título
+          <input id="f_title" oninput="onTitleInput()">
+        </label>
+        <div class="row2">
+          <label>Slug (URL)
+            <input id="f_slug">
+            <span class="hint">Solo minúsculas, números y guiones. Se genera solo desde el título.</span>
+          </label>
+          <label>Categoría / etiqueta
+            <input id="f_category" placeholder="Ej: Precio y ventas">
+          </label>
+        </div>
+        <div class="row3">
+          <label>Fecha
+            <input id="f_date" type="date">
+          </label>
+          <label>Min. de lectura
+            <input id="f_reading" type="number" min="1">
+          </label>
+          <label>Slug bloqueado al editar
+            <input id="f_locked" disabled value="Sí (editar contenido, no la URL)">
+          </label>
+        </div>
+        <label>Descripción SEO (150-160 caracteres, aparece en Google y al compartir)
+          <textarea id="f_meta" style="min-height:60px"></textarea>
+        </label>
+        <div class="row2">
+          <label>URL imagen de portada (Cloudinary)
+            <input id="f_img">
+          </label>
+          <label>Texto alternativo de la imagen
+            <input id="f_alt">
+          </label>
+        </div>
+        <label>Resumen corto (aparece en la tarjeta del listado del blog)
+          <textarea id="f_excerpt" style="min-height:50px"></textarea>
+        </label>
+        <label>Contenido del artículo (HTML). Usa &lt;h2&gt;, &lt;p&gt;, &lt;blockquote&gt;, &lt;ul&gt;&lt;li&gt;, etc.
+          <textarea id="f_body" placeholder="&lt;p&gt;Párrafo de apertura...&lt;/p&gt;
+
+&lt;h2&gt;Subtítulo&lt;/h2&gt;
+&lt;p&gt;Desarrollo...&lt;/p&gt;"></textarea>
+        </label>
+        <div id="mktOnlyFields">
+          <div class="row2">
+            <label>Título del CTA final (opcional)
+              <input id="f_ctaTitle" placeholder="¿Quieres dejar de competir por precio?">
+            </label>
+            <label>Texto del CTA final (opcional)
+              <input id="f_ctaText" placeholder="Entra a la comunidad...">
+            </label>
+          </div>
+        </div>
+        <div class="toolbar">
+          <span></span>
+          <button class="primary" id="saveBtn" onclick="savePost()">Publicar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SITES = {
+  mkt: { label: 'The Marketographers' },
+  eg:  { label: 'Estudio Graphica' },
+};
+let currentSite = 'mkt';
+let editingSlug = null;
+let cachedPosts = [];
+
+function pw(){ return sessionStorage.getItem('cms_pw') || ''; }
+
+async function api(path, opts = {}) {
+  const res = await fetch('/.netlify/functions/' + path, {
+    ...opts,
+    headers: { 'Content-Type': 'application/json', 'x-admin-password': pw(), ...(opts.headers||{}) },
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || ('Error ' + res.status));
+  return data;
+}
+
+function login() {
+  const val = document.getElementById('pw').value;
+  sessionStorage.setItem('cms_pw', val);
+  document.getElementById('loginError').textContent = '';
+  boot();
+}
+function logout(){ sessionStorage.removeItem('cms_pw'); location.reload(); }
+
+async function boot() {
+  try {
+    await api('list-posts?site=mkt');
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    switchSite('mkt');
+  } catch (e) {
+    document.getElementById('loginError').textContent = 'Contraseña incorrecta o falta configurar el servidor.';
+  }
+}
+
+function switchSite(site) {
+  currentSite = site;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.site === site));
+  document.getElementById('siteLabel').textContent = SITES[site].label;
+  document.getElementById('mktOnlyFields').style.display = site === 'mkt' ? 'block' : 'none';
+  closeForm();
+  loadPosts();
+}
+
+function banner(msg, ok) {
+  document.getElementById('banner').innerHTML = `<div class="banner ${ok ? 'ok' : 'err'}">${msg}</div>`;
+}
+
+async function loadPosts() {
+  const list = document.getElementById('postList');
+  list.textContent = 'Cargando…';
+  try {
+    const { posts } = await api('list-posts?site=' + currentSite);
+    cachedPosts = posts;
+    if (!posts.length) { list.textContent = 'Todavía no hay posts.'; return; }
+    list.innerHTML = posts.map(p => `
+      <div class="post-row">
+        <img src="${p.coverImageUrl}" onerror="this.style.visibility='hidden'">
+        <div class="info">
+          <b>${p.title}</b>
+          <span>${p.category || ''} · /blog/${p.slug}/</span>
+        </div>
+        <div class="actions">
+          <button onclick="editPost('${p.slug}')">Editar</button>
+          <button class="danger" onclick="deletePost('${p.slug}', this)">Despublicar</button>
+        </div>
+      </div>
+    `).join('');
+  } catch (e) {
+    list.textContent = 'Error cargando posts: ' + e.message;
+  }
+}
+
+function slugify(text) {
+  return text.toString().toLowerCase().trim()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+function onTitleInput() {
+  if (editingSlug) return; // no renombrar posts existentes desde acá
+  document.getElementById('f_slug').value = slugify(document.getElementById('f_title').value);
+}
+
+function clearForm() {
+  ['f_title','f_slug','f_category','f_date','f_reading','f_meta','f_img','f_alt','f_excerpt','f_body','f_ctaTitle','f_ctaText']
+    .forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f_date').value = new Date().toISOString().slice(0,10);
+  document.getElementById('f_reading').value = 5;
+}
+
+function openForm() {
+  editingSlug = null;
+  clearForm();
+  document.getElementById('f_slug').disabled = false;
+  document.getElementById('formTitle').textContent = 'Nuevo post · ' + SITES[currentSite].label;
+  document.getElementById('saveBtn').textContent = 'Publicar';
+  document.getElementById('listView').style.display = 'none';
+  document.getElementById('formView').style.display = 'block';
+}
+
+function closeForm() {
+  document.getElementById('formView').style.display = 'none';
+  document.getElementById('listView').style.display = 'block';
+}
+
+async function editPost(slug) {
+  try {
+    const data = await api('get-post?site=' + currentSite + '&slug=' + encodeURIComponent(slug));
+    const cardData = cachedPosts.find(p => p.slug === slug) || {};
+    editingSlug = slug;
+    clearForm();
+    document.getElementById('f_title').value = data.title || '';
+    document.getElementById('f_slug').value = slug;
+    document.getElementById('f_slug').disabled = true;
+    document.getElementById('f_category').value = data.category || '';
+    document.getElementById('f_date').value = data.date || '';
+    document.getElementById('f_reading').value = data.readingMinutes || 5;
+    document.getElementById('f_meta').value = data.metaDescription || '';
+    document.getElementById('f_img').value = data.coverImageUrl || '';
+    document.getElementById('f_alt').value = data.coverImageAlt || '';
+    document.getElementById('f_excerpt').value = cardData.excerpt || '';
+    document.getElementById('f_body').value = data.bodyHtml || '';
+    document.getElementById('formTitle').textContent = 'Editando · ' + data.title;
+    document.getElementById('saveBtn').textContent = 'Guardar cambios';
+    document.getElementById('listView').style.display = 'none';
+    document.getElementById('formView').style.display = 'block';
+  } catch (e) {
+    banner('No se pudo cargar el post: ' + e.message, false);
+  }
+}
+
+async function savePost() {
+  const post = {
+    site: currentSite,
+    isEdit: !!editingSlug,
+    slug: document.getElementById('f_slug').value.trim(),
+    title: document.getElementById('f_title').value.trim(),
+    category: document.getElementById('f_category').value.trim(),
+    date: document.getElementById('f_date').value,
+    readingMinutes: document.getElementById('f_reading').value,
+    metaDescription: document.getElementById('f_meta').value.trim(),
+    coverImageUrl: document.getElementById('f_img').value.trim(),
+    coverImageAlt: document.getElementById('f_alt').value.trim(),
+    excerpt: document.getElementById('f_excerpt').value.trim(),
+    bodyHtml: document.getElementById('f_body').value,
+    ctaTitle: document.getElementById('f_ctaTitle').value.trim(),
+    ctaText: document.getElementById('f_ctaText').value.trim(),
+  };
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = 'Publicando…';
+  try {
+    const res = await api('save-post', { method: 'POST', body: JSON.stringify(post) });
+    banner(`Listo. Publicado en <a href="${res.url}" target="_blank">${res.url}</a> · <a href="${res.commitUrl}" target="_blank">ver commit</a>`, true);
+    closeForm();
+    loadPosts();
+  } catch (e) {
+    banner('Error al publicar: ' + e.message, false);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = editingSlug ? 'Guardar cambios' : 'Publicar';
+  }
+}
+
+async function deletePost(slug, btn) {
+  if (!confirm('¿Despublicar "' + slug + '"? Esto borra el post del sitio.')) return;
+  btn.disabled = true;
+  try {
+    await api('delete-post', { method: 'POST', body: JSON.stringify({ site: currentSite, slug }) });
+    banner('Post despublicado.', true);
+    loadPosts();
+  } catch (e) {
+    banner('Error al despublicar: ' + e.message, false);
+    btn.disabled = false;
+  }
+}
+
+if (pw()) boot();
+</script>
+
+</body>
+</html>
