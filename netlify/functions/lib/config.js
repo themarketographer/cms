@@ -22,6 +22,20 @@ const SITES = {
     // Marcador exacto dentro de blog/index.html después del cual se inserta la tarjeta nueva.
     cardAnchor: '<div class="blog-grid" id="blog-grid">',
     grid: { imgAttrDefault: ' style="aspect-ratio:16/9;object-fit:cover;"' },
+    // Bloques de datos (arrays de JS embebidos en una página) editables desde el panel.
+    dataBlocks: {
+      testimonios: {
+        label: 'Testimonios',
+        varName: 'testimonios',
+        path: 'index.html',
+        fields: [
+          { key: 'n', label: 'Nombre' },
+          { key: 't', label: 'Rol / ubicación' },
+          { key: 'q', label: 'Cita', long: true },
+          { key: 'img', label: 'URL de imagen' },
+        ],
+      },
+    },
   },
   eg: {
     key: 'eg',
@@ -40,6 +54,17 @@ const SITES = {
     publisherLogoUrl: 'https://res.cloudinary.com/dplhu2z6j/image/upload/v1777509513/Logo_B_S_F_kdolev.png',
     // Marcador exacto dentro de blog/index.html después del cual se inserta la tarjeta nueva.
     cardAnchor: '<div class="posts">',
+    dataBlocks: {
+      faqs: {
+        label: 'Preguntas frecuentes',
+        varName: 'faqs',
+        path: 'index.html',
+        fields: [
+          { key: 'q', label: 'Pregunta' },
+          { key: 'a', label: 'Respuesta', long: true },
+        ],
+      },
+    },
   },
 };
 
