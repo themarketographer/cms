@@ -28,7 +28,7 @@
   .back-link{display:inline-block;color:var(--gray);font-size:13.5px;font-weight:600;cursor:pointer;margin-bottom:16px;text-decoration:none;}
   .back-link:hover{color:var(--dark);}
   .page-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;gap:14px;}
-  .page-head h2{font-size:22px;font-weight:700;}
+  .page-head h2{font-size:22px;font-weight:700;flex:1;min-width:0;}
   .tabs{display:flex;gap:8px;margin-bottom:20px;}
   .tab{padding:8px 18px;border-radius:var(--r-pill);border:1px solid var(--border);background:#fff;color:var(--gray);cursor:pointer;font-size:13.5px;font-weight:600;transition:all .15s;}
   .tab.active{background:var(--yellow);color:var(--dark);border-color:var(--yellow);}
@@ -91,8 +91,19 @@
   .blocks-row{background:#fff;border:1px solid var(--border);border-top:1px solid var(--border);padding:8px;gap:8px;}
   .canvas-wrap{border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r-md) var(--r-md);overflow:hidden;background:#fff;margin-bottom:0;}
   #canvasFrame{width:100%;height:560px;border:none;display:block;}
-  .live-link{font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:var(--r-pill);background:var(--off-white);border:1px solid var(--border);color:var(--dark);text-decoration:none;}
+  .live-link{font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:var(--r-pill);background:var(--off-white);border:1px solid var(--border);color:var(--dark);text-decoration:none;white-space:nowrap;flex-shrink:0;display:inline-block;}
   .live-link:hover{background:var(--yellow);border-color:var(--yellow);}
+  .slug-inline{display:inline;width:auto;background:transparent;border:none;border-bottom:1px dashed var(--border-strong);color:var(--gray);padding:0 2px;margin:0;font-size:12px;border-radius:0;}
+  .slug-inline:disabled{border-bottom-style:none;color:var(--gray);opacity:1;-webkit-text-fill-color:var(--gray);}
+  .slug-inline:focus{outline:none;border-bottom-color:var(--yellow-hover);color:var(--dark);}
+  .more-details{margin:10px 0 4px;}
+  .more-details summary{list-style:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--gray);padding:8px 0;}
+  .more-details summary::-webkit-details-marker{display:none;}
+  .more-details summary::marker{display:none;content:'';}
+  .more-details summary::before{content:'+ ';color:var(--gold-text);}
+  .more-details[open] summary::before{content:'– ';}
+  .more-details-body{padding:6px 0 4px;}
+  .tab img{height:16px;vertical-align:-3px;margin-right:7px;}
   /* Dropdown propio para no depender del <select> nativo del navegador,
      que en algunos sistemas se renderiza con su propio tema oscuro y
      rompe el diseño del panel. */
@@ -124,8 +135,8 @@
   </header>
   <div class="wrap">
     <div class="tabs">
-      <div class="tab" data-site="mkt" onclick="switchSite('mkt')">The Marketographers</div>
-      <div class="tab" data-site="eg" onclick="switchSite('eg')">Estudio Graphica</div>
+      <div class="tab" data-site="mkt" onclick="switchSite('mkt')"><img src="https://res.cloudinary.com/dplhu2z6j/image/upload/v1755314905/Marketographers_Negro_S_F_tgh9z2.png" alt="">The Marketographers</div>
+      <div class="tab" data-site="eg" onclick="switchSite('eg')"><img src="https://estudiographica.com/assets/logo-black.png" alt="">Estudio Graphica</div>
     </div>
     <div class="subtabs" id="subtabs"></div>
 
@@ -157,45 +168,44 @@
       <div class="card">
         <label>Título
           <input id="f_title" oninput="onTitleInput()">
-          <span class="hint"><span id="titleCount">0</span>/60 caracteres · ideal entre 30 y 60</span>
+          <span class="hint"><span id="titleCount">0</span>/60 · ideal 30-60 · se publica en /blog/<input id="f_slug" class="slug-inline"></span>
         </label>
-        <div class="row2">
-          <label>Slug (URL)
-            <input id="f_slug">
-            <span class="hint">Solo minúsculas, números y guiones. Se genera solo desde el título.</span>
-          </label>
-          <label>Categoría / etiqueta
-            <input id="f_category" placeholder="Ej: Precio y ventas">
-          </label>
-        </div>
-        <div class="row3">
-          <label>Fecha
-            <input id="f_date" type="date">
-          </label>
-          <label>Min. de lectura
-            <input id="f_reading" type="number" min="1">
-          </label>
-          <label>Slug bloqueado al editar
-            <input id="f_locked" disabled value="Sí (editar contenido, no la URL)">
-          </label>
-        </div>
-        <label>Descripción SEO (150-160 caracteres, aparece en Google y al compartir)
-          <textarea id="f_meta" style="min-height:60px" oninput="updateCounters()"></textarea>
-          <span class="hint"><span id="metaCount">0</span>/160 caracteres · ideal entre 120 y 160</span>
-        </label>
-        <div class="row2">
-          <label>URL imagen de portada (Cloudinary)
-            <input id="f_img">
-          </label>
-          <label>Texto alternativo de la imagen
-            <input id="f_alt">
-          </label>
-        </div>
-        <label>Resumen corto (aparece en la tarjeta del listado del blog)
-          <textarea id="f_excerpt" style="min-height:50px"></textarea>
+        <label>Categoría
+          <input id="f_category" list="categoryList" placeholder="Ej: Precio y ventas">
+          <datalist id="categoryList"></datalist>
+          <span class="hint">Empezá a escribir y elegí una ya existente si aplica, así el post cae en la misma categoría.</span>
         </label>
 
-        <label style="margin-bottom:6px">Contenido del artículo (esto ya se ve con el diseño real del sitio)</label>
+        <details class="more-details">
+          <summary>Fecha, SEO e imagen de portada</summary>
+          <div class="more-details-body">
+            <div class="row2">
+              <label>Fecha
+                <input id="f_date" type="date">
+              </label>
+              <label>Min. de lectura
+                <input id="f_reading" type="number" min="1">
+              </label>
+            </div>
+            <label>Descripción SEO (aparece en Google y al compartir)
+              <textarea id="f_meta" style="min-height:60px" oninput="updateCounters()"></textarea>
+              <span class="hint"><span id="metaCount">0</span>/160 · ideal 120-160</span>
+            </label>
+            <div class="row2">
+              <label>URL imagen de portada (Cloudinary)
+                <input id="f_img">
+              </label>
+              <label>Texto alternativo de la imagen
+                <input id="f_alt">
+              </label>
+            </div>
+            <label>Resumen corto (tarjeta del listado del blog)
+              <textarea id="f_excerpt" style="min-height:50px"></textarea>
+            </label>
+          </div>
+        </details>
+
+        <label style="margin:18px 0 6px">Contenido del artículo (esto ya se ve con el diseño real del sitio)</label>
         <div class="hint" style="margin-bottom:8px">Para convertir un párrafo en bloque: seleccioná el texto y tocá el botón del bloque. Cada tarjeta ya insertada tiene un botón "¶" para volverla texto plano.</div>
         <div class="fmt-row" id="fmtRow"></div>
         <div class="blocks-row" id="blocksRow"></div>
@@ -342,6 +352,8 @@ function applyFormat(i) {
   const f = FORMATS[i];
   const win = document.getElementById('canvasFrame').contentWindow;
   if (!win || !win.cmsCanvas) return;
+  if (f.cmd === 'undo') { win.cmsUndo(); return; }
+  if (f.cmd === 'redo') { win.cmsRedo(); return; }
   if (f.cmd === 'link') {
     const url = prompt('URL del link (externo):', 'https://');
     if (!url) return;
@@ -365,8 +377,12 @@ function applySpecialText() {
   if (!win || !win.cmsCanvas) return;
   const sel = win.getSelection();
   const text = sel ? sel.toString() : '';
-  win.cmsCanvas.focus();
-  win.document.execCommand('insertHTML', false, `<span class="${special.className}">${text || 'texto destacado'}</span>`);
+  win.cmsInsertBlock(`<span class="${special.className}">${text || 'texto destacado'}</span>`);
+}
+
+function renderCategoryList() {
+  const cats = [...new Set(cachedPosts.map(p => p.category).filter(Boolean))].sort();
+  document.getElementById('categoryList').innerHTML = cats.map(c => `<option value="${c}">`).join('');
 }
 
 function renderBlocksRow() {
@@ -403,8 +419,7 @@ function insertBacklink(slug) {
   if (!win || !win.cmsCanvas || !post) return;
   const selectedText = win.getSelection ? win.getSelection().toString().trim() : '';
   const linkText = selectedText || post.title;
-  win.cmsCanvas.focus();
-  win.document.execCommand('insertHTML', false, `<a href="/blog/${slug}/">${linkText}</a>`);
+  win.cmsInsertBlock(`<a href="/blog/${slug}/">${linkText}</a>`);
 }
 
 function updateCounters() {
@@ -507,20 +522,11 @@ ${site.wrapOpen}${site.wrapClose}
   }
   window.cmsEnhanceBlocks = enhanceBlocks;
 
-  window.cmsInsertBlock = function(html) {
-    canvas.focus();
-    document.execCommand('insertHTML', false, html);
-    enhanceBlocks();
-  };
-
-  window.cmsSetContent = function(html) {
-    canvas.innerHTML = html && html.trim() ? html : '<p><br></p>';
-    enhanceBlocks();
-  };
-
-  // Limpia los controles inyectados y los contenteditable de las hojas antes
-  // de devolver el HTML final que se guarda.
-  window.cmsGetContent = function() {
+  // Devuelve el HTML "limpio" (sin los controles ni atributos que el panel
+  // inyecta) tanto para guardar como para las fotos del historial de
+  // deshacer/rehacer, así una restauración vuelve a pasar por enhanceBlocks
+  // y los botones de cada tarjeta quedan funcionando de nuevo.
+  function getCleanHtml() {
     const clone = canvas.cloneNode(true);
     clone.querySelectorAll('.cms-ctrl').forEach(n => n.remove());
     clone.querySelectorAll('[data-cms-block]').forEach(n => {
@@ -531,7 +537,59 @@ ${site.wrapOpen}${site.wrapClose}
     });
     clone.querySelectorAll('[contenteditable]').forEach(n => n.removeAttribute('contenteditable'));
     return clone.innerHTML.trim();
+  }
+
+  // Historial propio, en vez de depender de document.execCommand('undo'),
+  // que es una API vieja y poco confiable con contenido insertado a mano
+  // como estas tarjetas: a veces no había nada que deshacer y el navegador
+  // terminaba interpretando el atajo a otro nivel (por eso se sentía raro).
+  let history = [];
+  let historyIndex = -1;
+  let historyTimer = null;
+  function pushHistory() {
+    const html = getCleanHtml();
+    if (history[historyIndex] === html) return;
+    history = history.slice(0, historyIndex + 1);
+    history.push(html);
+    historyIndex++;
+    if (history.length > 60) { history.shift(); historyIndex--; }
+  }
+  function scheduleHistoryPush() {
+    clearTimeout(historyTimer);
+    historyTimer = setTimeout(pushHistory, 500);
+  }
+  canvas.addEventListener('input', scheduleHistoryPush);
+
+  window.cmsUndo = function() {
+    clearTimeout(historyTimer);
+    pushHistory();
+    if (historyIndex <= 0) return;
+    historyIndex--;
+    canvas.innerHTML = history[historyIndex] || '<p><br></p>';
+    enhanceBlocks();
   };
+  window.cmsRedo = function() {
+    if (historyIndex >= history.length - 1) return;
+    historyIndex++;
+    canvas.innerHTML = history[historyIndex];
+    enhanceBlocks();
+  };
+
+  window.cmsInsertBlock = function(html) {
+    canvas.focus();
+    document.execCommand('insertHTML', false, html);
+    enhanceBlocks();
+    pushHistory();
+  };
+
+  window.cmsSetContent = function(html) {
+    canvas.innerHTML = html && html.trim() ? html : '<p><br></p>';
+    enhanceBlocks();
+    history = [getCleanHtml()];
+    historyIndex = 0;
+  };
+
+  window.cmsGetContent = getCleanHtml;
 
   window.parent.postMessage({ cmsReady: true }, '*');
 <\/script>
@@ -671,6 +729,7 @@ async function loadPosts() {
     const { posts } = await api('list-posts?site=' + currentSite);
     cachedPosts = posts;
     renderBlocksRow();
+    renderCategoryList();
     if (!posts.length) { list.textContent = 'Todavía no hay posts.'; return; }
     const groups = {};
     posts.forEach(p => {
