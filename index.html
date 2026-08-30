@@ -159,7 +159,7 @@
         <button class="primary" id="dbSaveBtn" onclick="saveDataBlock()">Guardar cambios</button>
       </div>
       <div id="dataBlockItems"></div>
-      <button style="margin-top:4px" onclick="addDataBlockItem()">+ Agregar</button>
+      <button id="dbAddBtn" style="margin-top:4px" onclick="addDataBlockItem()">+ Agregar</button>
     </div>
 
     <!-- "Páginas" — las landing principales (Inicio, Precios, etc.) todavía no
@@ -290,7 +290,15 @@ const SITES = {
       { key: 'rank-card', label: '+ Tarjeta de ranking',
         build: (t) => `<div class="rank-card"><div class="rank-num">1</div><div class="rank-title">${t || 'Título del ítem'}</div><p class="rank-desc">Descripción breve.</p></div>` },
     ],
-    dataBlocks: [ { key: 'faqs', label: 'FAQs' } ],
+    dataBlocks: [
+      { key: 'faqs', label: 'FAQs' },
+      { key: 'landingHero', label: 'Home · Hero', singleton: true },
+      { key: 'landingCopy', label: 'Home · Textos sueltos', singleton: true },
+      { key: 'marcas', label: 'Marcas' },
+      { key: 'proceso', label: 'Proceso' },
+      { key: 'promesa', label: 'Promesa' },
+      { key: 'portafolio', label: 'Portafolio' },
+    ],
     pages: [
       { label: 'Inicio', path: '/' },
       { label: 'Precios', path: '/precios' },
@@ -690,8 +698,11 @@ async function loadDataBlock(key) {
   container.innerHTML = 'Cargando…';
   try {
     const res = await api(`get-datablock?site=${currentSite}&block=${key}`);
-    currentDataBlock = { key, label: res.label, fields: res.fields, items: res.items };
+    const clientCfg = (SITES[currentSite].dataBlocks.find(b => b.key === key) || {});
+    const singleton = !!(res.singleton || clientCfg.singleton);
+    currentDataBlock = { key, label: res.label, fields: res.fields, items: res.items, singleton };
     document.getElementById('dataBlockLabel').textContent = res.label + ' · ' + SITES[currentSite].label;
+    document.getElementById('dbAddBtn').style.display = singleton ? 'none' : '';
     renderDataBlockItems();
   } catch (e) {
     container.textContent = 'Error cargando: ' + e.message;
@@ -700,9 +711,22 @@ async function loadDataBlock(key) {
 
 function renderDataBlockItems() {
   const container = document.getElementById('dataBlockItems');
+  const singleton = !!currentDataBlock.singleton;
+
+  // Un singleton siempre debe mostrar su único ítem editable. Si por algún
+  // motivo llega vacío, se crea uno en blanco en vez de mostrar un estado roto
+  // (no debería pasar si el array del sitio siempre tiene 1 elemento).
+  if (singleton && !currentDataBlock.items.length) {
+    const empty = {};
+    currentDataBlock.fields.forEach(f => empty[f.key] = '');
+    currentDataBlock.items.push(empty);
+  }
+
   if (!currentDataBlock.items.length) { container.innerHTML = '<p class="hint">Todavía no hay elementos.</p>'; return; }
+
   container.innerHTML = currentDataBlock.items.map((item, i) => `
     <div class="db-item">
+      ${singleton ? '' : `
       <div class="db-item-head">
         <span class="hint">#${i + 1}</span>
         <div class="reorder">
@@ -711,6 +735,7 @@ function renderDataBlockItems() {
           <button type="button" class="danger" onclick="removeDataBlockItem(${i})">Eliminar</button>
         </div>
       </div>
+      `}
       ${currentDataBlock.fields.map(f => `
         <label>${f.label}
           ${f.long
