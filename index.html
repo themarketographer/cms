@@ -36,6 +36,9 @@
   .subtab{padding:8px 4px;margin-right:18px;border:none;background:transparent;color:var(--gray);cursor:pointer;font-size:13.5px;font-weight:600;border-bottom:2px solid transparent;position:relative;top:1px;}
   .subtab.active{color:var(--dark);border-bottom:2px solid var(--yellow);}
   .db-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r-md);padding:16px;margin-bottom:12px;}
+  .page-row{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:10px;text-decoration:none;color:var(--dark);font-weight:600;font-size:14px;transition:all .15s;}
+  .page-row:hover{border-color:var(--yellow);background:#fffdf5;}
+  .page-row .hint{font-weight:400;}
   .db-item-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
   .db-item-head .reorder{display:flex;gap:4px;}
   .db-item-head button{padding:4px 9px;font-size:12px;}
@@ -159,6 +162,19 @@
       <button style="margin-top:4px" onclick="addDataBlockItem()">+ Agregar</button>
     </div>
 
+    <!-- "Páginas" — las landing principales (Inicio, Precios, etc.) todavía no
+         se editan desde acá (esas son páginas armadas a mano / con JSX, no un
+         array de datos como testimonios o FAQs). Esto resuelve la parte de
+         "poder verlas": una tarjeta por página que abre la versión EN VIVO
+         real del sitio en una pestaña nueva, sin salir a buscar la URL. -->
+    <div id="pagesView" style="display:none">
+      <div class="page-head">
+        <h2 id="pagesLabel"></h2>
+      </div>
+      <div class="hint" style="margin-bottom:14px">Esto abre la página tal como está publicada ahora mismo en el sitio real. Todavía no se edita desde acá — para eso hay que decidir primero qué textos convertir en campos editables, igual que se hizo con testimonios y FAQs.</div>
+      <div id="pagesItems" class="card"></div>
+    </div>
+
     <div id="formView" style="display:none">
       <a class="back-link" onclick="closeForm()">← Volver</a>
       <div class="page-head">
@@ -252,6 +268,9 @@ const SITES = {
     wrapClose: '</div></div>',
     blocks: [],
     dataBlocks: [ { key: 'testimonios', label: 'Testimonios' } ],
+    pages: [
+      { label: 'Inicio', path: '/' },
+    ],
   },
   eg: {
     label: 'Estudio Graphica',
@@ -272,6 +291,14 @@ const SITES = {
         build: (t) => `<div class="rank-card"><div class="rank-num">1</div><div class="rank-title">${t || 'Título del ítem'}</div><p class="rank-desc">Descripción breve.</p></div>` },
     ],
     dataBlocks: [ { key: 'faqs', label: 'FAQs' } ],
+    pages: [
+      { label: 'Inicio', path: '/' },
+      { label: 'Precios', path: '/precios' },
+      { label: 'Política de privacidad', path: '/privacidad' },
+      { label: 'Gracias · Reunión', path: '/gracias-reunion' },
+      { label: 'Gracias · Sesión', path: '/gracias-sesion' },
+      { label: 'Gracias · Plan mensual', path: '/gracias-plan' },
+    ],
   },
 };
 const FORMATS = [
@@ -619,7 +646,7 @@ function switchSite(site) {
 
 function renderSubtabs() {
   const dataBlocks = SITES[currentSite].dataBlocks || [];
-  const tabs = [{ key: 'posts', label: 'Posts' }, ...dataBlocks];
+  const tabs = [{ key: 'posts', label: 'Posts' }, ...dataBlocks, { key: 'pages', label: 'Páginas' }];
   document.getElementById('subtabs').innerHTML = tabs.map(t =>
     `<button type="button" class="subtab ${t.key === currentContentType ? 'active' : ''}" onclick="switchContentType('${t.key}')">${t.label}</button>`
   ).join('');
@@ -627,19 +654,35 @@ function renderSubtabs() {
 
 function switchContentType(key) {
   currentContentType = key;
-  document.querySelectorAll('.subtab').forEach(t => t.classList.toggle('active', t.textContent === (key === 'posts' ? 'Posts' : (SITES[currentSite].dataBlocks.find(b => b.key === key) || {}).label)));
+  document.querySelectorAll('.subtab').forEach(t => t.classList.toggle('active', t.textContent === (key === 'posts' ? 'Posts' : key === 'pages' ? 'Páginas' : (SITES[currentSite].dataBlocks.find(b => b.key === key) || {}).label)));
   renderSubtabs();
   closeForm();
+  document.getElementById('listView').style.display = 'none';
+  document.getElementById('dataBlockView').style.display = 'none';
+  document.getElementById('pagesView').style.display = 'none';
   if (key === 'posts') {
     document.getElementById('listView').style.display = 'block';
-    document.getElementById('dataBlockView').style.display = 'none';
     document.getElementById('siteLabel').textContent = SITES[currentSite].label;
     loadPosts();
+  } else if (key === 'pages') {
+    document.getElementById('pagesView').style.display = 'block';
+    renderPages();
   } else {
-    document.getElementById('listView').style.display = 'none';
     document.getElementById('dataBlockView').style.display = 'block';
     loadDataBlock(key);
   }
+}
+
+// "Páginas": no hay backend que consultar, son links directos al sitio real.
+function renderPages() {
+  const site = SITES[currentSite];
+  document.getElementById('pagesLabel').textContent = 'Páginas · ' + site.label;
+  document.getElementById('pagesItems').innerHTML = site.pages.map(p => `
+    <a class="page-row" href="https://${site.domain}${p.path}" target="_blank" rel="noopener">
+      <span>${p.label}</span>
+      <span class="hint">${site.domain}${p.path} ↗</span>
+    </a>
+  `).join('');
 }
 
 async function loadDataBlock(key) {
