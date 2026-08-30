@@ -117,6 +117,29 @@
   .dd-panel.open{display:block;}
   .dd-item{padding:9px 10px;border-radius:var(--r-sm);font-size:13px;cursor:pointer;line-height:1.4;}
   .dd-item:hover{background:var(--off-white);}
+
+  /* Menú lateral agrupado (Estudio Graphica). Marketographers sigue usando
+     el .subtabs plano de siempre, sin tocar. */
+  .panel-layout{display:flex;gap:26px;align-items:flex-start;}
+  .side-menu{width:236px;flex-shrink:0;position:sticky;top:76px;}
+  .side-group{margin-bottom:20px;}
+  .side-group-label{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin:0 0 8px 6px;}
+  .side-item{display:block;width:100%;text-align:left;background:transparent;border:none;border-radius:var(--r-sm);padding:9px 10px;font-size:13.5px;font-weight:600;color:var(--dark);cursor:pointer;margin-bottom:2px;}
+  .side-item:hover{background:var(--off-white);}
+  .side-item.active{background:var(--yellow);color:var(--dark);}
+  .side-extra{margin-top:6px;padding:12px 10px;border-top:1px solid var(--border);}
+  .side-content{flex:1;min-width:0;}
+  .db-live-link{font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:var(--r-pill);background:var(--off-white);border:1px solid var(--border);color:var(--dark);text-decoration:none;white-space:nowrap;flex-shrink:0;}
+  .db-live-link:hover{background:var(--yellow);border-color:var(--yellow);}
+  @media (max-width:760px){ .panel-layout{flex-direction:column;} .side-menu{width:100%;position:static;} }
+
+  /* Mini editor de texto enriquecido para campos "rich" (evita que Pablo
+     tenga que escribir HTML a mano y rompa el diseño sin querer). */
+  .rich-toolbar{display:flex;gap:2px;margin-top:4px;background:var(--off-white);border:1px solid var(--border);border-bottom:none;border-radius:var(--r-sm) var(--r-sm) 0 0;padding:5px;}
+  .rich-toolbar button{font-size:12.5px;padding:5px 10px;background:transparent;border-color:transparent;color:var(--dark);border-radius:6px;}
+  .rich-toolbar button:hover{background:#fff;border-color:var(--border-strong);}
+  .rich-editable{min-height:44px;background:#fff;border:1px solid var(--border);border-radius:0 0 var(--r-sm) var(--r-sm);padding:10px 12px;font:inherit;font-weight:400;}
+  .rich-editable:focus{outline:none;border-color:var(--yellow-hover);}
 </style>
 </head>
 <body>
@@ -143,36 +166,44 @@
     </div>
     <div class="subtabs" id="subtabs"></div>
 
-    <div id="banner"></div>
+    <div class="panel-layout" id="panelLayout">
+      <nav class="side-menu" id="sideMenu" style="display:none"></nav>
+      <div class="side-content">
+        <div id="banner"></div>
 
-    <div id="listView">
-      <div class="page-head">
-        <h2 id="siteLabel"></h2>
-        <button class="primary" onclick="openForm()">+ Nuevo post</button>
-      </div>
-      <div class="card" id="postList">Cargando…</div>
-    </div>
+        <div id="listView">
+          <div class="page-head">
+            <h2 id="siteLabel"></h2>
+            <button class="primary" onclick="openForm()">+ Nuevo post</button>
+          </div>
+          <div class="card" id="postList">Cargando…</div>
+        </div>
 
-    <div id="dataBlockView" style="display:none">
-      <div class="page-head">
-        <h2 id="dataBlockLabel"></h2>
-        <button class="primary" id="dbSaveBtn" onclick="saveDataBlock()">Guardar cambios</button>
-      </div>
-      <div id="dataBlockItems"></div>
-      <button id="dbAddBtn" style="margin-top:4px" onclick="addDataBlockItem()">+ Agregar</button>
-    </div>
+        <div id="dataBlockView" style="display:none">
+          <div class="page-head">
+            <h2 id="dataBlockLabel"></h2>
+            <div style="display:flex;gap:10px;align-items:center">
+              <a id="dbLiveLink" class="db-live-link" href="#" target="_blank" rel="noopener" style="display:none">Ver en vivo ↗</a>
+              <button class="primary" id="dbSaveBtn" onclick="saveDataBlock()">Guardar cambios</button>
+            </div>
+          </div>
+          <div id="dataBlockItems"></div>
+          <button id="dbAddBtn" style="margin-top:4px" onclick="addDataBlockItem()">+ Agregar</button>
+        </div>
 
-    <!-- "Páginas" — las landing principales (Inicio, Precios, etc.) todavía no
-         se editan desde acá (esas son páginas armadas a mano / con JSX, no un
-         array de datos como testimonios o FAQs). Esto resuelve la parte de
-         "poder verlas": una tarjeta por página que abre la versión EN VIVO
-         real del sitio en una pestaña nueva, sin salir a buscar la URL. -->
-    <div id="pagesView" style="display:none">
-      <div class="page-head">
-        <h2 id="pagesLabel"></h2>
+        <!-- "Páginas" — sigue existiendo tal cual para Marketographers (mkt),
+             que todavía no tiene sus landing convertidas a dataBlocks. Para
+             Estudio Graphica (eg) esta pestaña plana ya no se usa: cada
+             sección ahora es editable y su link "Ver en vivo" vive arriba,
+             junto al editor (ver #dbLiveLink). -->
+        <div id="pagesView" style="display:none">
+          <div class="page-head">
+            <h2 id="pagesLabel"></h2>
+          </div>
+          <div class="hint" style="margin-bottom:14px">Esto abre la página tal como está publicada ahora mismo en el sitio real. Todavía no se edita desde acá — para eso hay que decidir primero qué textos convertir en campos editables, igual que se hizo con testimonios y FAQs.</div>
+          <div id="pagesItems" class="card"></div>
+        </div>
       </div>
-      <div class="hint" style="margin-bottom:14px">Esto abre la página tal como está publicada ahora mismo en el sitio real. Todavía no se edita desde acá — para eso hay que decidir primero qué textos convertir en campos editables, igual que se hizo con testimonios y FAQs.</div>
-      <div id="pagesItems" class="card"></div>
     </div>
 
     <div id="formView" style="display:none">
@@ -290,14 +321,26 @@ const SITES = {
       { key: 'rank-card', label: '+ Tarjeta de ranking',
         build: (t) => `<div class="rank-card"><div class="rank-num">1</div><div class="rank-title">${t || 'Título del ítem'}</div><p class="rank-desc">Descripción breve.</p></div>` },
     ],
+    // Lista plana de todos los dataBlocks (la usan las funciones que hacen
+    // fetch/save por key). El agrupamiento visual del menú vive en "groups"
+    // más abajo — cada key ahí tiene que existir acá también.
     dataBlocks: [
-      { key: 'faqs', label: 'FAQs' },
-      { key: 'landingHero', label: 'Home · Hero', singleton: true },
-      { key: 'landingCopy', label: 'Home · Textos sueltos', singleton: true },
-      { key: 'marcas', label: 'Marcas' },
-      { key: 'proceso', label: 'Proceso' },
-      { key: 'promesa', label: 'Promesa' },
+      { key: 'faqs', label: 'Preguntas frecuentes' },
+      { key: 'landingHero', label: 'Encabezado', singleton: true },
+      { key: 'landingCopy', label: 'Textos de la página', singleton: true },
+      { key: 'marcas', label: 'Marcas de clientes' },
+      { key: 'proceso', label: 'Cómo trabajamos' },
+      { key: 'promesa', label: 'Qué incluye' },
       { key: 'portafolio', label: 'Portafolio' },
+      { key: 'texto404', label: '404 · Textos', singleton: true },
+      { key: 'eventos404', label: '404 · Eventos de conversión' },
+      { key: 'textoGraciasSesion', label: 'Gracias sesión · Textos', singleton: true },
+      { key: 'eventosGraciasSesion', label: 'Gracias sesión · Eventos' },
+      { key: 'textoGraciasPlan', label: 'Gracias plan · Textos', singleton: true },
+      { key: 'eventosGraciasPlan', label: 'Gracias plan · Eventos' },
+      { key: 'textoGraciasReunion', label: 'Gracias reunión · Textos', singleton: true },
+      { key: 'eventosGraciasReunion', label: 'Gracias reunión · Eventos' },
+      { key: 'textoPrivacidad', label: 'Privacidad · Textos', singleton: true },
     ],
     pages: [
       { label: 'Inicio', path: '/' },
@@ -307,8 +350,52 @@ const SITES = {
       { label: 'Gracias · Sesión', path: '/gracias-sesion' },
       { label: 'Gracias · Plan mensual', path: '/gracias-plan' },
     ],
+    // Menú agrupado (sidebar). Solo "eg" lo usa — mkt sigue con su barra
+    // plana de siempre (ver renderSubtabsFlat). "posts" es el mismo listado
+    // de siempre; el resto son dataBlocks; livePath abre la página real.
+    groups: [
+      { label: 'Blog', items: [
+        { key: 'posts', label: 'Posts' },
+      ] },
+      { label: 'Página de inicio', items: [
+        { key: 'faqs', label: 'Preguntas frecuentes', livePath: '/' },
+        { key: 'landingHero', label: 'Encabezado', livePath: '/' },
+        { key: 'landingCopy', label: 'Textos de la página', livePath: '/' },
+        { key: 'marcas', label: 'Marcas de clientes', livePath: '/' },
+        { key: 'proceso', label: 'Cómo trabajamos', livePath: '/' },
+        { key: 'promesa', label: 'Qué incluye', livePath: '/' },
+        { key: 'portafolio', label: 'Portafolio', livePath: '/' },
+      ] },
+      { label: 'Otras páginas', items: [
+        { key: 'texto404', label: '404 · Textos', livePath: '/404.html' },
+        { key: 'eventos404', label: '404 · Eventos', livePath: '/404.html' },
+        { key: 'textoGraciasSesion', label: 'Gracias sesión · Textos', livePath: '/gracias-sesion' },
+        { key: 'eventosGraciasSesion', label: 'Gracias sesión · Eventos', livePath: '/gracias-sesion' },
+        { key: 'textoGraciasPlan', label: 'Gracias plan · Textos', livePath: '/gracias-plan' },
+        { key: 'eventosGraciasPlan', label: 'Gracias plan · Eventos', livePath: '/gracias-plan' },
+        { key: 'textoGraciasReunion', label: 'Gracias reunión · Textos', livePath: '/gracias-reunion' },
+        { key: 'eventosGraciasReunion', label: 'Gracias reunión · Eventos', livePath: '/gracias-reunion' },
+        { key: 'textoPrivacidad', label: 'Privacidad · Textos', livePath: '/privacidad' },
+      ] },
+    ],
+    // Precios todavía no es editable desde el panel (no usa el patrón de
+    // dataBlocks) — se deja como link suelto al pie del menú, igual que
+    // hacía la pestaña "Páginas" para esta página.
+    extraLinks: [
+      { label: 'Precios (no editable aún)', livePath: '/precios' },
+    ],
   },
 };
+
+// Eventos estándar reales de Meta Pixel. Cuando un evento de conversión es
+// "Estándar" el panel SIEMPRE restringe a esta lista (nunca texto libre),
+// así Pablo no puede tipear un nombre que Meta no reconozca y perder la
+// optimización de la campaña sin darse cuenta.
+const STANDARD_EVENTS = [
+  'Lead', 'Contact', 'Purchase', 'InitiateCheckout', 'CompleteRegistration',
+  'Schedule', 'ViewContent', 'CustomizeProduct', 'SubmitApplication',
+  'StartTrial', 'AddToCart', 'Subscribe',
+];
 const FORMATS = [
   { label: 'B', title: 'Negrita', cmd: 'bold' },
   { label: 'I', title: 'Cursiva', cmd: 'italic' },
@@ -648,11 +735,16 @@ function switchSite(site) {
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.site === site));
   document.getElementById('mktOnlyFields').style.display = site === 'mkt' ? 'block' : 'none';
   renderBlocksRow();
-  renderSubtabs();
-  switchContentType('posts');
+  const grouped = !!SITES[site].groups;
+  document.getElementById('subtabs').style.display = grouped ? 'none' : 'flex';
+  document.getElementById('sideMenu').style.display = grouped ? 'block' : 'none';
+  if (!grouped) renderSubtabsFlat();
+  switchContentType(grouped ? SITES[site].groups[0].items[0].key : 'posts');
 }
 
-function renderSubtabs() {
+// Menú plano de siempre — SOLO lo sigue usando Marketographers (mkt), tal
+// cual estaba antes de este cambio.
+function renderSubtabsFlat() {
   const dataBlocks = SITES[currentSite].dataBlocks || [];
   const tabs = [{ key: 'posts', label: 'Posts' }, ...dataBlocks, { key: 'pages', label: 'Páginas' }];
   document.getElementById('subtabs').innerHTML = tabs.map(t =>
@@ -660,10 +752,29 @@ function renderSubtabs() {
   ).join('');
 }
 
+// Menú lateral agrupado — Estudio Graphica (eg). Encabezados de grupo fijos
+// arriba a abajo (Blog, Página de inicio, Otras páginas), cada ítem abre su
+// dataBlock (o el listado de posts). Un link suelto al pie para páginas que
+// todavía no son editables (hoy: Precios).
+function renderSideMenu() {
+  const site = SITES[currentSite];
+  const groups = site.groups || [];
+  const groupsHtml = groups.map(g => `
+    <div class="side-group">
+      <p class="side-group-label">${g.label}</p>
+      ${g.items.map(it => `<button type="button" class="side-item ${it.key === currentContentType ? 'active' : ''}" onclick="switchContentType('${it.key}')">${it.label}</button>`).join('')}
+    </div>
+  `).join('');
+  const extraHtml = (site.extraLinks || []).length
+    ? `<div class="side-extra">${site.extraLinks.map(l => `<a class="hint" style="display:block;margin-bottom:6px" href="https://${site.domain}${l.livePath}" target="_blank" rel="noopener">${l.label} ↗</a>`).join('')}</div>`
+    : '';
+  document.getElementById('sideMenu').innerHTML = groupsHtml + extraHtml;
+}
+
 function switchContentType(key) {
   currentContentType = key;
-  document.querySelectorAll('.subtab').forEach(t => t.classList.toggle('active', t.textContent === (key === 'posts' ? 'Posts' : key === 'pages' ? 'Páginas' : (SITES[currentSite].dataBlocks.find(b => b.key === key) || {}).label)));
-  renderSubtabs();
+  const grouped = !!SITES[currentSite].groups;
+  if (grouped) renderSideMenu(); else renderSubtabsFlat();
   closeForm();
   document.getElementById('listView').style.display = 'none';
   document.getElementById('dataBlockView').style.display = 'none';
@@ -700,9 +811,23 @@ async function loadDataBlock(key) {
     const res = await api(`get-datablock?site=${currentSite}&block=${key}`);
     const clientCfg = (SITES[currentSite].dataBlocks.find(b => b.key === key) || {});
     const singleton = !!(res.singleton || clientCfg.singleton);
-    currentDataBlock = { key, label: res.label, fields: res.fields, items: res.items, singleton };
+    currentDataBlock = { key, label: res.label, fields: res.fields, items: res.items, singleton, richStyles: res.richStyles || [] };
     document.getElementById('dataBlockLabel').textContent = res.label + ' · ' + SITES[currentSite].label;
     document.getElementById('dbAddBtn').style.display = singleton ? 'none' : '';
+
+    // Link "Ver en vivo ↗" — solo si este ítem del menú declara livePath
+    // (los grupos de eg lo traen; mkt no usa groups y no muestra el link).
+    const liveLink = document.getElementById('dbLiveLink');
+    const site = SITES[currentSite];
+    let livePath = null;
+    (site.groups || []).forEach(g => g.items.forEach(it => { if (it.key === key) livePath = it.livePath; }));
+    if (livePath) {
+      liveLink.href = `https://${site.domain}${livePath}`;
+      liveLink.style.display = 'inline-block';
+    } else {
+      liveLink.style.display = 'none';
+    }
+
     renderDataBlockItems();
   } catch (e) {
     container.textContent = 'Error cargando: ' + e.message;
@@ -736,15 +861,166 @@ function renderDataBlockItems() {
         </div>
       </div>
       `}
-      ${currentDataBlock.fields.map(f => `
-        <label>${f.label}
-          ${f.long
-            ? `<textarea style="min-height:60px" oninput="updateDataBlockField(${i}, '${f.key}', this.value)">${item[f.key] || ''}</textarea>`
-            : `<input value="${(item[f.key] || '').replace(/"/g,'&quot;')}" oninput="updateDataBlockField(${i}, '${f.key}', this.value)">`}
-        </label>
-      `).join('')}
+      ${currentDataBlock.fields.map(f => renderDataBlockField(item, i, f)).join('')}
     </div>
   `).join('');
+}
+
+// Un campo del formulario de un dataBlock. Soporta:
+//  - normal (input de una línea)
+//  - long (textarea)
+//  - rich (mini editor de texto enriquecido — ver renderRichField)
+//  - select (dropdown con opciones fijas, ej. tipo de evento)
+//  - evento-nombre (select restringido a eventos estándar de Meta, o texto
+//    libre si el evento es "personalizado" — depende del campo "tipo" del
+//    mismo ítem)
+function renderDataBlockField(item, i, f) {
+  if (f.rich) return renderRichField(item, i, f);
+  if (f.type === 'select') {
+    const opts = f.options || [];
+    return `<label>${f.label}
+      <select onchange="onDataBlockSelectChange(${i}, '${f.key}', this.value)">
+        ${opts.map(o => `<option value="${o.value}" ${item[f.key] === o.value ? 'selected' : ''}>${o.label}</option>`).join('')}
+      </select>
+    </label>`;
+  }
+  if (f.type === 'evento-nombre') {
+    const esEstandar = (item.tipo || 'estandar') !== 'personalizado';
+    if (esEstandar) {
+      return `<label>${f.label}
+        <select onchange="updateDataBlockField(${i}, '${f.key}', this.value)">
+          ${STANDARD_EVENTS.map(ev => `<option value="${ev}" ${item[f.key] === ev ? 'selected' : ''}>${ev}</option>`).join('')}
+        </select>
+        <span class="hint">Restringido a los eventos estándar reales de Meta Pixel — así nunca se manda un nombre que Meta no reconozca.</span>
+      </label>`;
+    }
+    return `<label>${f.label}
+      <input value="${(item[f.key] || '').replace(/"/g,'&quot;')}" oninput="updateDataBlockField(${i}, '${f.key}', this.value)" placeholder="Ej: MiEventoPersonalizado">
+      <span class="hint">Evento personalizado (trackCustom) — puede llevar cualquier nombre.</span>
+    </label>`;
+  }
+  if (f.long) {
+    return `<label>${f.label}
+      <textarea style="min-height:60px" oninput="updateDataBlockField(${i}, '${f.key}', this.value)">${item[f.key] || ''}</textarea>
+    </label>`;
+  }
+  return `<label>${f.label}
+    <input value="${(item[f.key] || '').replace(/"/g,'&quot;')}" oninput="updateDataBlockField(${i}, '${f.key}', this.value)">
+  </label>`;
+}
+
+// Cambiar "tipo" (estándar/personalizado) cambia qué control usa "nombre"
+// (select restringido vs. texto libre), así que hay que re-renderizar el
+// ítem entero para que ese control cambie de forma.
+function onDataBlockSelectChange(i, key, value) {
+  updateDataBlockField(i, key, value);
+  renderDataBlockItems();
+}
+
+// ── Mini editor de texto enriquecido ────────────────────────────────────
+// Reemplaza los campos que antes eran texto plano con HTML tipeado a mano
+// (<span class="eg-accent">...</span>, <br>, etc.) por un div[contenteditable]
+// + una mini-barra de formato (Negrita + los estilos especiales que declare
+// el dataBlock en "richStyles", que salen del CSS real del sitio, nunca
+// inventados acá). El HTML se sanea recién al guardar (ver
+// sanitizeRichHtml) — así pase lo que pase en el navegador, nunca se manda
+// una etiqueta rota o peligrosa.
+function renderRichField(item, i, f) {
+  const id = `richfield_${i}_${f.key}`;
+  const styles = currentDataBlock.richStyles || [];
+  const specialBtns = styles.map(s =>
+    `<button type="button" onmousedown="event.preventDefault()" onclick="richApplySpecial('${id}', ${i}, '${f.key}', '${s.className}')" title="Envuelve la selección en .${s.className}">${s.label}</button>`
+  ).join('');
+  return `<label>${f.label}
+    <div class="rich-toolbar">
+      <button type="button" onmousedown="event.preventDefault()" onclick="richApplyBold('${id}', ${i}, '${f.key}')" title="Negrita"><b>N</b></button>
+      ${specialBtns}
+    </div>
+    <div class="rich-editable" id="${id}" contenteditable="true"
+      oninput="updateDataBlockField(${i}, '${f.key}', document.getElementById('${id}').innerHTML)"
+    >${item[f.key] || ''}</div>
+    <span class="hint">Seleccioná texto y usá los botones de arriba — no hace falta (ni conviene) escribir etiquetas a mano.</span>
+  </label>`;
+}
+function richApplyBold(id, i, key) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.focus();
+  document.execCommand('bold');
+  updateDataBlockField(i, key, el.innerHTML);
+}
+function richApplySpecial(id, i, key, className) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.focus();
+  const sel = window.getSelection();
+  const text = sel && el.contains(sel.anchorNode) ? sel.toString() : '';
+  document.execCommand('insertHTML', false, `<span class="${className}">${text || 'texto destacado'}</span>`);
+  updateDataBlockField(i, key, el.innerHTML);
+}
+
+// Deja pasar SOLO lo que este mecanismo puede producir: span con class
+// restringida a las permitidas (más las clases "compañeras" que ya vienen
+// en contenido existente, como eg-accent__line / eg-accent--hero), br,
+// strong/b, y texto plano. Todo lo demás (script, onclick, style inline,
+// divs, links, etc.) se elimina — las etiquetas no permitidas se
+// "desenvuelven" (se conserva el texto de adentro) en vez de borrar
+// contenido a lo bruto; script/style se borran enteros, contenido incluido.
+function sanitizeRichHtml(html, allowedClasses) {
+  const allowed = new Set(allowedClasses || []);
+  if (allowed.has('eg-accent')) { allowed.add('eg-accent__line'); allowed.add('eg-accent--hero'); }
+  const doc = new DOMParser().parseFromString('<!doctype html><body>' + (html || '') + '</body>', 'text/html');
+  const root = doc.body;
+  function clean(node) {
+    Array.from(node.childNodes).forEach((child) => {
+      if (child.nodeType === 3) return; // texto plano: se deja pasar tal cual
+      if (child.nodeType !== 1) { child.remove(); return; } // comentarios, etc.
+      const tag = child.tagName.toLowerCase();
+      if (tag === 'script' || tag === 'style') { child.remove(); return; }
+      if (tag === 'br') {
+        Array.from(child.attributes).forEach(a => child.removeAttribute(a.name));
+        return;
+      }
+      if (tag === 'b' || tag === 'strong') {
+        Array.from(child.attributes).forEach(a => child.removeAttribute(a.name));
+        clean(child);
+        return;
+      }
+      if (tag === 'span') {
+        const classes = (child.getAttribute('class') || '').split(/\s+/).filter(c => allowed.has(c));
+        Array.from(child.attributes).forEach(a => child.removeAttribute(a.name));
+        clean(child);
+        if (classes.length) {
+          child.setAttribute('class', classes.join(' '));
+        } else {
+          while (child.firstChild) child.parentNode.insertBefore(child.firstChild, child);
+          child.remove();
+        }
+        return;
+      }
+      // Cualquier otra etiqueta (div, a, img, onclick vía cualquier atributo,
+      // etc.): se desenvuelve, quedándose solo con su texto/hijos limpios.
+      clean(child);
+      while (child.firstChild) child.parentNode.insertBefore(child.firstChild, child);
+      child.remove();
+    });
+  }
+  clean(root);
+  return root.innerHTML;
+}
+
+// Aplica sanitizeRichHtml a todos los campos "rich" del dataBlock actual,
+// justo antes de mandar a guardar.
+function sanitizeCurrentDataBlockRichFields() {
+  if (!currentDataBlock) return;
+  const richFields = (currentDataBlock.fields || []).filter(f => f.rich);
+  if (!richFields.length) return;
+  const allowedClasses = (currentDataBlock.richStyles || []).map(s => s.className);
+  currentDataBlock.items.forEach(item => {
+    richFields.forEach(f => {
+      item[f.key] = sanitizeRichHtml(item[f.key] || '', allowedClasses);
+    });
+  });
 }
 
 function updateDataBlockField(i, key, value) {
@@ -764,11 +1040,17 @@ function removeDataBlockItem(i) {
 }
 function addDataBlockItem() {
   const empty = {};
-  currentDataBlock.fields.forEach(f => empty[f.key] = '');
+  currentDataBlock.fields.forEach(f => {
+    if (f.type === 'select' && f.options && f.options.length) empty[f.key] = f.options[0].value;
+    else if (f.type === 'evento-nombre') empty[f.key] = STANDARD_EVENTS[0];
+    else empty[f.key] = '';
+  });
   currentDataBlock.items.push(empty);
   renderDataBlockItems();
 }
 async function saveDataBlock() {
+  sanitizeCurrentDataBlockRichFields();
+  renderDataBlockItems();
   const btn = document.getElementById('dbSaveBtn');
   btn.disabled = true;
   btn.textContent = 'Guardando…';

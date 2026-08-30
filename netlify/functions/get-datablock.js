@@ -16,7 +16,7 @@ exports.handler = async (event) => {
     const file = await getFile(site, block.path);
     if (!file) return { statusCode: 404, body: JSON.stringify({ error: `No se encontró ${block.path}` }) };
     const items = readDataBlock(file.content, block);
-    return { statusCode: 200, body: JSON.stringify({ label: block.label, fields: block.fields, singleton: !!block.singleton, items }) };
+    return { statusCode: 200, body: JSON.stringify({ label: block.label, fields: block.fields, singleton: !!block.singleton, richStyles: block.richStyles || [], items }) };
   } catch (e) {
     return { statusCode: 500, body: JSON.stringify({ error: e.message }) };
   }

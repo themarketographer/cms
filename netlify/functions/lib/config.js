@@ -65,13 +65,20 @@ const SITES = {
         ],
       },
       landingHero: {
-        label: 'Home · Hero',
+        label: 'Encabezado',
         varName: 'landingHero',
         path: 'index.html',
         singleton: true,
+        // Clases de resaltado ya definidas en el CSS real de estudiographica.com
+        // (no inventadas por el panel) — el mini editor de texto enriquecido
+        // solo puede producir estas, así nunca se rompe el diseño a mano.
+        richStyles: [
+          { label: '✦ Cursiva dorada', className: 'eg-cursive' },
+          { label: '★ Resaltado dorado', className: 'eg-accent' },
+        ],
         fields: [
           { key: 'eyebrow', label: 'Texto sobre el título' },
-          { key: 'titulo', label: 'Título (puede usar HTML de resaltado)', long: true },
+          { key: 'titulo', label: 'Título', rich: true },
           { key: 'subtitulo', label: 'Subtítulo', long: true },
           { key: 'imagen', label: 'URL de imagen principal' },
           { key: 'statValor1', label: 'Estadística 1 · valor' },
@@ -83,27 +90,31 @@ const SITES = {
         ],
       },
       landingCopy: {
-        label: 'Home · Textos sueltos',
+        label: 'Textos de la página',
         varName: 'landingCopy',
         path: 'index.html',
         singleton: true,
+        richStyles: [
+          { label: '✦ Cursiva dorada', className: 'eg-cursive' },
+          { label: '★ Resaltado dorado', className: 'eg-accent' },
+        ],
         fields: [
           { key: 'sobreBio1', label: 'Sobre · párrafo 1', long: true },
-          { key: 'sobreBio2', label: 'Sobre · párrafo 2', long: true },
+          { key: 'sobreBio2', label: 'Sobre · párrafo 2', rich: true },
           { key: 'sobreBadgeNumero', label: 'Sobre · insignia (número/sigla)' },
           { key: 'sobreBadgeTexto', label: 'Sobre · insignia (texto)' },
           { key: 'sobreCredenciales', label: 'Sobre · credenciales (una por línea)', long: true },
           { key: 'cmpLabelAntes', label: 'Comparador · etiqueta "antes"' },
           { key: 'cmpLabelDespues', label: 'Comparador · etiqueta "después"' },
           { key: 'cmpHint', label: 'Comparador · texto de ayuda' },
-          { key: 'ctaTitulo', label: 'CTA final · título (puede usar HTML de resaltado)', long: true },
+          { key: 'ctaTitulo', label: 'CTA final · título', rich: true },
           { key: 'ctaTexto', label: 'CTA final · texto', long: true },
           { key: 'ctaMicro', label: 'CTA final · texto pequeño' },
-          { key: 'footerCopyright', label: 'Footer · línea de copyright', long: true },
+          { key: 'footerCopyright', label: 'Footer · línea de copyright (incluye el link a /privacidad, no borrar la etiqueta <a>)', long: true },
         ],
       },
       marcas: {
-        label: 'Marcas (carrusel)',
+        label: 'Marcas de clientes',
         varName: 'marcas',
         path: 'index.html',
         fields: [
@@ -112,7 +123,7 @@ const SITES = {
         ],
       },
       proceso: {
-        label: 'Proceso (3 pasos)',
+        label: 'Cómo trabajamos',
         varName: 'proceso',
         path: 'index.html',
         fields: [
@@ -122,7 +133,7 @@ const SITES = {
         ],
       },
       promesa: {
-        label: 'Promesa (grid)',
+        label: 'Qué incluye',
         varName: 'promesa',
         path: 'index.html',
         fields: [
@@ -132,12 +143,157 @@ const SITES = {
         ],
       },
       portafolio: {
-        label: 'Portafolio (grid + lightbox)',
+        label: 'Portafolio',
         varName: 'portafolio',
         path: 'index.html',
         fields: [
           { key: 'imagen', label: 'URL de imagen' },
           { key: 'alt', label: 'Nombre / texto alternativo' },
+        ],
+      },
+
+      // ── Otras páginas ─────────────────────────────────────────────
+      // Mismo patrón "const NOMBRE = [...]" en cada página suelta del repo
+      // (404, las 3 de "gracias" y privacidad). Los campos "eventosPagina"
+      // usan un tipo de campo especial (ver EVENTOS_ESTANDAR / fields con
+      // type:'select' y type:'evento-nombre') para que Pablo nunca pueda
+      // tipear a mano un nombre de evento estándar que Meta no reconozca.
+      texto404: {
+        label: 'Textos',
+        varName: 'texto404',
+        path: '404.html',
+        singleton: true,
+        richStyles: [ { label: '✦ Cursiva dorada', className: 'cursive' } ],
+        fields: [
+          { key: 'tag', label: 'Etiqueta ("Error 404")' },
+          { key: 'titulo', label: 'Título ("¡Ups!")' },
+          { key: 'subtitulo', label: 'Subtítulo', rich: true },
+          { key: 'texto', label: 'Texto', long: true },
+          { key: 'btnPrimario', label: 'Botón principal ("Volver al inicio")' },
+          { key: 'btnSecundario', label: 'Botón secundario ("Ver planes y precios")' },
+          { key: 'micro', label: 'Texto pequeño del pie' },
+        ],
+      },
+      eventos404: {
+        label: 'Eventos de conversión',
+        varName: 'eventosPagina',
+        path: '404.html',
+        fields: [
+          { key: 'boton', label: 'Botón / acción en la página' },
+          { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
+              { value: 'estandar', label: 'Estándar (Meta Pixel)' },
+              { value: 'personalizado', label: 'Personalizado' },
+            ] },
+          { key: 'nombre', label: 'Nombre del evento', type: 'evento-nombre' },
+        ],
+      },
+      textoGraciasSesion: {
+        label: 'Textos',
+        varName: 'textosGraciasSesion',
+        path: 'gracias-sesion/index.html',
+        singleton: true,
+        richStyles: [ { label: '✦ Cursiva dorada', className: 'cursive' } ],
+        fields: [
+          { key: 'badge', label: 'Insignia superior' },
+          { key: 'titulo', label: 'Título', rich: true },
+          { key: 'subtitulo', label: 'Subtítulo', long: true },
+          { key: 'configuraLabel', label: 'Etiqueta de la tarjeta ("Configura tu sesión")' },
+          { key: 'precioNota', label: 'Nota bajo el precio' },
+          { key: 'depositoLabel', label: 'Etiqueta ("¿Cuánto vas a depositar?")' },
+          { key: 'qrCaption', label: 'Texto bajo el QR (puede usar <br>)' },
+          { key: 'importante', label: 'Aviso "Importante" (empieza en negrita)', rich: true },
+          { key: 'botonWhatsapp', label: 'Texto del botón de WhatsApp' },
+          { key: 'volverInicio', label: 'Link "Volver al inicio"' },
+        ],
+      },
+      eventosGraciasSesion: {
+        label: 'Eventos de conversión',
+        varName: 'eventosPagina',
+        path: 'gracias-sesion/index.html',
+        fields: [
+          { key: 'boton', label: 'Botón / acción en la página' },
+          { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
+              { value: 'estandar', label: 'Estándar (Meta Pixel)' },
+              { value: 'personalizado', label: 'Personalizado' },
+            ] },
+          { key: 'nombre', label: 'Nombre del evento', type: 'evento-nombre' },
+        ],
+      },
+      textoGraciasPlan: {
+        label: 'Textos',
+        varName: 'textosGraciasPlan',
+        path: 'gracias-plan/index.html',
+        singleton: true,
+        richStyles: [ { label: '✦ Cursiva dorada', className: 'cursive' } ],
+        fields: [
+          { key: 'badge', label: 'Insignia superior' },
+          { key: 'titulo', label: 'Título', rich: true },
+          { key: 'subtitulo', label: 'Subtítulo', long: true },
+          { key: 'configuraLabel', label: 'Etiqueta de la tarjeta ("Configura tu plan")' },
+          { key: 'precioNota', label: 'Nota bajo el precio' },
+          { key: 'depositoLabel', label: 'Etiqueta ("¿Cuánto vas a depositar?")' },
+          { key: 'qrCaption', label: 'Texto bajo el QR (puede usar <br>)' },
+          { key: 'importante', label: 'Aviso "Importante" (empieza en negrita)', rich: true },
+          { key: 'botonWhatsapp', label: 'Texto del botón de WhatsApp' },
+          { key: 'volverInicio', label: 'Link "Volver al inicio"' },
+        ],
+      },
+      eventosGraciasPlan: {
+        label: 'Eventos de conversión',
+        varName: 'eventosPagina',
+        path: 'gracias-plan/index.html',
+        fields: [
+          { key: 'boton', label: 'Botón / acción en la página' },
+          { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
+              { value: 'estandar', label: 'Estándar (Meta Pixel)' },
+              { value: 'personalizado', label: 'Personalizado' },
+            ] },
+          { key: 'nombre', label: 'Nombre del evento', type: 'evento-nombre' },
+        ],
+      },
+      textoGraciasReunion: {
+        label: 'Textos',
+        varName: 'textosGraciasReunion',
+        path: 'gracias-reunion/index.html',
+        singleton: true,
+        richStyles: [ { label: '✦ Cursiva dorada', className: 'cursive' } ],
+        fields: [
+          { key: 'badge', label: 'Insignia superior' },
+          { key: 'titulo', label: 'Título (puede usar <br>)', rich: true },
+          { key: 'subtitulo', label: 'Subtítulo', long: true },
+          { key: 'tarjetaTitulo', label: 'Título de la tarjeta clara' },
+          { key: 'oscuraTitulo', label: 'Título de la tarjeta oscura' },
+          { key: 'oscuraParrafo1', label: 'Tarjeta oscura · párrafo 1', long: true },
+          { key: 'oscuraParrafo2', label: 'Tarjeta oscura · párrafo 2', long: true },
+          { key: 'botonWhatsapp', label: 'Texto del botón de WhatsApp' },
+          { key: 'micro', label: 'Texto pequeño bajo el botón' },
+          { key: 'volverInicio', label: 'Link "Volver al inicio"' },
+        ],
+      },
+      eventosGraciasReunion: {
+        label: 'Eventos de conversión',
+        varName: 'eventosPagina',
+        path: 'gracias-reunion/index.html',
+        fields: [
+          { key: 'boton', label: 'Botón / acción en la página' },
+          { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
+              { value: 'estandar', label: 'Estándar (Meta Pixel)' },
+              { value: 'personalizado', label: 'Personalizado' },
+            ] },
+          { key: 'nombre', label: 'Nombre del evento', type: 'evento-nombre' },
+        ],
+      },
+      textoPrivacidad: {
+        label: 'Textos',
+        varName: 'textoPrivacidad',
+        path: 'privacidad/index.html',
+        singleton: true,
+        fields: [
+          { key: 'volverInicio', label: 'Link "Volver al inicio"' },
+          { key: 'titulo', label: 'Título' },
+          { key: 'actualizado', label: 'Línea "Última actualización"' },
+          { key: 'intro', label: 'Párrafo de introducción', long: true },
+          { key: 'footer', label: 'Línea del footer (incluye el link a /, no borrar la etiqueta <a>)', long: true },
         ],
       },
     },
