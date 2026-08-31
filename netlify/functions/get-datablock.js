@@ -23,7 +23,7 @@ exports.handler = async (event) => {
     // pasar en las páginas de eg), simplemente no hay preview fiel posible.
     const styleMatch = /<style>([\s\S]*?)<\/style>/.exec(file.content);
     const pageCss = styleMatch ? styleMatch[1] : '';
-    return { statusCode: 200, body: JSON.stringify({ label: block.label, fields: block.fields, singleton: !!block.singleton, richStyles: block.richStyles || [], items, pageCss }) };
+    return { statusCode: 200, body: JSON.stringify({ label: block.label, fields: block.fields, singleton: !!block.singleton, fixedRows: !!block.fixedRows, autoIdField: block.autoIdField || null, richStyles: block.richStyles || [], items, pageCss }) };
   } catch (e) {
     return { statusCode: 500, body: JSON.stringify({ error: e.message }) };
   }

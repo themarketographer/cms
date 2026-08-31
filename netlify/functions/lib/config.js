@@ -68,7 +68,7 @@ const SITES = {
           { key: 'problemaTexto', label: 'Problema · texto', long: true },
           { key: 'incluyeEyebrow', label: 'Qué incluye · texto sobre el título' },
           { key: 'incluyeTitulo', label: 'Qué incluye · título' },
-          { key: 'midCtaTitulo', label: 'CTA intermedio · título (puede usar un salto de línea)' },
+          { key: 'midCtaTitulo', label: 'CTA intermedio · título (puede usar un salto de línea)', lineBreaks: true },
           { key: 'midCtaTexto', label: 'CTA intermedio · texto', long: true },
           { key: 'midCtaBoton', label: 'CTA intermedio · texto del botón' },
           { key: 'pricingEyebrow', label: 'Precios · texto sobre el título' },
@@ -166,6 +166,7 @@ const SITES = {
         label: 'Eventos de conversión',
         varName: 'eventosPagina',
         path: 'index.html',
+        fixedRows: true,
         fields: [
           { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
           { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
@@ -226,6 +227,7 @@ const SITES = {
         label: 'Eventos de conversión',
         varName: 'eventosPagina',
         path: 'masterclass/index.html',
+        fixedRows: true,
         fields: [
           { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
           { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
@@ -286,11 +288,11 @@ const SITES = {
           { key: 'subtitulo', label: 'Subtítulo', long: true },
           { key: 'imagen', label: 'URL de imagen principal' },
           { key: 'statValor1', label: 'Estadística 1 · valor' },
-          { key: 'statLabel1', label: 'Estadística 1 · texto (puede usar un salto de línea)' },
+          { key: 'statLabel1', label: 'Estadística 1 · texto (puede usar un salto de línea)', lineBreaks: true },
           { key: 'statValor2', label: 'Estadística 2 · valor' },
-          { key: 'statLabel2', label: 'Estadística 2 · texto (puede usar un salto de línea)' },
+          { key: 'statLabel2', label: 'Estadística 2 · texto (puede usar un salto de línea)', lineBreaks: true },
           { key: 'statValor3', label: 'Estadística 3 · valor' },
-          { key: 'statLabel3', label: 'Estadística 3 · texto (puede usar un salto de línea)' },
+          { key: 'statLabel3', label: 'Estadística 3 · texto (puede usar un salto de línea)', lineBreaks: true },
         ],
       },
       landingCopy: {
@@ -311,6 +313,10 @@ const SITES = {
           { key: 'cmpLabelAntes', label: 'Comparador · etiqueta "antes"' },
           { key: 'cmpLabelDespues', label: 'Comparador · etiqueta "después"' },
           { key: 'cmpHint', label: 'Comparador · texto de ayuda' },
+          { key: 'cmpImgAntes', label: 'Comparador · foto de "antes" (URL)' },
+          { key: 'cmpImgAntesAlt', label: 'Comparador · foto de "antes" (texto alternativo)' },
+          { key: 'cmpImgDespues', label: 'Comparador · foto de "después" (URL)' },
+          { key: 'cmpImgDespuesAlt', label: 'Comparador · foto de "después" (texto alternativo)' },
           // El fondo real de esta sección (#cta) es oscuro — se envuelve
           // igual que en el sitio real para que el preview también se vea
           // sobre fondo oscuro (si no, el texto se vería invisible: es
@@ -367,6 +373,7 @@ const SITES = {
         label: 'Eventos de conversión',
         varName: 'eventosPagina',
         path: 'index.html',
+        fixedRows: true,
         fields: [
           { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
           { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
@@ -403,6 +410,7 @@ const SITES = {
         label: 'Eventos de conversión',
         varName: 'eventosPagina',
         path: '404.html',
+        fixedRows: true,
         fields: [
           { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
           { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
@@ -425,7 +433,7 @@ const SITES = {
           { key: 'configuraLabel', label: 'Etiqueta de la tarjeta ("Configura tu sesión")' },
           { key: 'precioNota', label: 'Nota bajo el precio' },
           { key: 'depositoLabel', label: 'Etiqueta ("¿Cuánto vas a depositar?")' },
-          { key: 'qrCaption', label: 'Texto bajo el QR (puede usar un salto de línea)' },
+          { key: 'qrCaption', label: 'Texto bajo el QR (puede usar un salto de línea)', lineBreaks: true },
           { key: 'importante', label: 'Aviso "Importante" (empieza en negrita)', rich: true, previewTemplate: '<div class="card-dark" id="eg-gs-importante" style="padding:16px;border-radius:12px">__VALUE__</div>' },
           { key: 'botonWhatsapp', label: 'Texto del botón de WhatsApp' },
           { key: 'volverInicio', label: 'Link "Volver al inicio"' },
@@ -435,6 +443,7 @@ const SITES = {
         label: 'Eventos de conversión',
         varName: 'eventosPagina',
         path: 'gracias-sesion/index.html',
+        fixedRows: true,
         fields: [
           { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
           { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
@@ -457,7 +466,7 @@ const SITES = {
           { key: 'configuraLabel', label: 'Etiqueta de la tarjeta ("Configura tu plan")' },
           { key: 'precioNota', label: 'Nota bajo el precio' },
           { key: 'depositoLabel', label: 'Etiqueta ("¿Cuánto vas a depositar?")' },
-          { key: 'qrCaption', label: 'Texto bajo el QR (puede usar un salto de línea)' },
+          { key: 'qrCaption', label: 'Texto bajo el QR (puede usar un salto de línea)', lineBreaks: true },
           { key: 'importante', label: 'Aviso "Importante" (empieza en negrita)', rich: true, previewTemplate: '<div class="card-dark" id="eg-gp-importante" style="padding:16px;border-radius:12px">__VALUE__</div>' },
           { key: 'botonWhatsapp', label: 'Texto del botón de WhatsApp' },
           { key: 'volverInicio', label: 'Link "Volver al inicio"' },
@@ -467,6 +476,7 @@ const SITES = {
         label: 'Eventos de conversión',
         varName: 'eventosPagina',
         path: 'gracias-plan/index.html',
+        fixedRows: true,
         fields: [
           { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
           { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
@@ -499,6 +509,7 @@ const SITES = {
         label: 'Eventos de conversión',
         varName: 'eventosPagina',
         path: 'gracias-reunion/index.html',
+        fixedRows: true,
         fields: [
           { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
           { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
@@ -519,6 +530,72 @@ const SITES = {
           { key: 'actualizado', label: 'Línea "Última actualización"' },
           { key: 'intro', label: 'Párrafo de introducción', long: true },
           { key: 'footer', label: 'Línea del footer', type: 'text-fixed-link', linkHref: '/' },
+        ],
+      },
+
+      // ── Precios (/precios) ───────────────────────────────────────
+      // pricing-logic.js es la fuente única de los 3 bloques de abajo (ver
+      // el comentario al principio de ese archivo). Los TRAMOS de precio
+      // (a partir de cuántas fotos pasás de Básico a Estándar, etc) y los
+      // textos que dependen de esos mismos tramos ("Entrega en 24h",
+      // "Edición profesional") siguen siendo código a propósito: son
+      // umbrales acoplados a los sliders de la calculadora, no números
+      // sueltos — cambiarlos sin tocar el resto rompería la calculadora.
+      preciosBase: {
+        label: 'Precios · tarifas base',
+        varName: 'preciosBase',
+        path: 'assets/js/pricing-logic.js',
+        singleton: true,
+        fields: [
+          { key: 'sesionBasicoBase', label: 'Sesión Básico · precio a las 8 fotos', type: 'number' },
+          { key: 'sesionBasicoIncremento', label: 'Sesión Básico · precio extra por cada foto (9-10 fotos)', type: 'number' },
+          { key: 'sesionEstandarBase', label: 'Sesión Estándar · precio a las 10 fotos', type: 'number' },
+          { key: 'sesionEstandarIncremento', label: 'Sesión Estándar · precio extra por cada foto (11-18 fotos)', type: 'number' },
+          { key: 'sesionPremiumBase', label: 'Sesión Premium · precio a las 18 fotos', type: 'number' },
+          { key: 'sesionPremiumIncremento', label: 'Sesión Premium · precio extra por cada foto (19+ fotos)', type: 'number' },
+          { key: 'planBasicoBase', label: 'Plan Básico · precio a las 12 fotos/mes', type: 'number' },
+          { key: 'planBasicoIncremento', label: 'Plan Básico · precio extra por cada foto (13-14 fotos/mes)', type: 'number' },
+          { key: 'planEstandarBase', label: 'Plan Estándar · precio a las 14 fotos/mes', type: 'number' },
+          { key: 'planEstandarIncremento', label: 'Plan Estándar · precio extra por cada foto (15-20 fotos/mes)', type: 'number' },
+          { key: 'planPremiumBase', label: 'Plan Premium · precio a las 20 fotos/mes', type: 'number' },
+          { key: 'planPremiumIncremento', label: 'Plan Premium · precio extra por cada foto (21+ fotos/mes)', type: 'number' },
+          { key: 'descuento6meses', label: 'Descuento por pagar 6 meses de una vez (%)', type: 'number' },
+          { key: 'descuento12meses', label: 'Descuento por pagar 12 meses de una vez (%)', type: 'number' },
+        ],
+      },
+      preciosTextos: {
+        label: 'Precios · textos de "lo que incluye"',
+        varName: 'preciosTextos',
+        path: 'assets/js/pricing-logic.js',
+        singleton: true,
+        fields: [
+          { key: 'beneficioSesion1', label: 'Sesión · beneficio fijo 1' },
+          { key: 'beneficioSesion2', label: 'Sesión · beneficio fijo 2' },
+          { key: 'beneficioPlan1', label: 'Plan mensual · beneficio fijo 1' },
+          { key: 'beneficioPlan2', label: 'Plan mensual · beneficio fijo 2' },
+          { key: 'beneficioAsesoria', label: 'Plan mensual · beneficio extra desde 16 fotos/mes' },
+          { key: 'beneficioPaginaWeb', label: 'Plan mensual · beneficio extra desde 16 fotos/mes + 3 o más meses' },
+          { key: 'beneficioGuion', label: 'Plan mensual · beneficio extra si se agrega video (1 de 3)' },
+          { key: 'beneficioMusica', label: 'Plan mensual · beneficio extra si se agrega video (2 de 3)' },
+        ],
+      },
+      preciosExtras: {
+        label: 'Precios · extras a la carta',
+        varName: 'EXTRAS',
+        path: 'assets/js/pricing-logic.js',
+        autoIdField: 'id',
+        fields: [
+          { key: 'id', label: 'Identificador interno', readOnly: true },
+          { key: 'label', label: 'Nombre del extra' },
+          { key: 'desc', label: 'Descripción', long: true },
+          { key: 'tipo', label: 'Tipo de precio', type: 'select', options: [
+              { value: 'flat', label: 'Precio fijo' },
+              { value: 'stepper', label: 'Por cantidad (selector +/-)' },
+            ] },
+          { key: 'precio', label: 'Precio (Bs.)', type: 'number', showIf: { key: 'tipo', equals: 'flat' } },
+          { key: 'precioUnidad', label: 'Precio por unidad (Bs.)', type: 'number', showIf: { key: 'tipo', equals: 'stepper' } },
+          { key: 'min', label: 'Cantidad mínima', type: 'number', showIf: { key: 'tipo', equals: 'stepper' } },
+          { key: 'max', label: 'Cantidad máxima', type: 'number', showIf: { key: 'tipo', equals: 'stepper' } },
         ],
       },
     },
