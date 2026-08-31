@@ -225,6 +225,15 @@
   .fixed-link-row input{margin-top:0;max-width:220px;}
   .fixed-link-href{width:auto;margin-top:0;padding:8px 12px;font-size:12px;white-space:nowrap;}
 
+  /* Secciones dentro de un dataBlock (ver renderFieldsGrouped) — parten una
+     lista larga y pareja de campos en bloques con encabezado, para que se
+     puedan escanear de un vistazo en vez de marear. */
+  .field-section{margin:0 0 26px;padding-top:14px;border-top:1px solid var(--border);}
+  .field-section:first-child{padding-top:0;border-top:none;}
+  .field-section-title{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--gold-text);margin:0 0 14px;}
+  .field-section-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;align-items:start;}
+  @media (max-width:640px){ .field-section-grid{grid-template-columns:1fr;} }
+
   /* Toast flotante (confirmaciones chicas, ej. "Elemento agregado"). */
   .toast{position:fixed;bottom:24px;right:24px;background:var(--mint);color:var(--mint-text);padding:13px 20px;border-radius:var(--r-md);font-weight:700;font-size:13.5px;box-shadow:var(--shadow-pop);z-index:200;display:flex;align-items:center;gap:9px;transform:translateY(16px);opacity:0;pointer-events:none;transition:all .25s;}
   .toast.show{transform:translateY(0);opacity:1;}
@@ -1135,10 +1144,42 @@ function renderDataBlockItems() {
         </div>
       </div>
       `}
-      ${currentDataBlock.fields.map(f => renderDataBlockField(item, i, f)).join('')}
+      ${renderFieldsGrouped(item, i, currentDataBlock.fields)}
     </div>
   `).join('');
   initRichPreviews();
+}
+
+// Agrupa campos consecutivos que comparten "section" bajo un mismo
+// encabezado (pedido de Pablo: listas largas y planas de 14-16 campos
+// iguales "marean" — cuesta encontrar uno puntual como las fotos del
+// comparador perdidas en el medio de "Textos de la página"). Un campo sin
+// "section" se renderiza suelto, exactamente como antes — retrocompatible
+// con cualquier dataBlock que no use esto. Si TODOS los campos de una
+// sección son "compact" (inputs cortos, ej. números), se acomodan de a 2
+// por fila en vez de uno abajo del otro — así los pares base/incremento de
+// precios quedan pegados en vez de una columna larga.
+function renderFieldsGrouped(item, i, fields) {
+  let html = '';
+  let section;
+  let group = [];
+  const flush = () => {
+    if (!group.length) return;
+    const inner = group.map(f => renderDataBlockField(item, i, f)).join('');
+    if (section) {
+      const allCompact = group.every(f => f.compact);
+      html += `<div class="field-section"><h4 class="field-section-title">${section}</h4><div class="${allCompact ? 'field-section-grid' : ''}">${inner}</div></div>`;
+    } else {
+      html += inner;
+    }
+    group = [];
+  };
+  fields.forEach(f => {
+    if (f.section !== section) { flush(); section = f.section; }
+    group.push(f);
+  });
+  flush();
+  return html;
 }
 
 // Un campo del formulario de un dataBlock. Soporta:
