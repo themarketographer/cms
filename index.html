@@ -531,14 +531,20 @@ const SITES = {
       { label: 'Blog', items: [
         { key: 'posts', label: 'Posts' },
       ] },
+      // Mismo orden en el que aparecen de arriba a abajo en la página real
+      // (hero → comparador antes/después → cómo trabajamos → qué incluye →
+      // portafolio → marcas → sobre/FAQ → footer). "Textos de la página" no
+      // tiene una sola sección propia (cubre textos sueltos de varias partes:
+      // hero, comparador, sobre, CTA final y footer) así que se deja pegado
+      // al Encabezado, arriba del todo, en vez de perderse en el medio.
       { label: 'Página de inicio', items: [
-        { key: 'faqs', label: 'Preguntas frecuentes', livePath: '/' },
         { key: 'landingHero', label: 'Encabezado', livePath: '/' },
         { key: 'landingCopy', label: 'Textos de la página', livePath: '/' },
-        { key: 'marcas', label: 'Marcas de clientes', livePath: '/' },
         { key: 'proceso', label: 'Cómo trabajamos', livePath: '/' },
         { key: 'promesa', label: 'Qué incluye', livePath: '/' },
         { key: 'portafolio', label: 'Portafolio', livePath: '/' },
+        { key: 'marcas', label: 'Marcas de clientes', livePath: '/' },
+        { key: 'faqs', label: 'Preguntas frecuentes', livePath: '/' },
         { key: 'eventosInicio', label: 'Eventos', livePath: '/' },
       ] },
       { label: 'Otras páginas', items: [
@@ -1043,16 +1049,30 @@ function renderPages() {
   `).join('');
 }
 
+// requestId: si Pablo clickea rápido entre varias secciones, se disparan
+// varios pedidos al servidor a la vez y pueden volver EN OTRO ORDEN (uno
+// viejo y lento puede resolver después de uno nuevo y rápido). Sin esto, la
+// respuesta vieja pisaba a la nueva — a veces con datos de otra sección, a
+// veces con un error tipo "Bloque desconocido" (era un pedido válido en su
+// momento, para la sección que estaba abierta ANTES de cambiar de página,
+// pero llegaba tarde y se mostraba sobre la sección nueva). Ahora cada
+// pedido de loadDataBlock recuerda su propio número; si cuando vuelve la
+// respuesta ya hay un pedido más nuevo en curso, esa respuesta (éxito o
+// error) se descarta en silencio en vez de pisar lo que se ve en pantalla.
+let dataBlockRequestId = 0;
 async function loadDataBlock(key) {
   const container = document.getElementById('dataBlockItems');
   container.innerHTML = 'Cargando…';
+  const site = currentSite;
+  const myRequestId = ++dataBlockRequestId;
   try {
-    const res = await api(`get-datablock?site=${currentSite}&block=${key}`);
-    const clientCfg = (SITES[currentSite].dataBlocks.find(b => b.key === key) || {});
+    const res = await api(`get-datablock?site=${site}&block=${key}`);
+    if (myRequestId !== dataBlockRequestId) return; // llegó tarde, ya no aplica
+    const clientCfg = (SITES[site].dataBlocks.find(b => b.key === key) || {});
     const singleton = !!(res.singleton || clientCfg.singleton);
     const fixedRows = !!res.fixedRows;
     currentDataBlock = { key, label: res.label, fields: res.fields, items: res.items, singleton, fixedRows, autoIdField: res.autoIdField || null, richStyles: res.richStyles || [], pageCss: res.pageCss || '' };
-    document.getElementById('dataBlockLabel').textContent = res.label + ' · ' + SITES[currentSite].label;
+    document.getElementById('dataBlockLabel').textContent = res.label + ' · ' + SITES[site].label;
     document.getElementById('dbAddBtn').style.display = (singleton || fixedRows) ? 'none' : '';
     currentRichFocus = null;
     renderDbFmtRow();
@@ -1060,11 +1080,11 @@ async function loadDataBlock(key) {
     // Link "Ver en vivo ↗" — solo si este ítem del menú declara livePath
     // (los grupos de eg lo traen; mkt no usa groups y no muestra el link).
     const liveLink = document.getElementById('dbLiveLink');
-    const site = SITES[currentSite];
+    const siteCfg = SITES[site];
     let livePath = null;
-    (site.groups || []).forEach(g => g.items.forEach(it => { if (it.key === key) livePath = it.livePath; }));
+    (siteCfg.groups || []).forEach(g => g.items.forEach(it => { if (it.key === key) livePath = it.livePath; }));
     if (livePath) {
-      liveLink.href = `https://${site.domain}${livePath}`;
+      liveLink.href = `https://${siteCfg.domain}${livePath}`;
       liveLink.style.display = 'inline-block';
     } else {
       liveLink.style.display = 'none';
@@ -1072,6 +1092,7 @@ async function loadDataBlock(key) {
 
     renderDataBlockItems();
   } catch (e) {
+    if (myRequestId !== dataBlockRequestId) return; // llegó tarde, ya no aplica
     container.textContent = 'Error cargando: ' + e.message;
   }
 }
@@ -1615,11 +1636,15 @@ function banner(msg, ok) {
   document.getElementById('banner').innerHTML = `<div class="banner ${ok ? 'ok' : 'err'}">${msg}</div>`;
 }
 
+let postsRequestId = 0;
 async function loadPosts() {
   const list = document.getElementById('postList');
   list.textContent = 'Cargando…';
+  const site = currentSite;
+  const myRequestId = ++postsRequestId;
   try {
-    const { posts } = await api('list-posts?site=' + currentSite);
+    const { posts } = await api('list-posts?site=' + site);
+    if (myRequestId !== postsRequestId) return; // llegó tarde, ya no aplica
     cachedPosts = posts;
     renderBlocksRow();
     renderCategoryList();
@@ -1648,6 +1673,7 @@ async function loadPosts() {
       </details>
     `).join('');
   } catch (e) {
+    if (myRequestId !== postsRequestId) return; // llegó tarde, ya no aplica
     list.textContent = 'Error cargando posts: ' + e.message;
   }
 }
