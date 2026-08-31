@@ -1700,6 +1700,19 @@ function clearForm() {
   updateCounters();
 }
 
+// El editor de un post (#formView) vive FUERA de #panelLayout — es una
+// sección aparte que ocupa todo el ancho, no una columna al lado del menú.
+// openForm()/editPost() apagaban #listView pero nunca #panelLayout, así que
+// el menú lateral (con todos sus grupos) seguía ocupando su alto completo
+// arriba, empujando el formulario real bien abajo de la página — el bug
+// "todo se va hasta abajo" que reportó Pablo, reproducido en Chrome real
+// abriendo "Editar" en un post. Ahora #panelLayout se apaga también al
+// entrar al editor, y se prende de nuevo al volver.
+function showFormView() {
+  document.getElementById('panelLayout').style.display = 'none';
+  document.getElementById('listView').style.display = 'none';
+  document.getElementById('formView').style.display = 'block';
+}
 function openForm() {
   editingSlug = null;
   clearForm();
@@ -1707,13 +1720,13 @@ function openForm() {
   document.getElementById('formTitle').textContent = 'Nuevo post · ' + SITES[currentSite].label;
   document.getElementById('liveLink').style.display = 'none';
   document.getElementById('saveBtn').textContent = 'Publicar';
-  document.getElementById('listView').style.display = 'none';
-  document.getElementById('formView').style.display = 'block';
+  showFormView();
   loadCanvas(SITES[currentSite], '<p><br></p>');
 }
 
 function closeForm() {
   document.getElementById('formView').style.display = 'none';
+  document.getElementById('panelLayout').style.display = 'flex';
   document.getElementById('listView').style.display = 'block';
 }
 
@@ -1739,8 +1752,7 @@ async function editPost(slug) {
     liveLink.href = `https://${SITES[currentSite].domain}/blog/${slug}/`;
     liveLink.style.display = 'inline';
     document.getElementById('saveBtn').textContent = 'Guardar cambios';
-    document.getElementById('listView').style.display = 'none';
-    document.getElementById('formView').style.display = 'block';
+    showFormView();
     loadCanvas(SITES[currentSite], data.bodyHtml || '<p><br></p>');
     scrollToFormTop();
   } catch (e) {
