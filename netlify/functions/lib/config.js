@@ -23,6 +23,12 @@ const SITES = {
     cardAnchor: '<div class="blog-grid" id="blog-grid">',
     grid: { imgAttrDefault: ' style="aspect-ratio:16/9;object-fit:cover;"' },
     // Bloques de datos (arrays de JS embebidos en una página) editables desde el panel.
+    // Mismo patrón que "eg" (ver netlify/functions/lib/datablocks.js): cada
+    // entrada es "const NOMBRE = [...]" dentro de la página real. mkt usa
+    // <mark> (tag nativo, ya definido en el CSS real del hero) para su
+    // resaltado dorado, en vez de un span.clase como eg — por eso su
+    // richStyles declara "tag" en vez de className (ver sanitizeRichHtml /
+    // richApplySpecial generalizados en el panel).
     dataBlocks: {
       testimonios: {
         label: 'Testimonios',
@@ -33,6 +39,200 @@ const SITES = {
           { key: 't', label: 'Rol / ubicación' },
           { key: 'q', label: 'Cita', long: true },
           { key: 'img', label: 'URL de imagen' },
+        ],
+      },
+      heroMkt: {
+        label: 'Encabezado',
+        varName: 'heroMkt',
+        path: 'index.html',
+        singleton: true,
+        richStyles: [ { label: '★ Resaltado dorado', tag: 'mark' } ],
+        fields: [
+          { key: 'eyebrow', label: 'Texto sobre el título' },
+          { key: 'titulo', label: 'Título', rich: true, previewTemplate: '<h1 id="mkt-hero-h1" style="font-size:38px;max-width:720px;">__VALUE__</h1>' },
+          { key: 'subtitulo', label: 'Subtítulo', long: true },
+          { key: 'stat1', label: 'Estadística 1' },
+          { key: 'stat2', label: 'Estadística 2' },
+          { key: 'stat3', label: 'Estadística 3' },
+          { key: 'videoUrl', label: 'URL del video (embed de YouTube)' },
+        ],
+      },
+      textosMkt: {
+        label: 'Textos de la página',
+        varName: 'textosMkt',
+        path: 'index.html',
+        singleton: true,
+        fields: [
+          { key: 'problemaEyebrow', label: 'Problema · texto sobre el título' },
+          { key: 'problemaTitulo', label: 'Problema · título' },
+          { key: 'problemaTexto', label: 'Problema · texto', long: true },
+          { key: 'incluyeEyebrow', label: 'Qué incluye · texto sobre el título' },
+          { key: 'incluyeTitulo', label: 'Qué incluye · título' },
+          { key: 'midCtaTitulo', label: 'CTA intermedio · título (puede usar un salto de línea)' },
+          { key: 'midCtaTexto', label: 'CTA intermedio · texto', long: true },
+          { key: 'midCtaBoton', label: 'CTA intermedio · texto del botón' },
+          { key: 'pricingEyebrow', label: 'Precios · texto sobre el título' },
+          { key: 'pricingTitulo', label: 'Precios · título' },
+          { key: 'pricingTexto', label: 'Precios · texto' },
+          { key: 'aboutEyebrow', label: 'Sobre Pablo · texto sobre el título' },
+          { key: 'aboutTitulo', label: 'Sobre Pablo · título' },
+          { key: 'aboutParrafo1', label: 'Sobre Pablo · párrafo 1', long: true },
+          { key: 'aboutParrafo2', label: 'Sobre Pablo · párrafo 2', long: true },
+          { key: 'aboutParrafo3', label: 'Sobre Pablo · párrafo 3 (en cursiva, corto)' },
+          { key: 'testiEyebrow', label: 'Testimonios · texto sobre el título' },
+          { key: 'testiTitulo', label: 'Testimonios · título' },
+          { key: 'faqEyebrow', label: 'FAQ · texto sobre el título' },
+          { key: 'faqTitulo', label: 'FAQ · título' },
+          { key: 'finalTitulo1', label: 'CTA final · título (parte 1)' },
+          { key: 'finalTitulo2', label: 'CTA final · título (parte 2, en dorado)' },
+          { key: 'finalTexto', label: 'CTA final · texto', long: true },
+          { key: 'finalWaBoton', label: 'CTA final · texto del botón de WhatsApp' },
+          { key: 'finalWaNota', label: 'CTA final · texto pequeño bajo el botón de WhatsApp' },
+          { key: 'finalSub', label: 'CTA final · texto pequeño final' },
+          { key: 'freeBandEyebrow', label: 'Comunidad gratis · texto sobre el título' },
+          { key: 'freeBandTexto', label: 'Comunidad gratis · texto' },
+          { key: 'freeBandBoton', label: 'Comunidad gratis · texto del botón' },
+          { key: 'footerCopyright', label: 'Footer · línea de copyright' },
+        ],
+      },
+      problemaCards: {
+        label: 'Problema · tarjetas',
+        varName: 'problemaCards',
+        path: 'index.html',
+        fields: [
+          { key: 'numero', label: 'Número' },
+          { key: 'tag', label: 'Etiqueta (opcional, solo la 1ª tarjeta la usa hoy)' },
+          { key: 'titulo', label: 'Título' },
+          { key: 'texto', label: 'Texto', long: true },
+        ],
+      },
+      problemaStats: {
+        label: 'Problema · estadísticas',
+        varName: 'problemaStats',
+        path: 'index.html',
+        fields: [
+          { key: 'valor', label: 'Valor' },
+          { key: 'texto', label: 'Texto' },
+        ],
+      },
+      featurePair: {
+        label: 'Clases y cursos (2 columnas)',
+        varName: 'featurePair',
+        path: 'index.html',
+        fields: [
+          { key: 'imagen', label: 'URL de imagen' },
+          { key: 'titulo', label: 'Título' },
+          { key: 'texto', label: 'Texto', long: true },
+        ],
+      },
+      incluyeCards: {
+        label: 'Qué incluye · tarjetas',
+        varName: 'incluyeCards',
+        path: 'index.html',
+        fields: [
+          { key: 'icono', label: 'URL del ícono' },
+          { key: 'titulo', label: 'Título' },
+          { key: 'detalle', label: 'Detalle', long: true },
+        ],
+      },
+      midCtaFloat: {
+        label: 'CTA intermedio · tarjetas flotantes',
+        varName: 'midCtaFloat',
+        path: 'index.html',
+        fields: [
+          { key: 'titulo', label: 'Título' },
+          { key: 'texto', label: 'Texto' },
+        ],
+      },
+      pricingFeatures: {
+        label: 'Precios · lista de beneficios',
+        varName: 'pricingFeatures',
+        path: 'index.html',
+        fields: [
+          { key: 'titulo', label: 'Título' },
+          { key: 'texto', label: 'Texto' },
+        ],
+      },
+      faqsMkt: {
+        label: 'Preguntas frecuentes',
+        varName: 'faqsMkt',
+        path: 'index.html',
+        fields: [
+          { key: 'q', label: 'Pregunta' },
+          { key: 'a', label: 'Respuesta', long: true },
+        ],
+      },
+      eventosInicio: {
+        label: 'Eventos de conversión',
+        varName: 'eventosPagina',
+        path: 'index.html',
+        fields: [
+          { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
+          { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
+              { value: 'estandar', label: 'Estándar (Meta Pixel)' },
+              { value: 'personalizado', label: 'Personalizado' },
+            ] },
+          { key: 'nombre', label: 'Nombre del evento', type: 'evento-nombre' },
+        ],
+      },
+
+      // ── Otras páginas ─────────────────────────────────────────────
+      texto404: {
+        label: 'Textos',
+        varName: 'texto404',
+        path: '404.html',
+        singleton: true,
+        fields: [
+          { key: 'titulo', label: 'Título' },
+          { key: 'subtitulo', label: 'Subtítulo', long: true },
+          { key: 'boton', label: 'Texto del botón ("Volver al inicio")' },
+          { key: 'footerCopyright', label: 'Footer · línea de copyright' },
+        ],
+      },
+      textoPrivacidad: {
+        label: 'Textos',
+        varName: 'textoPrivacidad',
+        path: 'privacidad/index.html',
+        singleton: true,
+        fields: [
+          { key: 'volverInicio', label: 'Link "Volver al inicio"' },
+          { key: 'titulo', label: 'Título' },
+          { key: 'actualizado', label: 'Línea "Última actualización"' },
+          { key: 'intro', label: 'Párrafo de introducción', long: true },
+          { key: 'footer', label: 'Footer · línea de copyright' },
+        ],
+      },
+      textoMasterclass: {
+        label: 'Textos',
+        varName: 'textoMasterclass',
+        path: 'masterclass/index.html',
+        singleton: true,
+        richStyles: [ { label: '★ Resaltado dorado', tag: 'mark' } ],
+        fields: [
+          { key: 'badge', label: 'Insignia superior' },
+          { key: 'titulo', label: 'Título', rich: true, previewTemplate: '<h1 style="font-size:32px;max-width:640px;">__VALUE__</h1>' },
+          { key: 'subtitulo', label: 'Bajada', long: true },
+          { key: 'botonRegistrar', label: 'Texto del botón "Registrarme al evento"' },
+          { key: 'eventoQue', label: 'Tarjeta del evento · "Qué"' },
+          { key: 'eventoCuando', label: 'Tarjeta del evento · "Cuándo" (fecha y hora)' },
+          { key: 'whatsappTexto', label: 'Bloque de WhatsApp · texto', long: true },
+          { key: 'whatsappBoton', label: 'Bloque de WhatsApp · texto del botón' },
+          { key: 'infoTitulo', label: '"¿Qué te vas a llevar?" · título' },
+          { key: 'infoTexto', label: '"¿Qué te vas a llevar?" · texto', long: true },
+          { key: 'footerCopyright', label: 'Footer · línea de copyright' },
+        ],
+      },
+      eventosMasterclass: {
+        label: 'Eventos de conversión',
+        varName: 'eventosPagina',
+        path: 'masterclass/index.html',
+        fields: [
+          { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
+          { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
+              { value: 'estandar', label: 'Estándar (Meta Pixel)' },
+              { value: 'personalizado', label: 'Personalizado' },
+            ] },
+          { key: 'nombre', label: 'Nombre del evento', type: 'evento-nombre' },
         ],
       },
     },

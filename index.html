@@ -335,9 +335,58 @@ const SITES = {
     wrapOpen: '<div class="article-body"><div class="wrap-article" id="canvas" contenteditable="true">',
     wrapClose: '</div></div>',
     blocks: [],
-    dataBlocks: [ { key: 'testimonios', label: 'Testimonios' } ],
+    // Lista plana de todos los dataBlocks (la usan las funciones que hacen
+    // fetch/save por key) — el agrupamiento visual del menú vive en "groups"
+    // más abajo, mismo patrón que "eg".
+    dataBlocks: [
+      { key: 'testimonios', label: 'Testimonios' },
+      { key: 'heroMkt', label: 'Encabezado', singleton: true },
+      { key: 'textosMkt', label: 'Textos de la página', singleton: true },
+      { key: 'problemaCards', label: 'Problema · tarjetas' },
+      { key: 'problemaStats', label: 'Problema · estadísticas' },
+      { key: 'featurePair', label: 'Clases y cursos' },
+      { key: 'incluyeCards', label: 'Qué incluye · tarjetas' },
+      { key: 'midCtaFloat', label: 'CTA intermedio · tarjetas flotantes' },
+      { key: 'pricingFeatures', label: 'Precios · beneficios' },
+      { key: 'faqsMkt', label: 'Preguntas frecuentes' },
+      { key: 'eventosInicio', label: 'Inicio · Eventos de conversión' },
+      { key: 'texto404', label: '404 · Textos', singleton: true },
+      { key: 'textoPrivacidad', label: 'Privacidad · Textos', singleton: true },
+      { key: 'textoMasterclass', label: 'Masterclass · Textos', singleton: true },
+      { key: 'eventosMasterclass', label: 'Masterclass · Eventos de conversión' },
+    ],
     pages: [
       { label: 'Inicio', path: '/' },
+      { label: 'Masterclass', path: '/masterclass' },
+      { label: 'Política de privacidad', path: '/privacidad' },
+    ],
+    // Menú agrupado (sidebar) — mismo componente que ya usa "eg"
+    // (renderSideMenu/renderSideMenu genérico): Blog / Página de inicio /
+    // Otras páginas. "posts" es el mismo listado de siempre; el resto son
+    // dataBlocks; livePath abre la página real.
+    groups: [
+      { label: 'Blog', items: [
+        { key: 'posts', label: 'Posts' },
+      ] },
+      { label: 'Página de inicio', items: [
+        { key: 'heroMkt', label: 'Encabezado', livePath: '/' },
+        { key: 'textosMkt', label: 'Textos de la página', livePath: '/' },
+        { key: 'problemaCards', label: 'Problema · tarjetas', livePath: '/' },
+        { key: 'problemaStats', label: 'Problema · estadísticas', livePath: '/' },
+        { key: 'featurePair', label: 'Clases y cursos', livePath: '/' },
+        { key: 'incluyeCards', label: 'Qué incluye · tarjetas', livePath: '/' },
+        { key: 'midCtaFloat', label: 'CTA intermedio · tarjetas', livePath: '/' },
+        { key: 'pricingFeatures', label: 'Precios · beneficios', livePath: '/' },
+        { key: 'testimonios', label: 'Testimonios', livePath: '/' },
+        { key: 'faqsMkt', label: 'Preguntas frecuentes', livePath: '/' },
+        { key: 'eventosInicio', label: 'Eventos', livePath: '/' },
+      ] },
+      { label: 'Otras páginas', items: [
+        { key: 'texto404', label: '404 · Textos', livePath: '/404.html' },
+        { key: 'textoPrivacidad', label: 'Privacidad · Textos', livePath: '/privacidad' },
+        { key: 'textoMasterclass', label: 'Masterclass · Textos', livePath: '/masterclass' },
+        { key: 'eventosMasterclass', label: 'Masterclass · Eventos', livePath: '/masterclass' },
+      ] },
     ],
   },
   eg: {
@@ -1029,8 +1078,7 @@ function updateRichPreview(id, i, f_key) {
   if (!f || !f.previewTemplate) return;
   const frame = document.getElementById(id + '_preview');
   if (!frame) return;
-  const allowedClasses = (currentDataBlock.richStyles || []).map(s => s.className);
-  const clean = sanitizeRichHtml(currentDataBlock.items[i][f_key] || '', allowedClasses);
+  const clean = sanitizeRichHtml(currentDataBlock.items[i][f_key] || '', currentDataBlock.richStyles || []);
   const html = f.previewTemplate.replace('__VALUE__', clean);
   frame.srcdoc = `<!doctype html><html><head><meta charset="utf-8">
     <style>html,body{margin:0;}body{padding:14px;}${currentDataBlock.pageCss || ''}</style>
@@ -1054,9 +1102,15 @@ function renderDbFmtRow() {
   const hasRichFields = (currentDataBlock.fields || []).some(f => f.rich);
   if (!hasRichFields) { bar.style.display = 'none'; bar.innerHTML = ''; return; }
   const styles = currentDataBlock.richStyles || [];
-  const specialBtns = styles.map(s =>
-    `<button type="button" onmousedown="event.preventDefault()" onclick="dbApplySpecial('${s.className}')" title="Envuelve la selección en .${s.className}">${s.label}</button>`
-  ).join('');
+  // Cada estilo declara "tag" (span, con className — el caso de siempre en
+  // eg) o un tag nativo fijo del CSS real del sitio sin clase (ej. mkt usa
+  // <mark> para su resaltado dorado del hero). Se referencia por índice en
+  // vez de por className porque un estilo con tag nativo no tiene clase.
+  const specialBtns = styles.map((s, idx) => {
+    const tag = s.tag || 'span';
+    const desc = (tag === 'span') ? `.${s.className}` : `<${tag}>`;
+    return `<button type="button" onmousedown="event.preventDefault()" onclick="dbApplySpecial(${idx})" title="Envuelve la selección en ${desc}">${s.label}</button>`;
+  }).join('');
   bar.innerHTML = `
     <button type="button" onmousedown="event.preventDefault()" onclick="dbApplyBold()" title="Negrita"><b>N</b></button>
     ${specialBtns}
@@ -1075,9 +1129,11 @@ function dbApplyBold() {
   if (!currentRichFocus) return;
   richApplyBold(currentRichFocus.id, currentRichFocus.i, currentRichFocus.key);
 }
-function dbApplySpecial(className) {
+function dbApplySpecial(styleIdx) {
   if (!currentRichFocus) return;
-  richApplySpecial(currentRichFocus.id, currentRichFocus.i, currentRichFocus.key, className);
+  const style = (currentDataBlock.richStyles || [])[styleIdx];
+  if (!style) return;
+  richApplySpecial(currentRichFocus.id, currentRichFocus.i, currentRichFocus.key, style);
 }
 // Devuelve la selección real actual SOLO si está dentro de este editable y
 // tiene texto realmente resaltado (no solo un cursor parpadeando). Antes se
@@ -1119,7 +1175,17 @@ function richFlashHint(id, msg) {
     hint.classList.remove('rich-hint-flash');
   }, 2200);
 }
-function richApplySpecial(id, i, key, className) {
+// "style" es una entrada de richStyles: { label, tag?, className? }.
+// tag por defecto es 'span' (el caso de siempre en eg, con className
+// obligatorio); un tag nativo distinto (ej. 'mark', el resaltado dorado
+// de mkt) se usa tal cual, sin clase — el CSS real del sitio ya define
+// cómo se ve ese tag, no hace falta inventar una clase para eso.
+function richWrapTag(style, innerHtml) {
+  const tag = style.tag || 'span';
+  const openTag = (tag === 'span' && style.className) ? `<span class="${style.className}">` : `<${tag}>`;
+  return `${openTag}${innerHtml}</${tag}>`;
+}
+function richApplySpecial(id, i, key, style) {
   const el = document.getElementById(id);
   if (!el) return;
   const range = richGetSelectionRange(el);
@@ -1130,7 +1196,7 @@ function richApplySpecial(id, i, key, className) {
     const sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
-    document.execCommand('insertHTML', false, `<span class="${className}">${sel.toString()}</span>`);
+    document.execCommand('insertHTML', false, richWrapTag(style, sel.toString()));
     updateDataBlockField(i, key, el.innerHTML);
     updateRichPreview(id, i, key);
     return;
@@ -1141,7 +1207,7 @@ function richApplySpecial(id, i, key, className) {
   // campo está realmente vacío. Si ya hay texto, no se toca nada: se avisa.
   if (!el.textContent.trim()) {
     el.focus();
-    document.execCommand('insertHTML', false, `<span class="${className}">texto destacado</span>`);
+    document.execCommand('insertHTML', false, richWrapTag(style, 'texto destacado'));
     updateDataBlockField(i, key, el.innerHTML);
     updateRichPreview(id, i, key);
   } else {
@@ -1191,9 +1257,16 @@ function updateTextFixedLinkField(i, key, id, href) {
   updateDataBlockField(i, key, `${pre}<a href="${href}">${linkText}</a>`);
 }
 
-function sanitizeRichHtml(html, allowedClasses) {
-  const allowed = new Set(allowedClasses || []);
+// "richStyles" es el array crudo del dataBlock ({label, tag?, className?}),
+// no una lista de clases — así el saneador sabe tanto qué clases de <span>
+// dejar pasar (el caso de eg) como qué tags nativos fijos dejar pasar sin
+// clase (ej. <mark> en mkt). Nunca se inventa una clase o tag que el
+// dataBlock no haya declarado explícitamente.
+function sanitizeRichHtml(html, richStyles) {
+  const styles = richStyles || [];
+  const allowed = new Set(styles.filter(s => (s.tag || 'span') === 'span' && s.className).map(s => s.className));
   if (allowed.has('eg-accent')) { allowed.add('eg-accent__line'); allowed.add('eg-accent--hero'); }
+  const allowedNativeTags = new Set(styles.filter(s => s.tag && s.tag !== 'span').map(s => s.tag));
   const doc = new DOMParser().parseFromString('<!doctype html><body>' + (html || '') + '</body>', 'text/html');
   const root = doc.body;
   function clean(node) {
@@ -1223,6 +1296,14 @@ function sanitizeRichHtml(html, allowedClasses) {
         }
         return;
       }
+      if (allowedNativeTags.has(tag)) {
+        // Tag nativo declarado por el dataBlock (ej. <mark>): se deja pasar
+        // tal cual, sin clase ni atributos (el CSS real del sitio ya define
+        // cómo se ve, no hace falta ni se permite nada más).
+        Array.from(child.attributes).forEach(a => child.removeAttribute(a.name));
+        clean(child);
+        return;
+      }
       // Cualquier otra etiqueta (div, a, img, onclick vía cualquier atributo,
       // etc.): se desenvuelve, quedándose solo con su texto/hijos limpios.
       clean(child);
@@ -1240,10 +1321,9 @@ function sanitizeCurrentDataBlockRichFields() {
   if (!currentDataBlock) return;
   const richFields = (currentDataBlock.fields || []).filter(f => f.rich);
   if (!richFields.length) return;
-  const allowedClasses = (currentDataBlock.richStyles || []).map(s => s.className);
   currentDataBlock.items.forEach(item => {
     richFields.forEach(f => {
-      item[f.key] = sanitizeRichHtml(item[f.key] || '', allowedClasses);
+      item[f.key] = sanitizeRichHtml(item[f.key] || '', currentDataBlock.richStyles || []);
     });
   });
 }
