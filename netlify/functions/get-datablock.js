@@ -16,7 +16,14 @@ exports.handler = async (event) => {
     const file = await getFile(site, block.path);
     if (!file) return { statusCode: 404, body: JSON.stringify({ error: `No se encontró ${block.path}` }) };
     const items = readDataBlock(file.content, block);
-    return { statusCode: 200, body: JSON.stringify({ label: block.label, fields: block.fields, singleton: !!block.singleton, richStyles: block.richStyles || [], items }) };
+    // CSS real de la página (pedido #3: vista previa fiel). Se extrae del
+    // mismo archivo que ya se leyó para el dataBlock — así el preview usa
+    // SIEMPRE el CSS real y actual del sitio, nunca una copia que se pueda
+    // desactualizar. Si la página no tiene <style> propio (no debería
+    // pasar en las páginas de eg), simplemente no hay preview fiel posible.
+    const styleMatch = /<style>([\s\S]*?)<\/style>/.exec(file.content);
+    const pageCss = styleMatch ? styleMatch[1] : '';
+    return { statusCode: 200, body: JSON.stringify({ label: block.label, fields: block.fields, singleton: !!block.singleton, richStyles: block.richStyles || [], items, pageCss }) };
   } catch (e) {
     return { statusCode: 500, body: JSON.stringify({ error: e.message }) };
   }

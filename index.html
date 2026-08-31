@@ -19,6 +19,16 @@
     --r-lg:20px; --r-md:12px; --r-sm:8px; --r-pill:9999px;
   }
   *{box-sizing:border-box;}
+  /* Pedido #8: al abrir un post para editar, la página saltaba hacia
+     abajo. La causa es "scroll anchoring" del navegador: mientras cargan
+     las fuentes/CSS del iframe de vista previa (canvasFrame) y las
+     imágenes, el layout de ARRIBA del punto donde el usuario está mirando
+     cambia de alto, y el navegador "ancla" el scroll para compensarlo —
+     terminás viendo la mitad del formulario en vez del título de arriba.
+     Se desactiva ese comportamiento acá (y se refuerza con scrollToFormTop
+     en editPost/cmsReady) para que abrir un post SIEMPRE deje la vista
+     arriba, en el título/toolbar. */
+  html,body{overflow-anchor:none;}
   body{margin:0;background:var(--cream);color:var(--dark);font:15px/1.6 'Poppins',sans-serif;-webkit-font-smoothing:antialiased;}
   h1,h2,h3{font-family:'Poppins',sans-serif;font-weight:700;letter-spacing:-0.01em;margin:0;}
   .cursive{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;color:var(--gold-text);}
@@ -78,6 +88,10 @@
   button.fmt-btn:hover{background:#fff;border-color:var(--border-strong);}
   input,textarea,select{width:100%;background:var(--off-white);border:1px solid var(--border);color:var(--dark);border-radius:var(--r-sm);padding:10px 12px;font:inherit;margin-top:4px;}
   input:focus,textarea:focus{outline:none;border-color:var(--yellow-hover);}
+  /* El textarea nativo trae resize:both sin límite por defecto — eso es lo
+     que dejaba estirar el cuadro de texto hasta romper el layout del panel
+     (pedido #7). Se deja solo el resize vertical, con un tope razonable. */
+  textarea{resize:vertical;max-height:420px;}
   label{display:block;margin-bottom:14px;font-size:13px;color:var(--gray);font-weight:600;}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
   .row3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px;}
@@ -91,6 +105,12 @@
   #app{display:none;}
   .fmt-row,.blocks-row{display:flex;gap:2px;flex-wrap:wrap;align-items:center;position:relative;}
   .fmt-row{background:var(--off-white);border:1px solid var(--border);border-bottom:none;border-radius:var(--r-md) var(--r-md) 0 0;padding:8px;}
+  /* Pedido #9: una sola barra de formato fija arriba (no una por campo),
+     igual concepto que la barra del editor de posts. Queda pegada debajo
+     del header general (top:76px, mismo offset que .side-menu) mientras
+     se hace scroll por un dataBlock largo. */
+  .db-fmt-row{position:sticky;top:76px;z-index:9;border-radius:var(--r-md);border-bottom:1px solid var(--border);margin-bottom:16px;box-shadow:0 4px 14px rgba(24,24,24,.06);}
+  .db-fmt-row .fmt-hint{font-size:12px;color:var(--gray);padding:0 6px;}
   .blocks-row{background:#fff;border:1px solid var(--border);border-top:1px solid var(--border);padding:8px;gap:8px;}
   .canvas-wrap{border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r-md) var(--r-md);overflow:hidden;background:#fff;margin-bottom:0;}
   #canvasFrame{width:100%;height:560px;border:none;display:block;}
@@ -138,8 +158,24 @@
   .rich-toolbar{display:flex;gap:2px;margin-top:4px;background:var(--off-white);border:1px solid var(--border);border-bottom:none;border-radius:var(--r-sm) var(--r-sm) 0 0;padding:5px;}
   .rich-toolbar button{font-size:12.5px;padding:5px 10px;background:transparent;border-color:transparent;color:var(--dark);border-radius:6px;}
   .rich-toolbar button:hover{background:#fff;border-color:var(--border-strong);}
-  .rich-editable{min-height:44px;background:#fff;border:1px solid var(--border);border-radius:0 0 var(--r-sm) var(--r-sm);padding:10px 12px;font:inherit;font-weight:400;}
+  .rich-editable{min-height:44px;max-height:320px;overflow-y:auto;background:#fff;border:1px solid var(--border);border-radius:0 0 var(--r-sm) var(--r-sm);padding:10px 12px;font:inherit;font-weight:400;}
   .rich-editable:focus{outline:none;border-color:var(--yellow-hover);}
+  /* Mismo estilo visual que <label>, pero como <div> — no puede envolver un
+     campo rich (toolbar de botones + contenteditable) porque un <button> es
+     un elemento "labelable": el navegador reenvía cualquier click dentro del
+     <label> que no caiga en un control labelable (como el div contenteditable)
+     al PRIMER labelable del label, disparando un click fantasma en el botón
+     de Negrita — así se producía el bug #1 (doble click ponía negrita). */
+  .field{margin-bottom:14px;}
+  .field-label{display:block;margin-bottom:4px;font-size:13px;color:var(--gray);font-weight:600;}
+  .rich-hint-flash{color:#a3382b !important;}
+  .rich-preview-wrap{margin-top:10px;}
+  .rich-preview-label{display:block;font-size:11px;color:var(--gray);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em;}
+  .rich-preview{width:100%;min-height:64px;max-height:220px;border:1px dashed var(--border-strong);border-radius:var(--r-sm);background:#fff;}
+  .readonly-value{background:var(--off-white);border:1px dashed var(--border);border-radius:var(--r-sm);padding:10px 12px;color:var(--gray);margin-top:4px;}
+  .fixed-link-row{display:flex;gap:8px;align-items:center;margin-top:8px;}
+  .fixed-link-row input{margin-top:0;max-width:220px;}
+  .fixed-link-href{width:auto;margin-top:0;padding:8px 12px;font-size:12px;white-space:nowrap;}
 </style>
 </head>
 <body>
@@ -187,6 +223,7 @@
               <button class="primary" id="dbSaveBtn" onclick="saveDataBlock()">Guardar cambios</button>
             </div>
           </div>
+          <div id="dbFmtRow" class="fmt-row db-fmt-row" style="display:none"></div>
           <div id="dataBlockItems"></div>
           <button id="dbAddBtn" style="margin-top:4px" onclick="addDataBlockItem()">+ Agregar</button>
         </div>
@@ -365,6 +402,7 @@ const SITES = {
         { key: 'proceso', label: 'Cómo trabajamos', livePath: '/' },
         { key: 'promesa', label: 'Qué incluye', livePath: '/' },
         { key: 'portafolio', label: 'Portafolio', livePath: '/' },
+        { key: 'eventosInicio', label: 'Eventos', livePath: '/' },
       ] },
       { label: 'Otras páginas', items: [
         { key: 'texto404', label: '404 · Textos', livePath: '/404.html' },
@@ -727,8 +765,18 @@ window.addEventListener('message', (ev) => {
   if (ev.data && ev.data.cmsReady) {
     const win = document.getElementById('canvasFrame').contentWindow;
     if (win && win.cmsSetContent) win.cmsSetContent(pendingBodyHtml);
+    // Recién ahora terminó de cargar el iframe (fuentes/CSS/contenido) —
+    // es el momento en que más probable es que el layout de arriba haya
+    // cambiado de alto y el scroll se haya corrido (pedido #8). Se vuelve
+    // a forzar arriba una vez más, después de este cambio de layout.
+    scrollToFormTop();
   }
 });
+// Deja la vista arriba del todo (título/toolbar) al abrir un post o un
+// dataBlock — nunca a mitad de un formulario largo.
+function scrollToFormTop() {
+  requestAnimationFrame(() => window.scrollTo(0, 0));
+}
 
 function switchSite(site) {
   currentSite = site;
@@ -776,6 +824,7 @@ function switchContentType(key) {
   const grouped = !!SITES[currentSite].groups;
   if (grouped) renderSideMenu(); else renderSubtabsFlat();
   closeForm();
+  scrollToFormTop();
   document.getElementById('listView').style.display = 'none';
   document.getElementById('dataBlockView').style.display = 'none';
   document.getElementById('pagesView').style.display = 'none';
@@ -811,9 +860,11 @@ async function loadDataBlock(key) {
     const res = await api(`get-datablock?site=${currentSite}&block=${key}`);
     const clientCfg = (SITES[currentSite].dataBlocks.find(b => b.key === key) || {});
     const singleton = !!(res.singleton || clientCfg.singleton);
-    currentDataBlock = { key, label: res.label, fields: res.fields, items: res.items, singleton, richStyles: res.richStyles || [] };
+    currentDataBlock = { key, label: res.label, fields: res.fields, items: res.items, singleton, richStyles: res.richStyles || [], pageCss: res.pageCss || '' };
     document.getElementById('dataBlockLabel').textContent = res.label + ' · ' + SITES[currentSite].label;
     document.getElementById('dbAddBtn').style.display = singleton ? 'none' : '';
+    currentRichFocus = null;
+    renderDbFmtRow();
 
     // Link "Ver en vivo ↗" — solo si este ítem del menú declara livePath
     // (los grupos de eg lo traen; mkt no usa groups y no muestra el link).
@@ -864,6 +915,7 @@ function renderDataBlockItems() {
       ${currentDataBlock.fields.map(f => renderDataBlockField(item, i, f)).join('')}
     </div>
   `).join('');
+  initRichPreviews();
 }
 
 // Un campo del formulario de un dataBlock. Soporta:
@@ -874,8 +926,22 @@ function renderDataBlockItems() {
 //  - evento-nombre (select restringido a eventos estándar de Meta, o texto
 //    libre si el evento es "personalizado" — depende del campo "tipo" del
 //    mismo ítem)
+//  - readOnly: cualquier campo puede marcarse así para mostrarse como texto
+//    fijo en vez de un control editable — se usa en "boton" de los
+//    dataBlocks de eventos, que es una clave interna que usa el código del
+//    sitio (egEventName) para encontrar la fila: si Pablo la edita, deja de
+//    matchear con el fallback hardcodeado y su configuración "desaparece"
+//    en silencio. Mejor no permitir tocarla en absoluto.
 function renderDataBlockField(item, i, f) {
+  if (f.readOnly) {
+    return `<div class="field">
+      <div class="field-label">${f.label}</div>
+      <div class="readonly-value">${(item[f.key] ?? '')}</div>
+      <span class="hint">Este valor es interno (lo usa el código del sitio para identificar esta fila) — no se puede editar.</span>
+    </div>`;
+  }
   if (f.rich) return renderRichField(item, i, f);
+  if (f.type === 'text-fixed-link') return renderTextFixedLinkField(item, i, f);
   if (f.type === 'select') {
     const opts = f.options || [];
     return `<label>${f.label}
@@ -925,38 +991,162 @@ function onDataBlockSelectChange(i, key, value) {
 // inventados acá). El HTML se sanea recién al guardar (ver
 // sanitizeRichHtml) — así pase lo que pase en el navegador, nunca se manda
 // una etiqueta rota o peligrosa.
+// Estado del campo rich que tiene el foco ahora mismo — la barra fija de
+// arriba (#dbFmtRow, pedido #9) actúa siempre sobre este, sea cual sea el
+// campo. Mismo patrón que usa el editor de posts con canvasFrame/cmsCanvas:
+// una sola barra, "sabe" a qué aplica por lo último que tuvo foco.
+let currentRichFocus = null; // { id, i, key }
 function renderRichField(item, i, f) {
   const id = `richfield_${i}_${f.key}`;
+  // Ya NO tiene su propia mini-barra (pedido #9: una sola barra fija arriba,
+  // ver renderDbFmtRow/setRichFocus) ni <label> envolviendo el editable (ver
+  // nota en el CSS de .field-label sobre por qué eso rompía el doble click).
+  const preview = f.previewTemplate
+    ? `<div class="rich-preview-wrap">
+        <span class="rich-preview-label">Así se ve en la página real ↓</span>
+        <iframe class="rich-preview" id="${id}_preview" title="Vista previa"></iframe>
+      </div>`
+    : '';
+  return `<div class="field">
+    <div class="field-label" id="${id}_hint">${f.label}</div>
+    <div class="rich-editable" id="${id}" contenteditable="true"
+      onfocus="setRichFocus('${id}', ${i}, '${f.key}')"
+      oninput="updateDataBlockField(${i}, '${f.key}', document.getElementById('${id}').innerHTML); updateRichPreview('${id}', ${i}, '${f.key}')"
+    >${item[f.key] || ''}</div>
+    <span class="hint" id="${id}_msg">Seleccioná texto y usá la barra de formato fija arriba — no hace falta (ni conviene) escribir etiquetas a mano.</span>
+    ${preview}
+  </div>`;
+}
+// Vista previa fiel (pedido #3): un <iframe> chico con el CSS REAL de la
+// página (currentDataBlock.pageCss, que manda get-datablock recién leído
+// del archivo real) envolviendo el valor actual del campo en el mismo
+// tag+clase+id que usa el sitio de verdad — así se ve la misma tipografía,
+// tamaño, color y cursiva/dorado que va a tener en producción. Se sanea
+// igual que al guardar (nunca se manda HTML sin pasar por el saneador,
+// tampoco acá).
+function updateRichPreview(id, i, f_key) {
+  const f = (currentDataBlock.fields || []).find(x => x.key === f_key);
+  if (!f || !f.previewTemplate) return;
+  const frame = document.getElementById(id + '_preview');
+  if (!frame) return;
+  const allowedClasses = (currentDataBlock.richStyles || []).map(s => s.className);
+  const clean = sanitizeRichHtml(currentDataBlock.items[i][f_key] || '', allowedClasses);
+  const html = f.previewTemplate.replace('__VALUE__', clean);
+  frame.srcdoc = `<!doctype html><html><head><meta charset="utf-8">
+    <style>html,body{margin:0;}body{padding:14px;}${currentDataBlock.pageCss || ''}</style>
+    </head><body>${html}</body></html>`;
+}
+// Al abrir un dataBlock, todos los previews arrancan mostrando el valor ya
+// guardado (no solo después de la primera tecla).
+function initRichPreviews() {
+  (currentDataBlock.items || []).forEach((item, i) => {
+    (currentDataBlock.fields || []).forEach(f => {
+      if (f.rich && f.previewTemplate) updateRichPreview(`richfield_${i}_${f.key}`, i, f.key);
+    });
+  });
+}
+// Arma la barra fija de arriba UNA vez por dataBlock (los richStyles son los
+// mismos para todos los campos rich de un mismo bloque) — se llama cuando
+// se cargan los ítems, no en cada campo. Queda oculta hasta que algún campo
+// rich reciba el foco (setRichFocus la muestra).
+function renderDbFmtRow() {
+  const bar = document.getElementById('dbFmtRow');
+  const hasRichFields = (currentDataBlock.fields || []).some(f => f.rich);
+  if (!hasRichFields) { bar.style.display = 'none'; bar.innerHTML = ''; return; }
   const styles = currentDataBlock.richStyles || [];
   const specialBtns = styles.map(s =>
-    `<button type="button" onmousedown="event.preventDefault()" onclick="richApplySpecial('${id}', ${i}, '${f.key}', '${s.className}')" title="Envuelve la selección en .${s.className}">${s.label}</button>`
+    `<button type="button" onmousedown="event.preventDefault()" onclick="dbApplySpecial('${s.className}')" title="Envuelve la selección en .${s.className}">${s.label}</button>`
   ).join('');
-  return `<label>${f.label}
-    <div class="rich-toolbar">
-      <button type="button" onmousedown="event.preventDefault()" onclick="richApplyBold('${id}', ${i}, '${f.key}')" title="Negrita"><b>N</b></button>
-      ${specialBtns}
-    </div>
-    <div class="rich-editable" id="${id}" contenteditable="true"
-      oninput="updateDataBlockField(${i}, '${f.key}', document.getElementById('${id}').innerHTML)"
-    >${item[f.key] || ''}</div>
-    <span class="hint">Seleccioná texto y usá los botones de arriba — no hace falta (ni conviene) escribir etiquetas a mano.</span>
-  </label>`;
+  bar.innerHTML = `
+    <button type="button" onmousedown="event.preventDefault()" onclick="dbApplyBold()" title="Negrita"><b>N</b></button>
+    ${specialBtns}
+    <span class="fmt-hint" id="dbFmtHint">Hacé click en un campo de texto para formatearlo</span>
+  `;
+  bar.style.display = 'none'; // se muestra recién cuando hay foco (setRichFocus)
+}
+function setRichFocus(id, i, key) {
+  currentRichFocus = { id, i, key };
+  const bar = document.getElementById('dbFmtRow');
+  if (bar && bar.innerHTML) bar.style.display = 'flex';
+  const hint = document.getElementById('dbFmtHint');
+  if (hint) hint.textContent = 'Editando: ' + ((currentDataBlock.fields.find(f => f.key === key) || {}).label || key);
+}
+function dbApplyBold() {
+  if (!currentRichFocus) return;
+  richApplyBold(currentRichFocus.id, currentRichFocus.i, currentRichFocus.key);
+}
+function dbApplySpecial(className) {
+  if (!currentRichFocus) return;
+  richApplySpecial(currentRichFocus.id, currentRichFocus.i, currentRichFocus.key, className);
+}
+// Devuelve la selección real actual SOLO si está dentro de este editable y
+// tiene texto realmente resaltado (no solo un cursor parpadeando). Antes se
+// leía la selección recién DESPUÉS de el.focus(), lo cual en algunos casos
+// alcanza a intervenir antes de que el click del botón termine de procesarse
+// — ahora se lee de entrada, sin tocar el foco primero.
+function richGetSelectionRange(el) {
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0) return null;
+  if (sel.isCollapsed) return null; // no hay texto resaltado, solo un cursor
+  const range = sel.getRangeAt(0);
+  if (!el.contains(range.commonAncestorContainer)) return null;
+  return range;
 }
 function richApplyBold(id, i, key) {
   const el = document.getElementById(id);
   if (!el) return;
+  const range = richGetSelectionRange(el);
   el.focus();
+  if (range) {
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
   document.execCommand('bold');
   updateDataBlockField(i, key, el.innerHTML);
+  updateRichPreview(id, i, key);
+}
+function richFlashHint(id, msg) {
+  const hint = document.getElementById(id + '_msg');
+  if (!hint) return;
+  const original = hint.dataset.original || hint.textContent;
+  hint.dataset.original = original;
+  hint.textContent = msg;
+  hint.classList.add('rich-hint-flash');
+  clearTimeout(hint._flashTimer);
+  hint._flashTimer = setTimeout(() => {
+    hint.textContent = original;
+    hint.classList.remove('rich-hint-flash');
+  }, 2200);
 }
 function richApplySpecial(id, i, key, className) {
   const el = document.getElementById(id);
   if (!el) return;
-  el.focus();
-  const sel = window.getSelection();
-  const text = sel && el.contains(sel.anchorNode) ? sel.toString() : '';
-  document.execCommand('insertHTML', false, `<span class="${className}">${text || 'texto destacado'}</span>`);
-  updateDataBlockField(i, key, el.innerHTML);
+  const range = richGetSelectionRange(el);
+  if (range) {
+    // Hay texto realmente seleccionado por el usuario: SIEMPRE se envuelve
+    // esa selección real (nunca un placeholder inventado).
+    el.focus();
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    document.execCommand('insertHTML', false, `<span class="${className}">${sel.toString()}</span>`);
+    updateDataBlockField(i, key, el.innerHTML);
+    updateRichPreview(id, i, key);
+    return;
+  }
+  // No hay ninguna selección real. Insertar el placeholder a ciegas en la
+  // posición del cursor puede partir una palabra existente por la mitad y
+  // arruinar el texto — solo tiene sentido como punto de partida cuando el
+  // campo está realmente vacío. Si ya hay texto, no se toca nada: se avisa.
+  if (!el.textContent.trim()) {
+    el.focus();
+    document.execCommand('insertHTML', false, `<span class="${className}">texto destacado</span>`);
+    updateDataBlockField(i, key, el.innerHTML);
+    updateRichPreview(id, i, key);
+  } else {
+    richFlashHint(id, '↑ Primero seleccioná (arrastrando o con doble click) el texto que querés destacar.');
+  }
 }
 
 // Deja pasar SOLO lo que este mecanismo puede producir: span con class
@@ -966,6 +1156,41 @@ function richApplySpecial(id, i, key, className) {
 // divs, links, etc.) se elimina — las etiquetas no permitidas se
 // "desenvuelven" (se conserva el texto de adentro) en vez de borrar
 // contenido a lo bruto; script/style se borran enteros, contenido incluido.
+// ── Campo "texto + link interno fijo" ───────────────────────────────────
+// Reemplaza a los textarea que tenían un <a href="..."> escrito a mano
+// dentro del texto (footer del copyright, footer de privacidad — pedido
+// #4): el href es una ruta interna del sitio que nunca cambia, así que no
+// tiene sentido que sea editable ni que se pueda romper. El campo se separa
+// en dos inputs de texto plano (antes del link + palabras del link) y el
+// HTML final ("prefijo <a href="fijo">palabras</a>") se reconstruye acá,
+// nunca a mano.
+function escapeHtmlAttr(s) { return (s || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function parseTextFixedLink(value, href) {
+  const re = new RegExp('^([\\s\\S]*?)<a href="' + href.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '">([\\s\\S]*?)</a>\\s*$');
+  const m = re.exec(value || '');
+  if (m) return { pre: m[1], linkText: m[2] };
+  return { pre: value || '', linkText: 'Ver más' };
+}
+function renderTextFixedLinkField(item, i, f) {
+  const id = `fixedlink_${i}_${f.key}`;
+  const parsed = parseTextFixedLink(item[f.key] || '', f.linkHref);
+  return `<div class="field">
+    <div class="field-label">${f.label}</div>
+    <input id="${id}_pre" value="${escapeHtmlAttr(parsed.pre)}"
+      oninput="updateTextFixedLinkField(${i}, '${f.key}', '${id}', '${f.linkHref}')" placeholder="Texto antes del link">
+    <div class="fixed-link-row">
+      <input id="${id}_text" value="${escapeHtmlAttr(parsed.linkText)}"
+        oninput="updateTextFixedLinkField(${i}, '${f.key}', '${id}', '${f.linkHref}')" placeholder="Texto del link (ej: Privacidad)">
+      <span class="readonly-value fixed-link-href">→ enlaza a ${f.linkHref} (fijo, no editable)</span>
+    </div>
+  </div>`;
+}
+function updateTextFixedLinkField(i, key, id, href) {
+  const pre = document.getElementById(id + '_pre').value;
+  const linkText = document.getElementById(id + '_text').value || 'Ver más';
+  updateDataBlockField(i, key, `${pre}<a href="${href}">${linkText}</a>`);
+}
+
 function sanitizeRichHtml(html, allowedClasses) {
   const allowed = new Set(allowedClasses || []);
   if (allowed.has('eg-accent')) { allowed.add('eg-accent__line'); allowed.add('eg-accent--hero'); }
@@ -1173,6 +1398,7 @@ async function editPost(slug) {
     document.getElementById('listView').style.display = 'none';
     document.getElementById('formView').style.display = 'block';
     loadCanvas(SITES[currentSite], data.bodyHtml || '<p><br></p>');
+    scrollToFormTop();
   } catch (e) {
     banner('No se pudo cargar el post: ' + e.message, false);
   }

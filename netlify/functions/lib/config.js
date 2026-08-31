@@ -78,15 +78,19 @@ const SITES = {
         ],
         fields: [
           { key: 'eyebrow', label: 'Texto sobre el título' },
-          { key: 'titulo', label: 'Título', rich: true },
+          // previewTemplate usa el mismo tag + id que el <h1> real de
+          // index.html (ver eg-hero-h1) — junto con el CSS real de la
+          // página (que manda get-datablock, ver pageCss) el panel puede
+          // mostrar exactamente cómo se va a ver (pedido #3).
+          { key: 'titulo', label: 'Título', rich: true, previewTemplate: '<h1 class="eg-hero__h1" id="eg-hero-h1">__VALUE__</h1>' },
           { key: 'subtitulo', label: 'Subtítulo', long: true },
           { key: 'imagen', label: 'URL de imagen principal' },
           { key: 'statValor1', label: 'Estadística 1 · valor' },
-          { key: 'statLabel1', label: 'Estadística 1 · texto (puede usar <br>)' },
+          { key: 'statLabel1', label: 'Estadística 1 · texto (puede usar un salto de línea)' },
           { key: 'statValor2', label: 'Estadística 2 · valor' },
-          { key: 'statLabel2', label: 'Estadística 2 · texto (puede usar <br>)' },
+          { key: 'statLabel2', label: 'Estadística 2 · texto (puede usar un salto de línea)' },
           { key: 'statValor3', label: 'Estadística 3 · valor' },
-          { key: 'statLabel3', label: 'Estadística 3 · texto (puede usar <br>)' },
+          { key: 'statLabel3', label: 'Estadística 3 · texto (puede usar un salto de línea)' },
         ],
       },
       landingCopy: {
@@ -100,17 +104,25 @@ const SITES = {
         ],
         fields: [
           { key: 'sobreBio1', label: 'Sobre · párrafo 1', long: true },
-          { key: 'sobreBio2', label: 'Sobre · párrafo 2', rich: true },
+          { key: 'sobreBio2', label: 'Sobre · párrafo 2', rich: true, previewTemplate: '<p class="eg-sobre__bio" id="eg-sobre-bio-2">__VALUE__</p>' },
           { key: 'sobreBadgeNumero', label: 'Sobre · insignia (número/sigla)' },
           { key: 'sobreBadgeTexto', label: 'Sobre · insignia (texto)' },
           { key: 'sobreCredenciales', label: 'Sobre · credenciales (una por línea)', long: true },
           { key: 'cmpLabelAntes', label: 'Comparador · etiqueta "antes"' },
           { key: 'cmpLabelDespues', label: 'Comparador · etiqueta "después"' },
           { key: 'cmpHint', label: 'Comparador · texto de ayuda' },
-          { key: 'ctaTitulo', label: 'CTA final · título', rich: true },
+          // El fondo real de esta sección (#cta) es oscuro — se envuelve
+          // igual que en el sitio real para que el preview también se vea
+          // sobre fondo oscuro (si no, el texto se vería invisible: es
+          // blanco/dorado por CSS, pensado para ese fondo).
+          { key: 'ctaTitulo', label: 'CTA final · título', rich: true, previewTemplate: '<section id="cta" style="padding:32px 24px"><div class="eg-cta__inner"><h2 class="eg-cta__h2" id="eg-cta-h2">__VALUE__</h2></div></section>' },
           { key: 'ctaTexto', label: 'CTA final · texto', long: true },
           { key: 'ctaMicro', label: 'CTA final · texto pequeño' },
-          { key: 'footerCopyright', label: 'Footer · línea de copyright (incluye el link a /privacidad, no borrar la etiqueta <a>)', long: true },
+          // Antes era un textarea con el <a href="/privacidad">...</a> escrito
+          // a mano — si Pablo borraba mal la etiqueta rompía el link. Ahora es
+          // "texto plano" + "texto plano" alrededor de un href que NUNCA se
+          // puede tocar desde el panel (ver type:'text-fixed-link').
+          { key: 'footerCopyright', label: 'Footer · línea de copyright', type: 'text-fixed-link', linkHref: '/privacidad' },
         ],
       },
       marcas: {
@@ -151,6 +163,19 @@ const SITES = {
           { key: 'alt', label: 'Nombre / texto alternativo' },
         ],
       },
+      eventosInicio: {
+        label: 'Eventos de conversión',
+        varName: 'eventosPagina',
+        path: 'index.html',
+        fields: [
+          { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
+          { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
+              { value: 'estandar', label: 'Estándar (Meta Pixel)' },
+              { value: 'personalizado', label: 'Personalizado' },
+            ] },
+          { key: 'nombre', label: 'Nombre del evento', type: 'evento-nombre' },
+        ],
+      },
 
       // ── Otras páginas ─────────────────────────────────────────────
       // Mismo patrón "const NOMBRE = [...]" en cada página suelta del repo
@@ -167,7 +192,7 @@ const SITES = {
         fields: [
           { key: 'tag', label: 'Etiqueta ("Error 404")' },
           { key: 'titulo', label: 'Título ("¡Ups!")' },
-          { key: 'subtitulo', label: 'Subtítulo', rich: true },
+          { key: 'subtitulo', label: 'Subtítulo', rich: true, previewTemplate: '<h2 id="eg-404-h2">__VALUE__</h2>' },
           { key: 'texto', label: 'Texto', long: true },
           { key: 'btnPrimario', label: 'Botón principal ("Volver al inicio")' },
           { key: 'btnSecundario', label: 'Botón secundario ("Ver planes y precios")' },
@@ -179,7 +204,7 @@ const SITES = {
         varName: 'eventosPagina',
         path: '404.html',
         fields: [
-          { key: 'boton', label: 'Botón / acción en la página' },
+          { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
           { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
               { value: 'estandar', label: 'Estándar (Meta Pixel)' },
               { value: 'personalizado', label: 'Personalizado' },
@@ -195,13 +220,13 @@ const SITES = {
         richStyles: [ { label: '✦ Cursiva dorada', className: 'cursive' } ],
         fields: [
           { key: 'badge', label: 'Insignia superior' },
-          { key: 'titulo', label: 'Título', rich: true },
+          { key: 'titulo', label: 'Título', rich: true, previewTemplate: '<h1 id="eg-gs-h1">__VALUE__</h1>' },
           { key: 'subtitulo', label: 'Subtítulo', long: true },
           { key: 'configuraLabel', label: 'Etiqueta de la tarjeta ("Configura tu sesión")' },
           { key: 'precioNota', label: 'Nota bajo el precio' },
           { key: 'depositoLabel', label: 'Etiqueta ("¿Cuánto vas a depositar?")' },
-          { key: 'qrCaption', label: 'Texto bajo el QR (puede usar <br>)' },
-          { key: 'importante', label: 'Aviso "Importante" (empieza en negrita)', rich: true },
+          { key: 'qrCaption', label: 'Texto bajo el QR (puede usar un salto de línea)' },
+          { key: 'importante', label: 'Aviso "Importante" (empieza en negrita)', rich: true, previewTemplate: '<div class="card-dark" id="eg-gs-importante" style="padding:16px;border-radius:12px">__VALUE__</div>' },
           { key: 'botonWhatsapp', label: 'Texto del botón de WhatsApp' },
           { key: 'volverInicio', label: 'Link "Volver al inicio"' },
         ],
@@ -211,7 +236,7 @@ const SITES = {
         varName: 'eventosPagina',
         path: 'gracias-sesion/index.html',
         fields: [
-          { key: 'boton', label: 'Botón / acción en la página' },
+          { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
           { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
               { value: 'estandar', label: 'Estándar (Meta Pixel)' },
               { value: 'personalizado', label: 'Personalizado' },
@@ -227,13 +252,13 @@ const SITES = {
         richStyles: [ { label: '✦ Cursiva dorada', className: 'cursive' } ],
         fields: [
           { key: 'badge', label: 'Insignia superior' },
-          { key: 'titulo', label: 'Título', rich: true },
+          { key: 'titulo', label: 'Título', rich: true, previewTemplate: '<h1 id="eg-gp-h1">__VALUE__</h1>' },
           { key: 'subtitulo', label: 'Subtítulo', long: true },
           { key: 'configuraLabel', label: 'Etiqueta de la tarjeta ("Configura tu plan")' },
           { key: 'precioNota', label: 'Nota bajo el precio' },
           { key: 'depositoLabel', label: 'Etiqueta ("¿Cuánto vas a depositar?")' },
-          { key: 'qrCaption', label: 'Texto bajo el QR (puede usar <br>)' },
-          { key: 'importante', label: 'Aviso "Importante" (empieza en negrita)', rich: true },
+          { key: 'qrCaption', label: 'Texto bajo el QR (puede usar un salto de línea)' },
+          { key: 'importante', label: 'Aviso "Importante" (empieza en negrita)', rich: true, previewTemplate: '<div class="card-dark" id="eg-gp-importante" style="padding:16px;border-radius:12px">__VALUE__</div>' },
           { key: 'botonWhatsapp', label: 'Texto del botón de WhatsApp' },
           { key: 'volverInicio', label: 'Link "Volver al inicio"' },
         ],
@@ -243,7 +268,7 @@ const SITES = {
         varName: 'eventosPagina',
         path: 'gracias-plan/index.html',
         fields: [
-          { key: 'boton', label: 'Botón / acción en la página' },
+          { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
           { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
               { value: 'estandar', label: 'Estándar (Meta Pixel)' },
               { value: 'personalizado', label: 'Personalizado' },
@@ -259,7 +284,7 @@ const SITES = {
         richStyles: [ { label: '✦ Cursiva dorada', className: 'cursive' } ],
         fields: [
           { key: 'badge', label: 'Insignia superior' },
-          { key: 'titulo', label: 'Título (puede usar <br>)', rich: true },
+          { key: 'titulo', label: 'Título (puede usar un salto de línea)', rich: true, previewTemplate: '<h1 id="eg-gr-h1">__VALUE__</h1>' },
           { key: 'subtitulo', label: 'Subtítulo', long: true },
           { key: 'tarjetaTitulo', label: 'Título de la tarjeta clara' },
           { key: 'oscuraTitulo', label: 'Título de la tarjeta oscura' },
@@ -275,7 +300,7 @@ const SITES = {
         varName: 'eventosPagina',
         path: 'gracias-reunion/index.html',
         fields: [
-          { key: 'boton', label: 'Botón / acción en la página' },
+          { key: 'boton', label: 'Botón / acción en la página', readOnly: true },
           { key: 'tipo', label: 'Tipo de evento', type: 'select', options: [
               { value: 'estandar', label: 'Estándar (Meta Pixel)' },
               { value: 'personalizado', label: 'Personalizado' },
@@ -293,7 +318,7 @@ const SITES = {
           { key: 'titulo', label: 'Título' },
           { key: 'actualizado', label: 'Línea "Última actualización"' },
           { key: 'intro', label: 'Párrafo de introducción', long: true },
-          { key: 'footer', label: 'Línea del footer (incluye el link a /, no borrar la etiqueta <a>)', long: true },
+          { key: 'footer', label: 'Línea del footer', type: 'text-fixed-link', linkHref: '/' },
         ],
       },
     },
