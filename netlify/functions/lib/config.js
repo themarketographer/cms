@@ -296,7 +296,7 @@ const SITES = {
         ],
       },
       landingCopy: {
-        label: 'Textos de la página',
+        label: 'Textos de la página · antes y después',
         varName: 'landingCopy',
         path: 'index.html',
         singleton: true,
