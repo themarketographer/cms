@@ -255,7 +255,7 @@ const SITES = {
     logoUrl: 'https://estudiographica.com/assets/logo-black.png',
     publisherLogoUrl: 'https://res.cloudinary.com/dplhu2z6j/image/upload/v1777509513/Logo_B_S_F_kdolev.png',
     // Marcador exacto dentro de blog/index.html después del cual se inserta la tarjeta nueva.
-    cardAnchor: '<div class="posts">',
+    cardAnchor: '<div class="posts" id="blog-posts">',
     dataBlocks: {
       faqs: {
         label: 'Preguntas frecuentes',
