@@ -279,14 +279,12 @@ const SITES = {
           { label: '★ Resaltado dorado', className: 'eg-accent' },
         ],
         fields: [
-          { key: 'eyebrow', label: 'Texto sobre el título' },
           // previewTemplate usa el mismo tag + id que el <h1> real de
           // index.html (ver eg-hero-h1) — junto con el CSS real de la
           // página (que manda get-datablock, ver pageCss) el panel puede
           // mostrar exactamente cómo se va a ver (pedido #3).
-          { key: 'titulo', label: 'Título', rich: true, previewTemplate: '<h1 class="eg-hero__h1" id="eg-hero-h1">__VALUE__</h1>' },
+          { key: 'titulo', label: 'Título', rich: true, previewTemplate: '<section class="s-paper hero" style="padding:24px 18px"><h1 id="eg-hero-h1">__VALUE__</h1></section>' },
           { key: 'subtitulo', label: 'Subtítulo', long: true },
-          { key: 'imagen', label: 'URL de imagen principal' },
           { key: 'statValor1', label: 'Estadística 1 · valor' },
           { key: 'statLabel1', label: 'Estadística 1 · texto (puede usar un salto de línea)', lineBreaks: true },
           { key: 'statValor2', label: 'Estadística 2 · valor' },
@@ -310,13 +308,12 @@ const SITES = {
         // medio, sin que se notaran entre el resto de textos.
         fields: [
           { key: 'sobreBio1', label: 'Párrafo 1', long: true, section: 'Sobre mí' },
-          { key: 'sobreBio2', label: 'Párrafo 2', rich: true, previewTemplate: '<p class="eg-sobre__bio" id="eg-sobre-bio-2">__VALUE__</p>', section: 'Sobre mí' },
+          { key: 'sobreBio2', label: 'Párrafo 2', rich: true, previewTemplate: '<section class="s-ink" style="padding:24px 18px"><p id="eg-sobre-bio-2">__VALUE__</p></section>', section: 'Sobre mí' },
           { key: 'sobreBadgeNumero', label: 'Insignia (número/sigla)', section: 'Sobre mí' },
           { key: 'sobreBadgeTexto', label: 'Insignia (texto)', section: 'Sobre mí' },
           { key: 'sobreCredenciales', label: 'Credenciales (una por línea)', long: true, section: 'Sobre mí' },
           { key: 'cmpLabelAntes', label: 'Etiqueta "antes"', section: 'Comparador antes / después' },
           { key: 'cmpLabelDespues', label: 'Etiqueta "después"', section: 'Comparador antes / después' },
-          { key: 'cmpHint', label: 'Texto de ayuda', section: 'Comparador antes / después' },
           { key: 'cmpImgAntes', label: 'Foto de "antes" (URL)', section: 'Comparador antes / después' },
           { key: 'cmpImgAntesAlt', label: 'Foto de "antes" (texto alternativo)', section: 'Comparador antes / después' },
           { key: 'cmpImgDespues', label: 'Foto de "después" (URL)', section: 'Comparador antes / después' },
@@ -325,7 +322,7 @@ const SITES = {
           // igual que en el sitio real para que el preview también se vea
           // sobre fondo oscuro (si no, el texto se vería invisible: es
           // blanco/dorado por CSS, pensado para ese fondo).
-          { key: 'ctaTitulo', label: 'Título', rich: true, previewTemplate: '<section id="cta" style="padding:32px 24px"><div class="eg-cta__inner"><h2 class="eg-cta__h2" id="eg-cta-h2">__VALUE__</h2></div></section>', section: 'Llamado a la acción final' },
+          { key: 'ctaTitulo', label: 'Título', rich: true, previewTemplate: '<section class="s-yellow final" style="padding:32px 18px"><h2 id="eg-cta-h2">__VALUE__</h2></section>', section: 'Llamado a la acción final' },
           { key: 'ctaTexto', label: 'Texto', long: true, section: 'Llamado a la acción final' },
           { key: 'ctaMicro', label: 'Texto pequeño', section: 'Llamado a la acción final' },
           // Antes era un textarea con el <a href="/privacidad">...</a> escrito
@@ -354,12 +351,42 @@ const SITES = {
           { key: 'texto', label: 'Texto', long: true },
         ],
       },
+      heroFotos: {
+        label: 'Fotos del encabezado (carrusel)',
+        varName: 'heroFotos',
+        path: 'index.html',
+        fields: [
+          { key: 'imagen', label: 'URL de la foto' },
+          { key: 'alt', label: 'Texto alternativo' },
+        ],
+      },
+      planMeses: {
+        label: 'Plan mensual · tarjetas por mes',
+        varName: 'planMeses',
+        path: 'index.html',
+        fields: [
+          { key: 'mes', label: 'Mes (número)' },
+          { key: 'titulo', label: 'Título' },
+          { key: 'texto', label: 'Texto', long: true },
+          { key: 'imagen', label: 'URL de la foto' },
+          { key: 'alt', label: 'Texto alternativo de la foto' },
+        ],
+      },
       promesa: {
         label: 'Qué incluye',
         varName: 'promesa',
         path: 'index.html',
         fields: [
-          { key: 'icono', label: 'Ícono (emoji)' },
+          { key: 'icono', label: 'Ícono', type: 'select', options: [
+              { value: 'menu', label: 'Menú' },
+              { value: 'historias', label: 'Historias' },
+              { value: 'redes', label: 'Redes sociales' },
+              { value: 'anuncios', label: 'Anuncios' },
+              { value: 'whatsapp', label: 'WhatsApp' },
+              { value: 'delivery', label: 'Delivery' },
+              { value: 'web', label: 'Página web' },
+              { value: 'banners', label: 'Banners' },
+            ] },
           { key: 'titulo', label: 'Título' },
           { key: 'detalle', label: 'Detalle', long: true },
         ],

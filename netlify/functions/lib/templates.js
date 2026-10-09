@@ -256,9 +256,10 @@ function buildPostHtml_eg(site, post) {
 <script src="/assets/js/tracking.js"></script>
 <!-- ═══════════════════════════════════════════════════ -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Playfair+Display:ital,wght@1,700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+<link rel="preload" href="/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="/assets/css/button-states.css" />
+<link rel="stylesheet" href="/assets/css/eg-ui.css" />
 <link rel="stylesheet" href="/blog/assets/style.css" />
 
 <script type="application/ld+json">
@@ -291,13 +292,11 @@ function buildPostHtml_eg(site, post) {
 }
 </script>
 </head>
-<body>
+<body class="pg pg-blog" data-post-slug="${post.slug}">
 
-<nav>
-  <div class="inner">
-    <a href="/"><img src="${site.logoUrl}" alt="Estudio Graphica" /></a>
-    <a class="back" href="/blog">← Blog</a>
-  </div>
+<nav class="nav nav--page" id="nav" aria-label="Principal">
+  <a class="brand" href="/" aria-label="Estudio Graphica, inicio"><img class="lg-b" src="/assets/logo-mark-black.png" alt="Estudio Graphica" width="20" height="24"><img class="lg-w" src="/assets/logo-mark-white.png" alt="" width="20" height="24" aria-hidden="true"></a>
+  <a class="nav-back" href="/blog"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg> Blog</a>
 </nav>
 
 <p class="breadcrumb"><a href="/">Inicio</a> · <a href="/blog">Blog</a> · ${post.title}</p>
@@ -305,7 +304,7 @@ function buildPostHtml_eg(site, post) {
 <div class="post-hero">
   <div class="post-hero-text">
     <p class="eyebrow">${esc(post.category)}</p>
-    <h1>${post.title}</h1>
+    <h1 class="page-title" data-words>${post.title}</h1>
     <p class="meta">
       <span>Por ${site.author}</span><span>·</span><span>${fechaLarga(post.date)}</span><span>·</span><span>${post.readingMinutes} min de lectura</span>
     </p>
@@ -319,9 +318,11 @@ function buildPostHtml_eg(site, post) {
 ${post.bodyHtml}
 </article>
 
-<footer>
-  <p>© ${post.date.slice(0, 4)} Estudio Graphica · Cochabamba, Bolivia</p>
-  <p style="margin-top: 8px;"><a href="/blog">← Volver al blog</a> · <a href="/">Inicio</a> · <a href="/privacidad">Privacidad</a></p>
+<footer class="foot foot--plain">
+  <div class="wrap">
+    <p>© ${post.date.slice(0, 4)} Estudio Graphica · Cochabamba, Bolivia</p>
+    <p><a href="/blog">Volver al blog</a> · <a href="/">Inicio</a> · <a href="/privacidad">Privacidad</a></p>
+  </div>
 </footer>
 
 <script>
@@ -331,6 +332,7 @@ ${post.bodyHtml}
   }
 </script>
 
+<script src="/assets/js/eg-ui.js" defer></script>
 </body>
 </html>
 `;
