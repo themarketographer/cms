@@ -1,6 +1,6 @@
 const { getSite } = require('./lib/config');
 const { getFile, commitFiles } = require('./lib/github');
-const { writeDataBlock } = require('./lib/datablocks');
+const { writeDataBlock, readDataBlock } = require('./lib/datablocks');
 const { checkAuth } = require('./lib/auth');
 
 exports.handler = async (event) => {
@@ -17,7 +17,20 @@ exports.handler = async (event) => {
 
     const file = await getFile(site, block.path);
     if (!file) return { statusCode: 500, body: JSON.stringify({ error: `No se pudo leer ${block.path}` }) };
-    const newContent = writeDataBlock(file.content, block, items);
+    // merge: varios bloques del panel comparten la misma lista en la página
+    // (cada uno edita solo su parte). Para que guardar uno nunca borre los
+    // campos de otro, se combinan SOLO las claves que ese bloque declara.
+    let toWrite = items;
+    if (block.merge) {
+      const current = readDataBlock(file.content, block);
+      const keys = block.fields.map((f) => f.key);
+      toWrite = items.map((it, i) => {
+        const merged = { ...(current[i] || {}) };
+        keys.forEach((k) => { if (it && it[k] !== undefined) merged[k] = it[k]; });
+        return merged;
+      });
+    }
+    const newContent = writeDataBlock(file.content, block, toWrite);
 
     const { commitSha, commitUrl } = await commitFiles(
       site,

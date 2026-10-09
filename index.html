@@ -247,6 +247,140 @@
   .confirm-modal-icon{width:52px;height:52px;border-radius:50%;background:var(--rose);color:var(--rose-text);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 14px;}
   .confirm-modal-msg{font-size:14.5px;font-weight:600;margin:0 0 20px;}
   .confirm-modal-actions{display:flex;gap:10px;justify-content:center;}
+
+  /* =====================================================================
+     PIEL "GRAPHICA": mismo lenguaje visual que la landing de
+     estudiographica.com (papel #f8f8f8, tinta #181818, amarillo #ffdd5a,
+     Poppins, vidrio, botones píldora, tarjetas redondeadas y movimiento
+     suave). Está al final a propósito: pisa los estilos de arriba sin
+     tocar la lógica del panel.
+     ===================================================================== */
+  :root{
+    --y:#ffdd5a; --y-soft:#fff3b8; --y-deep:#e6b800; --ink:#181818; --paper:#f8f8f8; --muted:#5b5b57; --hair:rgba(24,24,24,.1);
+    --ease:cubic-bezier(.22,1,.36,1);
+    --dark:var(--ink); --yellow:var(--y); --yellow-hover:#ffe784; --gold-text:#6f5600; --off-white:#f3f3f1; --cream:var(--paper); --gray:var(--muted);
+    --border:var(--hair); --border-strong:rgba(24,24,24,.2);
+    --r-lg:28px; --r-md:18px; --r-sm:12px;
+    --mint:var(--y-soft); --mint-text:var(--ink);
+    --shadow-card:0 22px 44px -34px rgba(24,24,24,.35);
+    --shadow-pop:0 30px 70px -20px rgba(24,24,24,.4);
+  }
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper);letter-spacing:-.005em;position:relative;overflow-x:clip;}
+  body::before{content:"";position:fixed;z-index:0;pointer-events:none;width:760px;height:760px;left:50%;top:-330px;translate:-50% 0;border-radius:50%;background:radial-gradient(circle,rgba(255,221,90,.5),rgba(255,221,90,0) 68%);animation:skinDrift 16s ease-in-out infinite alternate;}
+  body::after{content:"";position:fixed;z-index:0;pointer-events:none;width:520px;height:520px;right:-200px;bottom:-200px;border-radius:50%;background:radial-gradient(circle,rgba(255,221,90,.3),transparent 68%);animation:skinDrift 20s ease-in-out -6s infinite alternate-reverse;}
+  @keyframes skinDrift{to{transform:translate3d(30px,24px,0) scale(1.07);}}
+  #app,.login-box{position:relative;z-index:1;}
+  h1,h2,h3,h4{letter-spacing:-.035em;line-height:1.1;}
+  .page-head h2{font-size:clamp(24px,3vw,32px);letter-spacing:-.04em;}
+
+  header{position:sticky;top:12px;z-index:30;margin:12px auto 0;width:min(1060px,calc(100% - 24px));padding:10px 12px 10px 22px;border-radius:999px;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(20px) saturate(190%);backdrop-filter:blur(20px) saturate(190%);border:1px solid rgba(255,255,255,.75);box-shadow:0 18px 40px -22px rgba(24,24,24,.45),inset 0 1px 0 rgba(255,255,255,.9);animation:skinDown .8s var(--ease) backwards;}
+  @keyframes skinDown{from{opacity:0;transform:translateY(-18px);}}
+  header h1{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;}
+  .wrap{max-width:1060px;padding:28px 18px 80px;}
+  .side-menu,.db-fmt-row{top:88px;}
+
+  button{border-radius:999px;border:1.5px solid var(--hair);background:#fff;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s,transform .25s var(--ease),box-shadow .3s;}
+  button:hover{border-color:var(--ink);box-shadow:0 12px 24px -14px rgba(24,24,24,.5);}
+  button.primary{background:var(--y);border-color:var(--ink);color:var(--ink);}
+  button.primary:hover{background:var(--ink);color:var(--y);border-color:var(--ink);}
+  button.ghost{border-color:transparent;}
+  button.ghost:hover{background:rgba(24,24,24,.06);border-color:transparent;}
+  button.danger{border-color:rgba(179,64,47,.35);}
+  button.danger:hover{background:#b3402f;color:#fff;border-color:#b3402f;}
+  button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--y-deep);outline-offset:3px;}
+
+  .tabs{display:inline-flex;gap:4px;padding:5px;margin-bottom:22px;border-radius:999px;background:rgba(24,24,24,.07);}
+  .tab{border:0;background:transparent;box-shadow:none;border-radius:999px;padding:11px 22px;color:var(--ink);font-size:14px;transition:background .4s var(--ease),color .3s;}
+  .tab:hover{transform:none;border-color:transparent;background:rgba(255,255,255,.55);}
+  .tab.active,.tab[data-site="mkt"].active,.tab[data-site="eg"].active{background:var(--ink);color:var(--y);box-shadow:0 12px 24px -14px rgba(24,24,24,.6);}
+  .tab.active img{filter:invert(1);}
+
+  .card,.db-item{background:#fff;border:1px solid var(--hair);border-radius:var(--r-lg);box-shadow:var(--shadow-card);}
+  .card{padding:clamp(20px,3vw,30px);}
+  .db-item{padding:clamp(18px,2.6vw,26px);margin-bottom:16px;position:relative;animation:skinRise .7s var(--ease) backwards;transition:box-shadow .4s var(--ease),transform .4s var(--ease),border-color .3s;}
+  .db-item:nth-child(2){animation-delay:.05s}.db-item:nth-child(3){animation-delay:.1s}.db-item:nth-child(4){animation-delay:.15s}.db-item:nth-child(n+5){animation-delay:.2s}
+  @keyframes skinRise{from{opacity:0;transform:translateY(20px);}}
+  .db-item:hover{border-color:rgba(24,24,24,.22);}
+  .page-head{animation:skinRise .7s var(--ease) backwards;}
+  .post-row img{border-radius:14px;}
+  .page-row{border-radius:var(--r-md);}
+  .page-row:hover{border-color:var(--ink);background:var(--y-soft);}
+
+  input,textarea,select{background:#fff;border:1.5px solid rgba(24,24,24,.14);border-radius:14px;padding:12px 14px;transition:border-color .25s,box-shadow .3s;}
+  input:hover,textarea:hover,select:hover{border-color:rgba(24,24,24,.32);}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 4px rgba(255,221,90,.55);}
+  label,.field-label{color:var(--ink);font-weight:600;}
+  .hint{color:var(--muted);}
+  .field-section{margin:0 0 30px;padding-top:20px;border-top:1px dashed var(--hair);}
+  .field-section-title{display:inline-block;font-size:15px;font-weight:700;text-transform:none;letter-spacing:-.02em;color:var(--ink);margin:0 0 16px;padding:0 2px;background:linear-gradient(var(--y),var(--y)) 0 88%/100% .4em no-repeat;}
+  .rich-editable,.readonly-value{border-radius:14px;}
+  .rich-toolbar,.fmt-row{border-radius:14px 14px 0 0;}
+  .db-fmt-row{border-radius:var(--r-md);background:rgba(255,255,255,.8);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);}
+
+  .side-menu{width:272px;max-height:calc(100vh - 104px);overflow-y:auto;padding-right:2px;scrollbar-width:thin;}
+  .side-heading{display:flex;align-items:center;gap:10px;margin:22px 4px 10px;font-size:15px;font-weight:700;letter-spacing:-.02em;color:var(--ink);}
+  .side-heading:first-child{margin-top:0;}
+  .side-heading small{font-weight:500;font-size:12px;color:var(--muted);letter-spacing:0;}
+  .side-heading::after{content:"";flex:1;height:1px;background:var(--hair);}
+  .side-group{background:#fff;border:1px solid var(--hair);border-radius:var(--r-md);padding:12px;margin-bottom:10px;box-shadow:none;transition:box-shadow .4s var(--ease),border-color .3s;animation:skinRise .6s var(--ease) backwards;}
+  .side-group:hover{border-color:rgba(24,24,24,.22);}
+  .side-group.has-active{border-color:var(--ink);box-shadow:var(--shadow-card);}
+  .side-group-label{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;letter-spacing:-.015em;text-transform:none;color:var(--ink);margin:0 0 6px;}
+  .side-num,.side-ico{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:9px;background:var(--y);color:var(--ink);font:700 12.5px/1 'Poppins',sans-serif;font-variant-numeric:tabular-nums;transition:background .3s,color .3s;}
+  .side-group.has-active .side-num{background:var(--ink);color:var(--y);}
+  .side-item{border-radius:12px;padding:8px 10px 8px 38px;font-size:13px;font-weight:500;color:var(--ink);position:relative;transition:background .3s var(--ease),color .3s,padding .4s var(--ease);}
+  .side-item::before{content:"";position:absolute;left:15px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:rgba(24,24,24,.2);transition:background .3s,scale .4s var(--ease);}
+  .side-item:hover{background:var(--y-soft);padding-left:42px;}
+  .side-item:hover::before{background:var(--ink);}
+  .side-item.active{background:var(--ink);color:var(--y);font-weight:600;}
+  .side-item.active::before{background:var(--y);scale:1.3;}
+  .side-extra{border-top:1px solid var(--hair);}
+  @media (max-width:760px){
+    .side-menu{max-height:none;overflow:visible;width:100%;}
+    header{border-radius:28px;}
+  }
+
+  .db-item-head{align-items:center;gap:12px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px dashed var(--hair);}
+  .db-item-title{display:flex;align-items:center;gap:12px;min-width:0;flex:1;}
+  .db-num{flex:none;display:grid;place-items:center;min-width:32px;height:32px;padding:0 8px;border-radius:11px;background:var(--ink);color:var(--y);font:700 13px/1 'Poppins',sans-serif;font-variant-numeric:tabular-nums;}
+  .db-thumb{flex:none;width:52px;height:52px;border-radius:14px;object-fit:cover;background:var(--off-white);border:1px solid var(--hair);}
+  .db-name{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .drag-handle{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:11px;color:var(--muted);cursor:grab;user-select:none;transition:background .25s,color .25s;}
+  .drag-handle:hover{background:var(--y);color:var(--ink);}
+  .drag-handle:active{cursor:grabbing;}
+  .db-item.dragging{opacity:.45;transform:scale(.985);box-shadow:none;}
+  .db-item.drop-before::before,.db-item.drop-after::after{content:"";position:absolute;left:12px;right:12px;height:5px;border-radius:5px;background:var(--y);box-shadow:0 0 0 2px var(--ink);z-index:3;}
+  .db-item.drop-before::before{top:-11px;}
+  .db-item.drop-after::after{bottom:-11px;}
+  .db-item-head .reorder{align-items:center;}
+  .db-item-head .reorder button{width:34px;height:34px;padding:0;display:grid;place-items:center;border-radius:11px;}
+  .db-item-head .reorder button.danger{width:auto;padding:0 14px;}
+  .db-item-head .reorder button svg{width:16px;height:16px;}
+  .db-item-head .reorder button:not(:disabled):hover{background:var(--y);color:var(--ink);border-color:var(--ink);}
+  .db-item-head .reorder button.danger:hover{background:#b3402f;color:#fff;}
+
+  .img-field{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;}
+  .img-field>label{flex:1;min-width:0;margin-bottom:0;}
+  .img-prev{flex:none;width:96px;height:96px;margin-top:22px;border-radius:18px;overflow:hidden;background:repeating-conic-gradient(#ececea 0 25%,#f8f8f6 0 50%) 50%/16px 16px;border:1px solid var(--hair);display:grid;place-items:center;color:var(--muted);font-size:11px;text-align:center;transition:transform .4s var(--ease),box-shadow .4s;}
+  .img-prev:hover{transform:scale(1.04);box-shadow:var(--shadow-card);}
+  .img-prev img{width:100%;height:100%;object-fit:cover;display:block;}
+  @media (max-width:520px){.img-field{flex-direction:column-reverse}.img-prev{margin-top:0;width:100%;height:150px}}
+
+  .banner{border-radius:var(--r-md);animation:skinRise .5s var(--ease);}
+  .toast{background:var(--ink);color:var(--y);border-radius:999px;padding:13px 22px;}
+  .preview-modal-card,.confirm-modal-card{border-radius:var(--r-lg);}
+  .confirm-modal-icon{background:var(--y);color:var(--ink);}
+  .login-box{max-width:380px;margin:12vh auto 0;background:#fff;border:1px solid var(--hair);border-radius:34px;padding:34px 30px;box-shadow:var(--shadow-card);animation:skinRise .8s var(--ease) backwards;}
+  .login-box h2{font-size:28px;letter-spacing:-.04em;margin-bottom:6px;}
+  .login-box button.primary{min-height:52px;font-size:15px;}
+  .cat-group summary .arrow{color:var(--ink);}
+  .live-link,.db-live-link{border-radius:999px;border:1.5px solid var(--hair);background:#fff;}
+  .live-link:hover,.db-live-link:hover{background:var(--y);border-color:var(--ink);}
+  @media (prefers-reduced-motion:reduce){
+    body::before,body::after,header,.db-item,.page-head,.side-group,.banner,.login-box{animation:none !important;}
+    html{scroll-behavior:auto;}
+  }
 </style>
 </head>
 <body>
@@ -505,13 +639,29 @@ const SITES = {
     // fetch/save por key). El agrupamiento visual del menú vive en "groups"
     // más abajo — cada key ahí tiene que existir acá también.
     dataBlocks: [
-      { key: 'faqs', label: 'Preguntas frecuentes' },
       { key: 'landingHero', label: 'Encabezado', singleton: true },
-      { key: 'landingCopy', label: 'Textos de la página · antes y después', singleton: true },
+      { key: 'heroFotos', label: 'Fotos del carrusel' },
+      { key: 'marcasTexto', label: 'Marcas · título', singleton: true },
       { key: 'marcas', label: 'Marcas de clientes' },
-      { key: 'proceso', label: 'Cómo trabajamos' },
+      { key: 'problemaTexto', label: 'El problema · textos', singleton: true },
+      { key: 'comparador', label: 'Comparador antes y después', singleton: true },
+      { key: 'formatosTexto', label: 'Qué incluye · textos', singleton: true },
       { key: 'promesa', label: 'Qué incluye' },
+      { key: 'planTexto', label: 'Plan de 6 meses · textos', singleton: true },
+      { key: 'planMeses', label: 'Plan de 6 meses · tarjetas' },
+      { key: 'portafolioTexto', label: 'Portafolio · textos', singleton: true },
       { key: 'portafolio', label: 'Portafolio' },
+      { key: 'serviciosTexto', label: 'Dos formas de trabajar · títulos', singleton: true },
+      { key: 'serviciosSesion', label: 'Tarjeta sesión de fotos', singleton: true },
+      { key: 'serviciosMensual', label: 'Tarjeta plan mensual', singleton: true },
+      { key: 'procesoTexto', label: 'Así trabajamos · textos', singleton: true },
+      { key: 'proceso', label: 'Cómo trabajamos' },
+      { key: 'faqTexto', label: 'Preguntas frecuentes · textos', singleton: true },
+      { key: 'faqs', label: 'Preguntas frecuentes' },
+      { key: 'sobreMi', label: 'Conoce a tu fotógrafo', singleton: true },
+      { key: 'ctaFinal', label: 'Cierre · llamado a la acción', singleton: true },
+      { key: 'pie', label: 'Pie de página', singleton: true },
+      { key: 'eventosInicio', label: 'Eventos de conversión' },
       { key: 'texto404', label: '404 · Textos', singleton: true },
       { key: 'eventos404', label: '404 · Eventos de conversión' },
       { key: 'textoGraciasSesion', label: 'Gracias sesión · Textos', singleton: true },
@@ -546,15 +696,54 @@ const SITES = {
       // tiene una sola sección propia (cubre textos sueltos de varias partes:
       // hero, comparador, sobre, CTA final y footer) así que se deja pegado
       // al Encabezado, arriba del todo, en vez de perderse en el medio.
-      { label: 'Página de inicio', items: [
-        { key: 'landingHero', label: 'Encabezado', livePath: '/' },
-        { key: 'landingCopy', label: 'Textos de la página · antes y después', livePath: '/' },
-        { key: 'proceso', label: 'Cómo trabajamos', livePath: '/' },
-        { key: 'promesa', label: 'Qué incluye', livePath: '/' },
-        { key: 'portafolio', label: 'Portafolio', livePath: '/' },
-        { key: 'marcas', label: 'Marcas de clientes', livePath: '/' },
-        { key: 'faqs', label: 'Preguntas frecuentes', livePath: '/' },
-        { key: 'eventosInicio', label: 'Eventos', livePath: '/' },
+      { label: 'Encabezado', num: 1, section: 'Página de inicio', items: [
+        { key: 'landingHero', label: 'Textos, botones y estadísticas', livePath: '/' },
+        { key: 'heroFotos', label: 'Fotos del carrusel', livePath: '/' },
+      ] },
+      { label: 'Marcas', num: 2, section: 'Página de inicio', items: [
+        { key: 'marcasTexto', label: 'Título', livePath: '/' },
+        { key: 'marcas', label: 'Logos', livePath: '/' },
+      ] },
+      { label: 'El problema', num: 3, section: 'Página de inicio', items: [
+        { key: 'problemaTexto', label: 'Frase y textos', livePath: '/' },
+        { key: 'comparador', label: 'Antes y después', livePath: '/' },
+      ] },
+      { label: 'Qué incluye', num: 4, section: 'Página de inicio', items: [
+        { key: 'formatosTexto', label: 'Título y texto', livePath: '/' },
+        { key: 'promesa', label: 'Lugares donde te buscan', livePath: '/' },
+      ] },
+      { label: 'Plan de 6 meses', num: 5, section: 'Página de inicio', items: [
+        { key: 'planTexto', label: 'Textos y botón', livePath: '/' },
+        { key: 'planMeses', label: 'Tarjetas por mes', livePath: '/' },
+      ] },
+      { label: 'Portafolio', num: 6, section: 'Página de inicio', items: [
+        { key: 'portafolioTexto', label: 'Textos y enlace', livePath: '/' },
+        { key: 'portafolio', label: 'Fotos', livePath: '/' },
+      ] },
+      { label: 'Dos formas de trabajar', num: 7, section: 'Página de inicio', items: [
+        { key: 'serviciosTexto', label: 'Títulos y extras', livePath: '/' },
+        { key: 'serviciosSesion', label: 'Tarjeta sesión de fotos', livePath: '/' },
+        { key: 'serviciosMensual', label: 'Tarjeta plan mensual', livePath: '/' },
+      ] },
+      { label: 'Así trabajamos', num: 8, section: 'Página de inicio', items: [
+        { key: 'procesoTexto', label: 'Título y texto', livePath: '/' },
+        { key: 'proceso', label: 'Pasos', livePath: '/' },
+      ] },
+      { label: 'Preguntas frecuentes', num: 9, section: 'Página de inicio', items: [
+        { key: 'faqTexto', label: 'Título y texto', livePath: '/' },
+        { key: 'faqs', label: 'Preguntas', livePath: '/' },
+      ] },
+      { label: 'Conoce a tu fotógrafo', num: 10, section: 'Página de inicio', items: [
+        { key: 'sobreMi', label: 'Foto y textos', livePath: '/' },
+      ] },
+      { label: 'Cierre', num: 11, section: 'Página de inicio', items: [
+        { key: 'ctaFinal', label: 'Textos, botones y fotos', livePath: '/' },
+      ] },
+      { label: 'Pie de página', num: 12, section: 'Página de inicio', items: [
+        { key: 'pie', label: 'Línea de copyright', livePath: '/' },
+      ] },
+      { label: 'Medición', num: null, section: 'Página de inicio', items: [
+        { key: 'eventosInicio', label: 'Eventos de conversión', livePath: '/' },
       ] },
       { label: 'Otras páginas', items: [
         { key: 'texto404', label: '404 · Textos', livePath: '/404.html' },
@@ -959,25 +1148,33 @@ function renderSubtabsFlat() {
 // así "Precios" siempre es el mismo color sin importar en qué sitio esté ni
 // si algún día se reordenan los grupos. GROUP_FALLBACK cubre cualquier
 // grupo nuevo que no esté en la lista todavía.
-const GROUP_STYLES = {
-  'Blog': { text: 'var(--sky-text)', active: 'var(--sky)', icon: '📝' },
-  'Página de inicio': { text: 'var(--mint-text)', active: 'var(--mint)', icon: '🏠' },
-  'Otras páginas': { text: 'var(--lavender-text)', active: 'var(--lavender)', icon: '📄' },
-  'Precios': { text: 'var(--peach-text)', active: 'var(--peach)', icon: '💸' },
+// Iconos dibujados (nada de emojis): el menú se numera cuando el grupo es una
+// sección de la landing, y usa un icono cuando es otro tipo de grupo.
+const GROUP_ICONS = {
+  'Página de inicio': '<path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/>',
+  'Blog': '<path d="M5 4h11l3 3v13H5z"/><path d="M8 10h8M8 14h8M8 18h5"/>',
+  'Otras páginas': '<path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v5h5"/>',
+  'Precios': '<path d="M4 7h16v10H4z"/><circle cx="12" cy="12" r="2.5"/>',
+  'Medición': '<path d="M4 19V9M10 19V5M16 19v-7M21 19H3"/>',
 };
-const GROUP_FALLBACK = [
-  { text: 'var(--rose-text)', active: 'var(--rose)', icon: '✨' },
-  { text: 'var(--lemon-text)', active: 'var(--lemon)', icon: '⭐' },
-];
+const GROUP_ICON_FALLBACK = '<circle cx="12" cy="12" r="7"/>';
 function renderSideMenu() {
   const site = SITES[currentSite];
   const groups = site.groups || [];
-  let fallbackI = 0;
+  let lastSection = null;
   const groupsHtml = groups.map(g => {
-    const st = GROUP_STYLES[g.label] || GROUP_FALLBACK[fallbackI++ % GROUP_FALLBACK.length];
-    return `
-    <div class="side-group" style="--group-text:${st.text};--group-active-bg:${st.active}">
-      <p class="side-group-label"><span>${st.icon}</span>${g.label}</p>
+    let heading = '';
+    if (g.section && g.section !== lastSection) {
+      heading = `<div class="side-heading">${g.section}<small>en el orden de la página</small></div>`;
+    }
+    lastSection = g.section || null;
+    const active = g.items.some(it => it.key === currentContentType);
+    const badge = g.num
+      ? `<span class="side-num">${g.num}</span>`
+      : `<span class="side-ico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${GROUP_ICONS[g.label] || GROUP_ICON_FALLBACK}</svg></span>`;
+    return `${heading}
+    <div class="side-group ${active ? 'has-active' : ''}">
+      <p class="side-group-label">${badge}<span>${g.label}</span></p>
       ${g.items.map(it => `<button type="button" class="side-item ${it.key === currentContentType ? 'active' : ''}" onclick="switchContentType('${it.key}')">${it.label}</button>`).join('')}
     </div>
   `;
@@ -998,7 +1195,7 @@ function showToast(msg, icon) {
     el.className = 'toast';
     document.body.appendChild(el);
   }
-  el.innerHTML = `<span>${icon || '✓'}</span><span>${msg}</span>`;
+  el.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>${msg}</span>`;
   el.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
@@ -1132,14 +1329,26 @@ function renderDataBlockItems() {
     ? `<p class="hint" style="margin-bottom:14px">Estas filas están fijas: cada una corresponde a un botón real de la página (lo definió el código, no se puede agregar ni quitar desde acá). Editá el tipo y el nombre del evento de cada una.</p>`
     : '';
 
+  const imgField = currentDataBlock.fields.find(f => f.image);
+  const nameField = currentDataBlock.fields.find(f => !f.image && !f.readOnly && f.type !== 'select' && f.type !== 'evento-nombre' && f.type !== 'number');
+  const plain = (h) => String(h || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+  const ICON_UP = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>';
+  const ICON_DOWN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>';
+  const GRIP = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.7"/><circle cx="15" cy="6" r="1.7"/><circle cx="9" cy="12" r="1.7"/><circle cx="15" cy="12" r="1.7"/><circle cx="9" cy="18" r="1.7"/><circle cx="15" cy="18" r="1.7"/></svg>';
+
   container.innerHTML = fixedRowsHint + currentDataBlock.items.map((item, i) => `
-    <div class="db-item">
+    <div class="db-item" data-i="${i}" ondragstart="dbDragStart(event, ${i})" ondragover="dbDragOver(event, ${i})" ondragleave="dbDragLeave(event)" ondrop="dbDrop(event, ${i})" ondragend="dbDragEnd()">
       ${singleton ? '' : `
       <div class="db-item-head">
-        <span class="hint">#${i + 1}</span>
+        <div class="db-item-title">
+          <span class="drag-handle" title="Arrastra para cambiar el orden" aria-label="Arrastrar para mover" onpointerdown="dbArmDrag(this)" onpointerup="dbDisarmDrag(this)" onpointercancel="dbDisarmDrag(this)">${GRIP}</span>
+          <span class="db-num">${i + 1}</span>
+          ${imgField && item[imgField.key] ? `<img class="db-thumb" src="${escapeHtmlAttr(previewUrl(item[imgField.key]))}" alt="" loading="lazy">` : ''}
+          <span class="db-name">${escapeHtmlAttr(plain(nameField ? item[nameField.key] : '').slice(0, 70))}</span>
+        </div>
         <div class="reorder">
-          <button type="button" onclick="moveDataBlockItem(${i}, -1)" ${i === 0 ? 'disabled' : ''}>↑</button>
-          <button type="button" onclick="moveDataBlockItem(${i}, 1)" ${i === currentDataBlock.items.length - 1 ? 'disabled' : ''}>↓</button>
+          <button type="button" title="Subir" aria-label="Subir" onclick="moveDataBlockItem(${i}, -1)" ${i === 0 ? 'disabled' : ''}>${ICON_UP}</button>
+          <button type="button" title="Bajar" aria-label="Bajar" onclick="moveDataBlockItem(${i}, 1)" ${i === currentDataBlock.items.length - 1 ? 'disabled' : ''}>${ICON_DOWN}</button>
           ${fixedRows ? '' : `<button type="button" class="danger" onclick="removeDataBlockItem(${i})">Eliminar</button>`}
         </div>
       </div>
@@ -1208,6 +1417,16 @@ function renderDataBlockField(item, i, f) {
       <span class="hint">Este valor es interno (lo usa el código del sitio para identificar esta fila) — no se puede editar.</span>
     </div>`;
   }
+  if (f.image) {
+    const v = item[f.key] || '';
+    return `<div class="img-field">
+      <label>${f.label}
+        <input value="${escapeHtmlAttr(v)}" oninput="updateDataBlockField(${i}, '${f.key}', this.value); refreshImgPrev(this)" placeholder="https://res.cloudinary.com/...">
+        <span class="hint">Pega el enlace de la foto. Se ve a la derecha mientras escribes.</span>
+      </label>
+      <div class="img-prev">${v ? `<img src="${escapeHtmlAttr(previewUrl(v))}" alt="" onerror="this.parentNode.textContent='No carga'">` : 'Sin foto'}</div>
+    </div>`;
+  }
   if (f.rich) return renderRichField(item, i, f);
   if (f.type === 'text-fixed-link') return renderTextFixedLinkField(item, i, f);
   if (f.type === 'select') {
@@ -1255,10 +1474,12 @@ function renderDataBlockField(item, i, f) {
   if (f.long) {
     return `<label>${f.label}
       <textarea style="min-height:60px" oninput="updateDataBlockField(${i}, '${f.key}', this.value)">${item[f.key] || ''}</textarea>
+      ${f.hint ? `<span class="hint">${f.hint}</span>` : ''}
     </label>`;
   }
   return `<label>${f.label}
     <input value="${(item[f.key] || '').replace(/"/g,'&quot;')}" oninput="updateDataBlockField(${i}, '${f.key}', this.value)">
+    ${f.hint ? `<span class="hint">${f.hint}</span>` : ''}
   </label>`;
 }
 
@@ -1616,6 +1837,74 @@ function updateDataBlockField(i, key, value) {
     currentDataBlock.items[i][key] = value;
   }
 }
+// ── Arrastrar para reordenar ──
+// El arrastre solo se activa desde el asa (así nunca se arrastra una tarjeta
+// por accidente al seleccionar texto dentro de un campo). En pantallas
+// táctiles el arrastre nativo no existe: ahí se usan las flechas.
+let dbDragFrom = null, dbDropTarget = null;
+function dbArmDrag(handle) { const it = handle.closest('.db-item'); if (it) it.setAttribute('draggable', 'true'); }
+function dbDisarmDrag(handle) { const it = handle.closest('.db-item'); if (it && dbDragFrom === null) it.removeAttribute('draggable'); }
+function dbClearDropMarks() { document.querySelectorAll('.db-item.drop-before,.db-item.drop-after').forEach(n => n.classList.remove('drop-before', 'drop-after')); }
+function dbDragStart(e, i) {
+  if (!e.currentTarget.getAttribute('draggable')) return;
+  dbDragFrom = i;
+  e.dataTransfer.effectAllowed = 'move';
+  try { e.dataTransfer.setData('text/plain', String(i)); } catch (_) {}
+  const el = e.currentTarget;
+  requestAnimationFrame(() => el.classList.add('dragging'));
+}
+function dbDragOver(e, i) {
+  if (dbDragFrom === null) return;
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  const r = e.currentTarget.getBoundingClientRect();
+  const after = e.clientY > r.top + r.height / 2;
+  dbClearDropMarks();
+  if (i !== dbDragFrom) e.currentTarget.classList.add(after ? 'drop-after' : 'drop-before');
+  dbDropTarget = after ? i + 1 : i;
+}
+function dbDragLeave(e) { if (!e.currentTarget.contains(e.relatedTarget)) e.currentTarget.classList.remove('drop-before', 'drop-after'); }
+function dbDrop(e) {
+  if (dbDragFrom === null) return;
+  e.preventDefault();
+  const items = currentDataBlock.items;
+  let to = dbDropTarget === null ? dbDragFrom : dbDropTarget;
+  const from = dbDragFrom;
+  dbDragEnd();
+  if (to === from || to === from + 1) return;
+  const [moved] = items.splice(from, 1);
+  if (to > from) to -= 1;
+  items.splice(to, 0, moved);
+  renderDataBlockItems();
+  showToast('Orden actualizado. No olvides "Guardar cambios"');
+}
+function dbDragEnd() {
+  dbDragFrom = null; dbDropTarget = null;
+  dbClearDropMarks();
+  document.querySelectorAll('.db-item.dragging').forEach(n => n.classList.remove('dragging'));
+  document.querySelectorAll('.db-item[draggable]').forEach(n => n.removeAttribute('draggable'));
+}
+
+// Vista previa liviana de fotos de Cloudinary (si ya trae transformaciones, se respeta).
+function previewUrl(v) {
+  v = String(v || '').trim();
+  if (v.indexOf('/image/upload/') !== -1 && v.indexOf('f_auto') === -1) {
+    return v.replace('/image/upload/', '/image/upload/c_fill,w_300,h_300,q_auto,f_auto/');
+  }
+  return v;
+}
+function refreshImgPrev(input) {
+  const box = input.closest('.img-field').querySelector('.img-prev');
+  const v = input.value.trim();
+  box.innerHTML = '';
+  if (!v) { box.textContent = 'Sin foto'; return; }
+  const im = new Image();
+  im.alt = '';
+  im.onerror = () => { box.textContent = 'No carga'; };
+  im.src = previewUrl(v);
+  box.appendChild(im);
+}
+
 function moveDataBlockItem(i, dir) {
   const items = currentDataBlock.items;
   const j = i + dir;
@@ -1627,7 +1916,7 @@ function removeDataBlockItem(i) {
   askConfirm('¿Eliminar este elemento? No se puede deshacer.', () => {
     currentDataBlock.items.splice(i, 1);
     renderDataBlockItems();
-    showToast('Elemento eliminado', '🗑️');
+    showToast('Elemento eliminado');
   });
 }
 function addDataBlockItem() {
@@ -1649,7 +1938,7 @@ function addDataBlockItem() {
   }
   currentDataBlock.items.push(empty);
   renderDataBlockItems();
-  showToast('Elemento agregado — no olvides "Guardar cambios"', '✓');
+  showToast('Elemento agregado. No olvides "Guardar cambios"');
   const items = document.querySelectorAll('.db-item');
   if (items.length) items[items.length - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
 }

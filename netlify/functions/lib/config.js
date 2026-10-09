@@ -279,57 +279,213 @@ const SITES = {
           { label: '★ Resaltado dorado', className: 'eg-accent' },
         ],
         fields: [
-          // previewTemplate usa el mismo tag + id que el <h1> real de
-          // index.html (ver eg-hero-h1) — junto con el CSS real de la
-          // página (que manda get-datablock, ver pageCss) el panel puede
-          // mostrar exactamente cómo se va a ver (pedido #3).
-          { key: 'titulo', label: 'Título', rich: true, previewTemplate: '<section class="s-paper hero" style="padding:24px 18px"><h1 id="eg-hero-h1">__VALUE__</h1></section>' },
-          { key: 'subtitulo', label: 'Subtítulo', long: true },
-          { key: 'statValor1', label: 'Estadística 1 · valor' },
-          { key: 'statLabel1', label: 'Estadística 1 · texto (puede usar un salto de línea)', lineBreaks: true },
-          { key: 'statValor2', label: 'Estadística 2 · valor' },
-          { key: 'statLabel2', label: 'Estadística 2 · texto (puede usar un salto de línea)', lineBreaks: true },
-          { key: 'statValor3', label: 'Estadística 3 · valor' },
-          { key: 'statLabel3', label: 'Estadística 3 · texto (puede usar un salto de línea)', lineBreaks: true },
+          // previewTemplate usa el mismo tag + id que el <h1> real de index.html
+          // (eg-hero-h1): junto con el CSS real de la página (pageCss) el panel
+          // muestra cómo se va a ver.
+          { key: 'titulo', label: 'Título', rich: true, section: 'Texto principal', previewTemplate: '<section class="s-paper hero" style="padding:24px 18px"><h1 id="eg-hero-h1">__VALUE__</h1></section>' },
+          { key: 'subtitulo', label: 'Subtítulo', long: true, section: 'Texto principal' },
+          { key: 'heroBtn1', label: 'Botón principal (abre el calendario)', section: 'Botones' },
+          { key: 'heroBtn2', label: 'Botón de WhatsApp', section: 'Botones' },
+          { key: 'statValor1', label: 'Estadística 1 · valor', section: 'Estadísticas' },
+          { key: 'statLabel1', label: 'Estadística 1 · texto (puede usar un salto de línea)', lineBreaks: true, section: 'Estadísticas' },
+          { key: 'statValor2', label: 'Estadística 2 · valor', section: 'Estadísticas' },
+          { key: 'statLabel2', label: 'Estadística 2 · texto (puede usar un salto de línea)', lineBreaks: true, section: 'Estadísticas' },
+          { key: 'statValor3', label: 'Estadística 3 · valor', section: 'Estadísticas' },
+          { key: 'statLabel3', label: 'Estadística 3 · texto (puede usar un salto de línea)', lineBreaks: true, section: 'Estadísticas' },
+          { key: 'heroSatA', label: 'Foto flotante 1 (URL)', image: true, section: 'Fotos flotantes junto al carrusel' },
+          { key: 'heroSatB', label: 'Foto flotante 2 (URL)', image: true, section: 'Fotos flotantes junto al carrusel' },
         ],
       },
-      landingCopy: {
-        label: 'Textos de la página · antes y después',
+      marcasTexto: {
+        label: 'Marcas · título',
         varName: 'landingCopy',
         path: 'index.html',
         singleton: true,
-        richStyles: [
-          { label: '✦ Cursiva dorada', className: 'eg-cursive' },
-          { label: '★ Resaltado dorado', className: 'eg-accent' },
-        ],
-        // "section" agrupa estos 16 campos bajo encabezados (ver
-        // renderFieldsGrouped en el panel) — antes era una sola lista plana
-        // y las fotos del comparador antes/después quedaban perdidas en el
-        // medio, sin que se notaran entre el resto de textos.
+        merge: true,
         fields: [
-          { key: 'sobreBio1', label: 'Párrafo 1', long: true, section: 'Sobre mí' },
-          { key: 'sobreBio2', label: 'Párrafo 2', rich: true, previewTemplate: '<section class="s-ink" style="padding:24px 18px"><p id="eg-sobre-bio-2">__VALUE__</p></section>', section: 'Sobre mí' },
-          { key: 'sobreBadgeNumero', label: 'Insignia (número/sigla)', section: 'Sobre mí' },
-          { key: 'sobreBadgeTexto', label: 'Insignia (texto)', section: 'Sobre mí' },
-          { key: 'sobreCredenciales', label: 'Credenciales (una por línea)', long: true, section: 'Sobre mí' },
-          { key: 'cmpLabelAntes', label: 'Etiqueta "antes"', section: 'Comparador antes / después' },
-          { key: 'cmpLabelDespues', label: 'Etiqueta "después"', section: 'Comparador antes / después' },
-          { key: 'cmpImgAntes', label: 'Foto de "antes" (URL)', section: 'Comparador antes / después' },
-          { key: 'cmpImgAntesAlt', label: 'Foto de "antes" (texto alternativo)', section: 'Comparador antes / después' },
-          { key: 'cmpImgDespues', label: 'Foto de "después" (URL)', section: 'Comparador antes / después' },
-          { key: 'cmpImgDespuesAlt', label: 'Foto de "después" (texto alternativo)', section: 'Comparador antes / después' },
-          // El fondo real de esta sección (#cta) es oscuro — se envuelve
-          // igual que en el sitio real para que el preview también se vea
-          // sobre fondo oscuro (si no, el texto se vería invisible: es
-          // blanco/dorado por CSS, pensado para ese fondo).
-          { key: 'ctaTitulo', label: 'Título', rich: true, previewTemplate: '<section class="s-yellow final" style="padding:32px 18px"><h2 id="eg-cta-h2">__VALUE__</h2></section>', section: 'Llamado a la acción final' },
-          { key: 'ctaTexto', label: 'Texto', long: true, section: 'Llamado a la acción final' },
-          { key: 'ctaMicro', label: 'Texto pequeño', section: 'Llamado a la acción final' },
-          // Antes era un textarea con el <a href="/privacidad">...</a> escrito
-          // a mano — si Pablo borraba mal la etiqueta rompía el link. Ahora es
-          // "texto plano" + "texto plano" alrededor de un href que NUNCA se
-          // puede tocar desde el panel (ver type:'text-fixed-link').
-          { key: 'footerCopyright', label: 'Línea de copyright', type: 'text-fixed-link', linkHref: '/privacidad', section: 'Pie de página' },
+          { key: 'marcasTitulo', label: 'Título sobre los logos' },
+        ],
+      },
+      problemaTexto: {
+        label: 'El problema · textos',
+        varName: 'landingCopy',
+        path: 'index.html',
+        singleton: true,
+        merge: true,
+        richStyles: [ { label: '★ Resaltado dorado', className: 'hl' } ],
+        fields: [
+          { key: 'problemaFrase', label: 'Frase grande (puedes resaltar palabras)', rich: true, previewTemplate: '<section class="s-ink problem" style="padding:24px 18px"><p class="statement" id="statement">__VALUE__</p></section>' },
+          { key: 'problemaTitulo', label: 'Título' },
+          { key: 'problemaTexto', label: 'Texto', long: true },
+        ],
+      },
+      comparador: {
+        label: 'El problema · comparador antes y después',
+        varName: 'landingCopy',
+        path: 'index.html',
+        singleton: true,
+        merge: true,
+        fields: [
+          { key: 'cmpLabelAntes', label: 'Etiqueta "antes"', section: 'Etiquetas' },
+          { key: 'cmpLabelDespues', label: 'Etiqueta "después"', section: 'Etiquetas' },
+          { key: 'cmpImgAntes', label: 'Foto de "antes" (URL)', image: true, section: 'Foto "antes"' },
+          { key: 'cmpImgAntesAlt', label: 'Foto de "antes" (texto alternativo)', section: 'Foto "antes"' },
+          { key: 'cmpImgDespues', label: 'Foto de "después" (URL)', image: true, section: 'Foto "después"' },
+          { key: 'cmpImgDespuesAlt', label: 'Foto de "después" (texto alternativo)', section: 'Foto "después"' },
+        ],
+      },
+      formatosTexto: {
+        label: 'Qué incluye · textos',
+        varName: 'landingCopy',
+        path: 'index.html',
+        singleton: true,
+        merge: true,
+        fields: [
+          { key: 'formatosTitulo', label: 'Título' },
+          { key: 'formatosTexto', label: 'Texto', long: true },
+        ],
+      },
+      planTexto: {
+        label: 'Plan de 6 meses · textos',
+        varName: 'landingCopy',
+        path: 'index.html',
+        singleton: true,
+        merge: true,
+        fields: [
+          { key: 'planTitulo', label: 'Título' },
+          { key: 'planTexto', label: 'Texto', long: true },
+          { key: 'planBeneficios', label: 'Beneficios bajo las tarjetas (uno por línea)', long: true, hint: 'Cada línea es un beneficio con su palomita.' },
+          { key: 'planBoton', label: 'Texto del botón' },
+        ],
+      },
+      portafolioTexto: {
+        label: 'Portafolio · textos y enlace',
+        varName: 'landingCopy',
+        path: 'index.html',
+        singleton: true,
+        merge: true,
+        fields: [
+          { key: 'portafolioTitulo', label: 'Título' },
+          { key: 'portafolioTexto', label: 'Texto', long: true },
+          { key: 'portafolioBoton', label: 'Texto del botón' },
+          { key: 'portafolioLink', label: 'Enlace del botón (portafolio completo)', hint: 'Pinterest, Behance o tu sitio de portafolio.' },
+        ],
+      },
+      serviciosTexto: {
+        label: 'Dos formas de trabajar · títulos',
+        varName: 'landingCopy',
+        path: 'index.html',
+        singleton: true,
+        merge: true,
+        fields: [
+          { key: 'serviciosTitulo', label: 'Título de la sección' },
+          { key: 'serviciosExtras', label: 'Línea de extras con precio aparte', rich: true, previewTemplate: '<section class="s-ink pad" style="padding:24px 18px"><p class="extras">__VALUE__</p></section>' },
+          { key: 'serviciosBoton', label: 'Texto del botón' },
+        ],
+      },
+      serviciosSesion: {
+        label: 'Dos formas de trabajar · tarjeta "Sesión de fotos"',
+        varName: 'landingCopy',
+        path: 'index.html',
+        singleton: true,
+        merge: true,
+        fields: [
+          { key: 'sesionImagen', label: 'Foto (URL)', image: true, section: 'Foto' },
+          { key: 'sesionImagenAlt', label: 'Foto (texto alternativo)', section: 'Foto' },
+          { key: 'sesionEtiqueta', label: 'Etiqueta sobre la foto', section: 'Foto' },
+          { key: 'sesionTitulo', label: 'Título', section: 'Texto' },
+          { key: 'sesionTexto', label: 'Texto', long: true, section: 'Texto' },
+          { key: 'sesionPuntos', label: 'Puntos (uno por línea)', long: true, section: 'Texto' },
+        ],
+      },
+      serviciosMensual: {
+        label: 'Dos formas de trabajar · tarjeta "Plan mensual"',
+        varName: 'landingCopy',
+        path: 'index.html',
+        singleton: true,
+        merge: true,
+        fields: [
+          { key: 'mensualImagen1', label: 'Foto 1 (URL)', image: true, section: 'Fotos del abanico' },
+          { key: 'mensualImagen1Alt', label: 'Foto 1 (texto alternativo)', section: 'Fotos del abanico' },
+          { key: 'mensualImagen2', label: 'Foto 2 (URL)', image: true, section: 'Fotos del abanico' },
+          { key: 'mensualImagen2Alt', label: 'Foto 2 (texto alternativo)', section: 'Fotos del abanico' },
+          { key: 'mensualImagen3', label: 'Foto 3 (URL)', image: true, section: 'Fotos del abanico' },
+          { key: 'mensualImagen3Alt', label: 'Foto 3 (texto alternativo)', section: 'Fotos del abanico' },
+          { key: 'mensualEtiqueta', label: 'Etiqueta sobre las fotos', section: 'Fotos del abanico' },
+          { key: 'mensualTitulo', label: 'Título', section: 'Texto' },
+          { key: 'mensualTexto', label: 'Texto', long: true, section: 'Texto' },
+          { key: 'mensualPuntos', label: 'Puntos (uno por línea)', long: true, section: 'Texto' },
+        ],
+      },
+      procesoTexto: {
+        label: 'Así trabajamos · textos',
+        varName: 'landingCopy',
+        path: 'index.html',
+        singleton: true,
+        merge: true,
+        fields: [
+          { key: 'procesoTitulo', label: 'Título' },
+          { key: 'procesoTexto', label: 'Texto', long: true },
+        ],
+      },
+      faqTexto: {
+        label: 'Preguntas frecuentes · textos',
+        varName: 'landingCopy',
+        path: 'index.html',
+        singleton: true,
+        merge: true,
+        fields: [
+          { key: 'faqTitulo', label: 'Título' },
+          { key: 'faqTexto', label: 'Texto', long: true },
+        ],
+      },
+      sobreMi: {
+        label: 'Conoce a tu fotógrafo',
+        varName: 'landingCopy',
+        path: 'index.html',
+        singleton: true,
+        merge: true,
+        richStyles: [ { label: '✦ Cursiva dorada', className: 'eg-cursive' }, { label: '★ Resaltado dorado', className: 'eg-accent' } ],
+        fields: [
+          { key: 'sobreTitulo', label: 'Título', section: 'Título y foto' },
+          { key: 'sobreFoto', label: 'Foto (URL)', image: true, section: 'Título y foto' },
+          { key: 'sobreFotoAlt', label: 'Foto (texto alternativo)', section: 'Título y foto' },
+          { key: 'sobreBio1', label: 'Párrafo 1', long: true, section: 'Texto' },
+          { key: 'sobreBio2', label: 'Párrafo 2', rich: true, previewTemplate: '<section class="s-ink" style="padding:24px 18px"><p id="eg-sobre-bio-2">__VALUE__</p></section>', section: 'Texto' },
+          { key: 'sobreCredenciales', label: 'Credenciales (una por línea)', long: true, section: 'Texto' },
+          { key: 'sobreBadgeNumero', label: 'Insignia sobre la foto (número o sigla)', section: 'Insignia' },
+          { key: 'sobreBadgeTexto', label: 'Insignia sobre la foto (texto)', section: 'Insignia' },
+          { key: 'sobreBoton', label: 'Texto del botón', section: 'Botón' },
+        ],
+      },
+      ctaFinal: {
+        label: 'Cierre · llamado a la acción',
+        varName: 'landingCopy',
+        path: 'index.html',
+        singleton: true,
+        merge: true,
+        richStyles: [ { label: '✦ Cursiva dorada', className: 'eg-cursive' }, { label: '★ Resaltado dorado', className: 'eg-accent' } ],
+        fields: [
+          { key: 'ctaTitulo', label: 'Título', rich: true, previewTemplate: '<section class="s-yellow final" style="padding:32px 18px"><h2 id="eg-cta-h2">__VALUE__</h2></section>', section: 'Texto' },
+          { key: 'ctaTexto', label: 'Texto', long: true, section: 'Texto' },
+          { key: 'ctaMicro', label: 'Texto pequeño', section: 'Texto' },
+          { key: 'ctaBoton1', label: 'Botón principal (abre el calendario)', section: 'Botones' },
+          { key: 'ctaBoton2', label: 'Botón de WhatsApp', section: 'Botones' },
+          { key: 'ctaLink', label: 'Enlace de texto "empezar directo"', section: 'Botones' },
+          { key: 'ctaBurbuja1', label: 'Burbuja 1 (URL)', image: true, section: 'Fotos flotantes' },
+          { key: 'ctaBurbuja2', label: 'Burbuja 2 (URL)', image: true, section: 'Fotos flotantes' },
+          { key: 'ctaBurbuja3', label: 'Burbuja 3 (URL)', image: true, section: 'Fotos flotantes' },
+          { key: 'ctaBurbuja4', label: 'Burbuja 4 (URL)', image: true, section: 'Fotos flotantes' },
+        ],
+      },
+      pie: {
+        label: 'Pie de página',
+        varName: 'landingCopy',
+        path: 'index.html',
+        singleton: true,
+        merge: true,
+        fields: [
+          { key: 'footerCopyright', label: 'Línea de copyright', type: 'text-fixed-link', linkHref: '/privacidad' },
         ],
       },
       marcas: {
@@ -338,7 +494,7 @@ const SITES = {
         path: 'index.html',
         fields: [
           { key: 'nombre', label: 'Nombre de la marca' },
-          { key: 'logo', label: 'URL del logo' },
+          { key: 'logo', label: 'URL del logo' , image: true },
         ],
       },
       proceso: {
@@ -356,7 +512,7 @@ const SITES = {
         varName: 'heroFotos',
         path: 'index.html',
         fields: [
-          { key: 'imagen', label: 'URL de la foto' },
+          { key: 'imagen', label: 'URL de la foto' , image: true },
           { key: 'alt', label: 'Texto alternativo' },
         ],
       },
@@ -368,7 +524,7 @@ const SITES = {
           { key: 'mes', label: 'Mes (número)' },
           { key: 'titulo', label: 'Título' },
           { key: 'texto', label: 'Texto', long: true },
-          { key: 'imagen', label: 'URL de la foto' },
+          { key: 'imagen', label: 'URL de la foto' , image: true },
           { key: 'alt', label: 'Texto alternativo de la foto' },
         ],
       },
@@ -396,7 +552,7 @@ const SITES = {
         varName: 'portafolio',
         path: 'index.html',
         fields: [
-          { key: 'imagen', label: 'URL de imagen' },
+          { key: 'imagen', label: 'URL de imagen' , image: true },
           { key: 'alt', label: 'Nombre / texto alternativo' },
         ],
       },
