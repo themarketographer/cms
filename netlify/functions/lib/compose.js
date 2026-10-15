@@ -45,4 +45,22 @@ function removeSitemapEntry(site, sitemapXml, slug) {
   return sitemapXml.replace(urlBlockRegex(site.domain, slug), '\n');
 }
 
-module.exports = { upsertBlogCard, upsertSitemapEntry, removeCard, removeSitemapEntry };
+// Mantiene al día las URLs de los cursos en sitemap.xml: agrega las de los cursos
+// publicados que falten y quita las de los que dejaron de estar publicados.
+function syncCursosSitemap(site, xml, publishedSlugs, removedSlugs, today) {
+  let out = xml;
+  const loc = (slug) => `https://${site.domain}/cursos/${slug}/`;
+  const rx = (slug) => new RegExp(`\\s*<url>\\s*<loc>${loc(slug).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</loc>[\\s\\S]*?</url>\\s*`, 'g');
+  removedSlugs.forEach((slug) => { out = out.replace(rx(slug), '\n'); });
+  const anchor = '</urlset>';
+  const adds = publishedSlugs.filter((slug) => !out.includes(`<loc>${loc(slug)}</loc>`)).map((slug) =>
+    `  <url>\n    <loc>${loc(slug)}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`);
+  if (adds.length) {
+    const i = out.lastIndexOf(anchor);
+    if (i === -1) throw new Error('No se encontró </urlset> en sitemap.xml');
+    out = out.slice(0, i) + adds.join('') + out.slice(i);
+  }
+  return out;
+}
+
+module.exports = { syncCursosSitemap, upsertBlogCard, upsertSitemapEntry, removeCard, removeSitemapEntry };

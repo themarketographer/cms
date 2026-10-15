@@ -138,4 +138,45 @@ async function commitFilesWithDeletes(site, files, deletePaths, message) {
   return { commitSha: newCommit.sha, commitUrl: newCommit.html_url };
 }
 
-module.exports = { getFile, listDir, commitFiles, commitFilesWithDeletes };
+
+// Commit atómico general: archivos de texto, imágenes (base64) y borrados en
+// un solo commit, así Netlify despliega una sola vez.
+// files:   [{ path, content }]            texto UTF-8
+// binaries:[{ path, base64 }]             imágenes u otros binarios
+// deletes: [path, ...]
+async function commitMixed(site, { files = [], binaries = [], deletes = [] }, message) {
+  const owner = site.owner;
+  const repo = site.repo;
+  const branch = site.branch;
+  const ref = await ghFetch(`/repos/${owner}/${repo}/git/ref/heads/${branch}`);
+  const latestCommitSha = ref.object.sha;
+  const latestCommit = await ghFetch(`/repos/${owner}/${repo}/git/commits/${latestCommitSha}`);
+  const tree = files.map((f) => ({ path: f.path, mode: '100644', type: 'blob', content: f.content }));
+  for (const b of binaries) {
+    const blob = await ghFetch(`/repos/${owner}/${repo}/git/blobs`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content: b.base64, encoding: 'base64' }),
+    });
+    tree.push({ path: b.path, mode: '100644', type: 'blob', sha: blob.sha });
+  }
+  deletes.forEach((d) => tree.push({ path: d, mode: '100644', type: 'blob', sha: null }));
+  const newTree = await ghFetch(`/repos/${owner}/${repo}/git/trees`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ base_tree: latestCommit.tree.sha, tree }),
+  });
+  const newCommit = await ghFetch(`/repos/${owner}/${repo}/git/commits`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, tree: newTree.sha, parents: [latestCommitSha] }),
+  });
+  await ghFetch(`/repos/${owner}/${repo}/git/refs/heads/${branch}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ sha: newCommit.sha }),
+  });
+  return { commitSha: newCommit.sha, commitUrl: newCommit.html_url };
+}
+
+module.exports = { getFile, listDir, commitFiles, commitFilesWithDeletes, commitMixed };

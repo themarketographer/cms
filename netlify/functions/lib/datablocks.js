@@ -40,7 +40,8 @@ function parseArray(arrayText) {
 // quedan con comillas, que es perfectamente válido aunque el original no las
 // tuviera), así que no hace falta reproducir el estilo original.
 function serializeArray(varName, data) {
-  return `const ${varName} = ${JSON.stringify(data, null, 2)};`;
+  // "<" escapado: así un texto con "</script>" nunca puede cerrar el bloque de script de la página
+  return `const ${varName} = ${JSON.stringify(data, null, 2).replace(/</g, '\\u003c')};`;
 }
 
 function readDataBlock(content, block) {
@@ -56,4 +57,18 @@ function writeDataBlock(content, block, data) {
   return content.slice(0, found.start) + replacement + content.slice(found.end);
 }
 
-module.exports = { readDataBlock, writeDataBlock };
+
+// Bloques enlazados a la página (block.bind): el dato vive en el propio HTML,
+// marcado con data-t / data-tx / data-ta. Se lee y se reescribe sin tocar nada más.
+const { extractBindings, applyBindings } = require('./bindings');
+function readBound(content, block) {
+  const raw = new Set(block.fields.filter((f) => f.rich || f.lineBreaks).map((f) => block.bind + '.' + f.key));
+  const found = extractBindings(content, raw)[block.bind] || {};
+  const item = {};
+  block.fields.forEach((f) => { item[f.key] = found[f.key] !== undefined ? found[f.key] : ''; });
+  return [item];
+}
+function writeBound(content, block, items) {
+  return applyBindings(content, block.bind, (items && items[0]) || {}, block.fields);
+}
+module.exports = { readDataBlock, writeDataBlock, readBound, writeBound };

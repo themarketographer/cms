@@ -1,0 +1,822 @@
+[
+ {
+  "key": "home_nav",
+  "label": "Menú superior",
+  "path": "index.html",
+  "bind": "home_nav",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Botón 1"
+   },
+   {
+    "key": "t02",
+    "label": "Texto 1"
+   },
+   {
+    "key": "t03",
+    "label": "Botón 2"
+   },
+   {
+    "key": "t04",
+    "label": "Botón 3"
+   },
+   {
+    "key": "t05",
+    "label": "Botón 4"
+   },
+   {
+    "key": "t06",
+    "label": "Botón 5"
+   },
+   {
+    "key": "t07",
+    "label": "Botón 6"
+   },
+   {
+    "key": "t08",
+    "label": "Botón 7"
+   }
+  ]
+ },
+ {
+  "key": "home_hero",
+  "label": "Portada",
+  "path": "index.html",
+  "bind": "home_hero",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Etiqueta superior 1"
+   },
+   {
+    "key": "t02",
+    "label": "Título principal 1",
+    "rich": true
+   },
+   {
+    "key": "t03",
+    "label": "Texto de apoyo 1",
+    "long": true
+   },
+   {
+    "key": "i1_src",
+    "label": "Imagen 1: Pablo Villarroel, con las manos abierta…",
+    "image": true
+   },
+   {
+    "key": "i1_alt",
+    "label": "Texto alternativo de la imagen 1"
+   },
+   {
+    "key": "t04",
+    "label": "Texto 1"
+   },
+   {
+    "key": "t05",
+    "label": "Texto 2",
+    "rich": true
+   },
+   {
+    "key": "t06",
+    "label": "Texto 3",
+    "rich": true
+   },
+   {
+    "key": "t07",
+    "label": "Texto 4",
+    "rich": true
+   },
+   {
+    "key": "t08",
+    "label": "Párrafo 1"
+   },
+   {
+    "key": "t09",
+    "label": "Botón 1"
+   }
+  ]
+ },
+ {
+  "key": "home_frase",
+  "label": "Frase que se enciende",
+  "path": "index.html",
+  "bind": "home_frase",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Párrafo 1"
+   }
+  ]
+ },
+ {
+  "key": "home_escenas",
+  "label": "Tres escenas",
+  "path": "index.html",
+  "bind": "home_escenas",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/#escenas",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Etiqueta superior 1",
+    "section": "Encabezado"
+   },
+   {
+    "key": "t02",
+    "label": "Párrafo 1",
+    "section": "Encabezado"
+   },
+   {
+    "key": "t03",
+    "label": "Texto 1",
+    "section": "Escena 1"
+   },
+   {
+    "key": "t04",
+    "label": "Párrafo 2",
+    "section": "Escena 1"
+   },
+   {
+    "key": "t05",
+    "label": "Párrafo 3",
+    "section": "Escena 1"
+   },
+   {
+    "key": "t06",
+    "label": "Párrafo 4",
+    "section": "Escena 1"
+   },
+   {
+    "key": "t07",
+    "label": "Párrafo 5",
+    "section": "Escena 1"
+   },
+   {
+    "key": "t08",
+    "label": "Subtítulo 1",
+    "section": "Escena 1"
+   },
+   {
+    "key": "t09",
+    "label": "Párrafo 6",
+    "section": "Escena 1"
+   },
+   {
+    "key": "t10",
+    "label": "Texto 2",
+    "section": "Escena 2"
+   },
+   {
+    "key": "t11",
+    "label": "Texto 3",
+    "section": "Escena 2"
+   },
+   {
+    "key": "t12",
+    "label": "Texto 4",
+    "section": "Escena 2"
+   },
+   {
+    "key": "t13",
+    "label": "Subtítulo 2",
+    "section": "Escena 2"
+   },
+   {
+    "key": "t14",
+    "label": "Párrafo 7",
+    "section": "Escena 2"
+   },
+   {
+    "key": "t15",
+    "label": "Texto 5",
+    "section": "Escena 3"
+   },
+   {
+    "key": "t16",
+    "label": "Párrafo 8",
+    "section": "Escena 3"
+   },
+   {
+    "key": "t17",
+    "label": "Texto 6",
+    "section": "Escena 3"
+   },
+   {
+    "key": "t18",
+    "label": "Párrafo 9",
+    "section": "Escena 3"
+   },
+   {
+    "key": "t19",
+    "label": "Texto 7",
+    "section": "Escena 3"
+   },
+   {
+    "key": "t20",
+    "label": "Párrafo 10",
+    "section": "Escena 3"
+   },
+   {
+    "key": "t21",
+    "label": "Texto 8",
+    "section": "Escena 3"
+   },
+   {
+    "key": "t22",
+    "label": "Párrafo 11",
+    "section": "Escena 3"
+   },
+   {
+    "key": "t23",
+    "label": "Texto 9",
+    "section": "Escena 3"
+   },
+   {
+    "key": "t24",
+    "label": "Subtítulo 3",
+    "section": "Escena 3"
+   },
+   {
+    "key": "t25",
+    "label": "Párrafo 12",
+    "section": "Escena 3"
+   },
+   {
+    "key": "t26",
+    "label": "Párrafo 13",
+    "section": "Cierre"
+   }
+  ]
+ },
+ {
+  "key": "home_problema",
+  "label": "El problema",
+  "path": "index.html",
+  "bind": "home_problema",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/#problema",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Etiqueta superior 1"
+   },
+   {
+    "key": "t02",
+    "label": "Título 1",
+    "rich": true
+   },
+   {
+    "key": "t03",
+    "label": "Texto de apoyo 1",
+    "long": true
+   }
+  ]
+ },
+ {
+  "key": "home_incluye",
+  "label": "Qué incluye",
+  "path": "index.html",
+  "bind": "home_incluye",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/#incluye",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Etiqueta superior 1"
+   },
+   {
+    "key": "t02",
+    "label": "Título 1",
+    "rich": true
+   },
+   {
+    "key": "t03",
+    "label": "Botón 1"
+   }
+  ]
+ },
+ {
+  "key": "home_dentro",
+  "label": "Por dentro",
+  "path": "index.html",
+  "bind": "home_dentro",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/#dentro",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Etiqueta superior 1",
+    "section": "Encabezado"
+   },
+   {
+    "key": "t02",
+    "label": "Título 1",
+    "rich": true,
+    "section": "Encabezado"
+   },
+   {
+    "key": "i1_src",
+    "label": "Imagen 1: Clase en vivo de The Marketographers po…",
+    "image": true,
+    "section": "Bloque 1"
+   },
+   {
+    "key": "i1_alt",
+    "label": "Texto alternativo de la imagen 1",
+    "section": "Bloque 1"
+   },
+   {
+    "key": "t03",
+    "label": "Texto 1",
+    "section": "Bloque 1"
+   },
+   {
+    "key": "t04",
+    "label": "Subtítulo 1",
+    "section": "Bloque 1"
+   },
+   {
+    "key": "t05",
+    "label": "Párrafo 1",
+    "section": "Bloque 1"
+   },
+   {
+    "key": "t06",
+    "label": "Subtítulo 2",
+    "section": "Bloque 2"
+   },
+   {
+    "key": "t07",
+    "label": "Párrafo 2",
+    "section": "Bloque 2"
+   },
+   {
+    "key": "t08",
+    "label": "Párrafo 3",
+    "section": "Bloque 2"
+   },
+   {
+    "key": "t09",
+    "label": "Párrafo 4",
+    "section": "Bloque 2"
+   },
+   {
+    "key": "t10",
+    "label": "Párrafo 5",
+    "section": "Bloque 2"
+   },
+   {
+    "key": "t11",
+    "label": "Texto 2",
+    "section": "Bloque 2"
+   },
+   {
+    "key": "t12",
+    "label": "Subtítulo 3",
+    "section": "Bloque 3"
+   },
+   {
+    "key": "t13",
+    "label": "Párrafo 6",
+    "section": "Bloque 3"
+   },
+   {
+    "key": "t14",
+    "label": "Texto 3",
+    "section": "Bloque 3"
+   },
+   {
+    "key": "t15",
+    "label": "Texto 4",
+    "section": "Bloque 3"
+   },
+   {
+    "key": "t16",
+    "label": "Botón 1",
+    "section": "Bloque 3"
+   },
+   {
+    "key": "t17",
+    "label": "Subtítulo 4",
+    "section": "Bloque 4"
+   },
+   {
+    "key": "t18",
+    "label": "Párrafo 7",
+    "section": "Bloque 4"
+   }
+  ]
+ },
+ {
+  "key": "home_mapa",
+  "label": "Mapa: qué te duele",
+  "path": "index.html",
+  "bind": "home_mapa",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/#mapa",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Etiqueta superior 1"
+   },
+   {
+    "key": "t02",
+    "label": "Título 1",
+    "rich": true
+   },
+   {
+    "key": "t03",
+    "label": "Texto 1",
+    "long": true
+   },
+   {
+    "key": "t04",
+    "label": "Botón 1"
+   }
+  ]
+ },
+ {
+  "key": "home_casos",
+  "label": "Casos de miembros",
+  "path": "index.html",
+  "bind": "home_casos",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/#casos",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Etiqueta superior 1"
+   },
+   {
+    "key": "t02",
+    "label": "Título 1",
+    "rich": true
+   },
+   {
+    "key": "t03",
+    "label": "Botón 1"
+   }
+  ]
+ },
+ {
+  "key": "home_sobre",
+  "label": "Sobre Pablo",
+  "path": "index.html",
+  "bind": "home_sobre",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/",
+  "fields": [
+   {
+    "key": "i1_src",
+    "label": "Imagen 1: Pablo Villarroel, The Marketographer",
+    "image": true
+   },
+   {
+    "key": "i1_alt",
+    "label": "Texto alternativo de la imagen 1"
+   },
+   {
+    "key": "t01",
+    "label": "Etiqueta superior 1"
+   },
+   {
+    "key": "t02",
+    "label": "Título 1"
+   },
+   {
+    "key": "t03",
+    "label": "Párrafo 1"
+   },
+   {
+    "key": "t04",
+    "label": "Párrafo 2",
+    "long": true
+   },
+   {
+    "key": "t05",
+    "label": "Párrafo 3",
+    "rich": true,
+    "long": true
+   }
+  ]
+ },
+ {
+  "key": "home_dudas",
+  "label": "Dudas honestas",
+  "path": "index.html",
+  "bind": "home_dudas",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/#dudas",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Etiqueta superior 1",
+    "section": "Encabezado"
+   },
+   {
+    "key": "t02",
+    "label": "Título 1",
+    "rich": true,
+    "section": "Encabezado"
+   },
+   {
+    "key": "t03",
+    "label": "Texto 1",
+    "section": "Duda 1"
+   },
+   {
+    "key": "t04",
+    "label": "Texto 2",
+    "section": "Duda 1"
+   },
+   {
+    "key": "t05",
+    "label": "Texto 3",
+    "section": "Duda 1"
+   },
+   {
+    "key": "t06",
+    "label": "Párrafo 1",
+    "long": true,
+    "section": "Duda 1"
+   },
+   {
+    "key": "t07",
+    "label": "Texto 4",
+    "section": "Duda 2"
+   },
+   {
+    "key": "t08",
+    "label": "Texto 5",
+    "section": "Duda 2"
+   },
+   {
+    "key": "t09",
+    "label": "Texto 6",
+    "section": "Duda 2"
+   },
+   {
+    "key": "t10",
+    "label": "Párrafo 2",
+    "long": true,
+    "section": "Duda 2"
+   },
+   {
+    "key": "t11",
+    "label": "Texto 7",
+    "section": "Duda 3"
+   },
+   {
+    "key": "t12",
+    "label": "Texto 8",
+    "section": "Duda 3"
+   },
+   {
+    "key": "t13",
+    "label": "Texto 9",
+    "section": "Duda 3"
+   },
+   {
+    "key": "t14",
+    "label": "Párrafo 3",
+    "long": true,
+    "section": "Duda 3"
+   },
+   {
+    "key": "t15",
+    "label": "Texto 10",
+    "section": "Duda 4"
+   },
+   {
+    "key": "t16",
+    "label": "Texto 11",
+    "section": "Duda 4"
+   },
+   {
+    "key": "t17",
+    "label": "Texto 12",
+    "section": "Duda 4"
+   },
+   {
+    "key": "t18",
+    "label": "Párrafo 4",
+    "long": true,
+    "section": "Duda 4"
+   },
+   {
+    "key": "t19",
+    "label": "Texto 13",
+    "section": "Duda 5"
+   },
+   {
+    "key": "t20",
+    "label": "Texto 14",
+    "section": "Duda 5"
+   },
+   {
+    "key": "t21",
+    "label": "Texto 15",
+    "section": "Duda 5"
+   },
+   {
+    "key": "t22",
+    "label": "Párrafo 5",
+    "long": true,
+    "section": "Duda 5"
+   },
+   {
+    "key": "t23",
+    "label": "Texto 16",
+    "section": "Duda 6"
+   },
+   {
+    "key": "t24",
+    "label": "Texto 17",
+    "section": "Duda 6"
+   }
+  ]
+ },
+ {
+  "key": "home_planes",
+  "label": "Planes y precio",
+  "path": "index.html",
+  "bind": "home_planes",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/#planes",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Etiqueta superior 1"
+   },
+   {
+    "key": "t02",
+    "label": "Título 1",
+    "rich": true
+   },
+   {
+    "key": "t03",
+    "label": "Texto de apoyo 1"
+   },
+   {
+    "key": "i1_src",
+    "label": "Imagen 1: Captura de una clase en vivo por Zoom c…",
+    "image": true
+   },
+   {
+    "key": "i1_alt",
+    "label": "Texto alternativo de la imagen 1"
+   },
+   {
+    "key": "t04",
+    "label": "Texto 1"
+   },
+   {
+    "key": "t05",
+    "label": "Botón 1"
+   },
+   {
+    "key": "t06",
+    "label": "Botón 2"
+   },
+   {
+    "key": "t07",
+    "label": "Texto 2"
+   },
+   {
+    "key": "t08",
+    "label": "Texto 3"
+   },
+   {
+    "key": "h1",
+    "label": "Enlace de: Quiero entrar a la comunidad"
+   },
+   {
+    "key": "t09",
+    "label": "Párrafo 1"
+   }
+  ]
+ },
+ {
+  "key": "home_faqtit",
+  "label": "Preguntas frecuentes (título)",
+  "path": "index.html",
+  "bind": "home_faqtit",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/#faq",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Etiqueta superior 1"
+   },
+   {
+    "key": "t02",
+    "label": "Título 1"
+   }
+  ]
+ },
+ {
+  "key": "home_cierre",
+  "label": "Cierre",
+  "path": "index.html",
+  "bind": "home_cierre",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Etiqueta superior 1"
+   },
+   {
+    "key": "t02",
+    "label": "Título 1",
+    "rich": true
+   },
+   {
+    "key": "t03",
+    "label": "Botón 1"
+   },
+   {
+    "key": "t04",
+    "label": "Párrafo 1"
+   }
+  ]
+ },
+ {
+  "key": "home_pie",
+  "label": "Pie de página",
+  "path": "index.html",
+  "bind": "home_pie",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Texto 1"
+   },
+   {
+    "key": "t02",
+    "label": "Texto 2"
+   },
+   {
+    "key": "t03",
+    "label": "Párrafo 1"
+   }
+  ]
+ },
+ {
+  "key": "home_whatsapp",
+  "label": "Botón flotante de WhatsApp",
+  "path": "index.html",
+  "bind": "home_whatsapp",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/",
+  "fields": [
+   {
+    "key": "h1",
+    "label": "Enlace de: Escríbenos por WhatsApp"
+   },
+   {
+    "key": "t01",
+    "label": "Texto 1"
+   }
+  ]
+ },
+ {
+  "key": "home_barra",
+  "label": "Barra inferior en móvil",
+  "path": "index.html",
+  "bind": "home_barra",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/",
+  "fields": [
+   {
+    "key": "t01",
+    "label": "Botón 1"
+   }
+  ]
+ }
+]

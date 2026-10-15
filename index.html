@@ -365,6 +365,9 @@
   .img-prev{flex:none;width:96px;height:96px;margin-top:22px;border-radius:18px;overflow:hidden;background:repeating-conic-gradient(#ececea 0 25%,#f8f8f6 0 50%) 50%/16px 16px;border:1px solid var(--hair);display:grid;place-items:center;color:var(--muted);font-size:11px;text-align:center;transition:transform .4s var(--ease),box-shadow .4s;}
   .img-prev:hover{transform:scale(1.04);box-shadow:var(--shadow-card);}
   .img-prev img{width:100%;height:100%;object-fit:cover;display:block;}
+  .img-up{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+  .img-up button{padding:8px 14px;font-size:13px;}
+  .img-up .pending{font-size:12px;color:var(--muted);align-self:center;}
   @media (max-width:520px){.img-field{flex-direction:column-reverse}.img-prev{margin-top:0;width:100%;height:150px}}
 
   .banner{border-radius:var(--r-md);animation:skinRise .5s var(--ease);}
@@ -567,24 +570,43 @@ const SITES = {
     // fetch/save por key) — el agrupamiento visual del menú vive en "groups"
     // más abajo, mismo patrón que "eg".
     dataBlocks: [
-      { key: 'testimonios', label: 'Testimonios' },
-      { key: 'heroMkt', label: 'Encabezado', singleton: true },
-      { key: 'textosMkt', label: 'Textos de la página', singleton: true },
-      { key: 'problemaCards', label: 'Problema · tarjetas' },
-      { key: 'problemaStats', label: 'Problema · estadísticas' },
-      { key: 'featurePair', label: 'Clases y cursos' },
-      { key: 'incluyeCards', label: 'Qué incluye · tarjetas' },
-      { key: 'midCtaFloat', label: 'CTA intermedio · tarjetas flotantes' },
-      { key: 'pricingFeatures', label: 'Precios · beneficios' },
-      { key: 'faqsMkt', label: 'Preguntas frecuentes' },
-      { key: 'eventosInicio', label: 'Inicio · Eventos de conversión' },
-      { key: 'texto404', label: '404 · Textos', singleton: true },
-      { key: 'textoPrivacidad', label: 'Privacidad · Textos', singleton: true },
-      { key: 'textoMasterclass', label: 'Masterclass · Textos', singleton: true },
-      { key: 'eventosMasterclass', label: 'Masterclass · Eventos de conversión' },
+      { key: 'home_nav', label: "Menú superior", singleton: true },
+      { key: 'home_hero', label: "Portada", singleton: true },
+      { key: 'home_frase', label: "Frase que se enciende", singleton: true },
+      { key: 'home_escenas', label: "Tres escenas", singleton: true },
+      { key: 'home_problema', label: "El problema", singleton: true },
+      { key: 'home_incluye', label: "Qué incluye", singleton: true },
+      { key: 'home_dentro', label: "Por dentro", singleton: true },
+      { key: 'home_mapa', label: "Mapa: qué te duele", singleton: true },
+      { key: 'home_casos', label: "Casos de miembros", singleton: true },
+      { key: 'home_sobre', label: "Sobre Pablo", singleton: true },
+      { key: 'home_dudas', label: "Dudas honestas", singleton: true },
+      { key: 'home_planes', label: "Planes y precio", singleton: true },
+      { key: 'home_faqtit', label: "Preguntas frecuentes (título)", singleton: true },
+      { key: 'home_cierre', label: "Cierre", singleton: true },
+      { key: 'home_pie', label: "Pie de página", singleton: true },
+      { key: 'home_whatsapp', label: "Botón flotante de WhatsApp", singleton: true },
+      { key: 'home_barra', label: "Barra inferior en móvil", singleton: true },
+      { key: 'problemCards', label: "El problema · tarjetas" },
+      { key: 'stats', label: "El problema · cifras" },
+      { key: 'includesCards', label: "Qué incluye · tarjetas" },
+      { key: 'mapaChips', label: "Mapa · problemas y cursos" },
+      { key: 'testimonios', label: "Casos · testimonios" },
+      { key: 'planes', label: "Planes · precios y textos" },
+      { key: 'pricingFeatures', label: "Planes · beneficios" },
+      { key: 'faqs', label: "Preguntas frecuentes" },
+      { key: 'eventosInicio', label: "Inicio · Eventos de conversión" },
+      { key: 'eventosDiagnostico', label: "Diagnóstico · Eventos de conversión" },
+      { key: 'cursos', label: "Cursos" },
+      { key: 'cursosAjustes', label: "Textos generales de cursos", singleton: true },
+      { key: 'texto404', label: "Textos", singleton: true },
+      { key: 'textoPrivacidad', label: "Textos", singleton: true },
+      { key: 'textoMasterclass', label: "Textos", singleton: true },
+      { key: 'eventosMasterclass', label: "Eventos de conversión" },
     ],
     pages: [
       { label: 'Inicio', path: '/' },
+      { label: 'Cursos', path: '/cursos/' },
       { label: 'Masterclass', path: '/masterclass' },
       { label: 'Política de privacidad', path: '/privacidad' },
     ],
@@ -593,27 +615,71 @@ const SITES = {
     // Otras páginas. "posts" es el mismo listado de siempre; el resto son
     // dataBlocks; livePath abre la página real.
     groups: [
-      { label: 'Blog', items: [
-        { key: 'posts', label: 'Posts' },
+      { label: "Blog", section: "Contenido", sectionHint: "blog y cursos", items: [
+        { key: 'posts', label: "Posts" },
       ] },
-      { label: 'Página de inicio', items: [
-        { key: 'heroMkt', label: 'Encabezado', livePath: '/' },
-        { key: 'textosMkt', label: 'Textos de la página', livePath: '/' },
-        { key: 'problemaCards', label: 'Problema · tarjetas', livePath: '/' },
-        { key: 'problemaStats', label: 'Problema · estadísticas', livePath: '/' },
-        { key: 'featurePair', label: 'Clases y cursos', livePath: '/' },
-        { key: 'incluyeCards', label: 'Qué incluye · tarjetas', livePath: '/' },
-        { key: 'midCtaFloat', label: 'CTA intermedio · tarjetas', livePath: '/' },
-        { key: 'pricingFeatures', label: 'Precios · beneficios', livePath: '/' },
-        { key: 'testimonios', label: 'Testimonios', livePath: '/' },
-        { key: 'faqsMkt', label: 'Preguntas frecuentes', livePath: '/' },
-        { key: 'eventosInicio', label: 'Eventos', livePath: '/' },
+      { label: "Cursos", section: "Contenido", items: [
+        { key: 'cursos', label: "Cursos: agregar, portadas y precios", livePath: '/cursos/' },
+        { key: 'cursosAjustes', label: "Textos generales de cursos", livePath: '/cursos/' },
       ] },
-      { label: 'Otras páginas', items: [
-        { key: 'texto404', label: '404 · Textos', livePath: '/404.html' },
-        { key: 'textoPrivacidad', label: 'Privacidad · Textos', livePath: '/privacidad' },
-        { key: 'textoMasterclass', label: 'Masterclass · Textos', livePath: '/masterclass' },
-        { key: 'eventosMasterclass', label: 'Masterclass · Eventos', livePath: '/masterclass' },
+      { label: "Menú y portada", num: 1, section: "Página de inicio", sectionHint: "en el orden de la página", items: [
+        { key: 'home_nav', label: "Menú superior", livePath: '/' },
+        { key: 'home_hero', label: "Portada", livePath: '/' },
+        { key: 'home_frase', label: "Frase que se enciende", livePath: '/' },
+      ] },
+      { label: "Tres escenas", num: 2, section: "Página de inicio", items: [
+        { key: 'home_escenas', label: "Textos de las escenas", livePath: '/#escenas' },
+      ] },
+      { label: "El problema", num: 3, section: "Página de inicio", items: [
+        { key: 'home_problema', label: "Título y texto", livePath: '/#problema' },
+        { key: 'problemCards', label: "Tarjetas", livePath: '/#problema' },
+        { key: 'stats', label: "Cifras", livePath: '/#problema' },
+      ] },
+      { label: "Qué incluye", num: 4, section: "Página de inicio", items: [
+        { key: 'home_incluye', label: "Título y botón", livePath: '/#incluye' },
+        { key: 'includesCards', label: "Tarjetas", livePath: '/#incluye' },
+      ] },
+      { label: "Por dentro", num: 5, section: "Página de inicio", items: [
+        { key: 'home_dentro', label: "Bloques y textos", livePath: '/#dentro' },
+      ] },
+      { label: "Mapa de cursos", num: 6, section: "Página de inicio", items: [
+        { key: 'home_mapa', label: "Título y botón", livePath: '/#mapa' },
+        { key: 'mapaChips', label: "Problemas y cursos", livePath: '/#mapa' },
+      ] },
+      { label: "Casos de miembros", num: 7, section: "Página de inicio", items: [
+        { key: 'home_casos', label: "Título y botón", livePath: '/#casos' },
+        { key: 'testimonios', label: "Testimonios", livePath: '/#casos' },
+      ] },
+      { label: "Sobre Pablo", num: 8, section: "Página de inicio", items: [
+        { key: 'home_sobre', label: "Foto y presentación", livePath: '/' },
+      ] },
+      { label: "Dudas honestas", num: 9, section: "Página de inicio", items: [
+        { key: 'home_dudas', label: "Dudas y respuestas", livePath: '/#dudas' },
+      ] },
+      { label: "Planes y precio", num: 10, section: "Página de inicio", items: [
+        { key: 'home_planes', label: "Textos y enlace de compra", livePath: '/#planes' },
+        { key: 'planes', label: "Precios y frases", livePath: '/#planes' },
+        { key: 'pricingFeatures', label: "Beneficios", livePath: '/#planes' },
+      ] },
+      { label: "Preguntas frecuentes", num: 11, section: "Página de inicio", items: [
+        { key: 'home_faqtit', label: "Título", livePath: '/#faq' },
+        { key: 'faqs', label: "Preguntas y respuestas", livePath: '/#faq' },
+      ] },
+      { label: "Cierre y pie", num: 12, section: "Página de inicio", items: [
+        { key: 'home_cierre', label: "Cierre", livePath: '/' },
+        { key: 'home_pie', label: "Pie de página", livePath: '/' },
+        { key: 'home_barra', label: "Barra inferior en móvil", livePath: '/' },
+        { key: 'home_whatsapp', label: "Botón de WhatsApp", livePath: '/' },
+      ] },
+      { label: "Medición", num: 13, section: "Página de inicio", items: [
+        { key: 'eventosInicio', label: "Eventos de la página de inicio", livePath: '/' },
+        { key: 'eventosDiagnostico', label: "Eventos del diagnóstico", livePath: '/diagnostico' },
+      ] },
+      { label: "Otras páginas", section: "Otras páginas", sectionHint: "textos sueltos", items: [
+        { key: 'texto404', label: "404 · Textos", livePath: '/404.html' },
+        { key: 'textoPrivacidad', label: "Privacidad · Textos", livePath: '/privacidad' },
+        { key: 'textoMasterclass', label: "Masterclass · Textos", livePath: '/masterclass' },
+        { key: 'eventosMasterclass', label: "Masterclass · Eventos", livePath: '/masterclass' },
       ] },
     ],
   },
@@ -801,6 +867,15 @@ let currentContentType = 'posts';
 let editingSlug = null;
 let cachedPosts = [];
 let currentDataBlock = null; // { key, label, fields, items }
+// Fotos elegidas en esta sesión que todavía no se guardaron: ruta del repo -> imagen (data URL).
+// Se mandan junto con "Guardar cambios", en el mismo commit que los datos.
+const pendingUploads = {};
+// Filas que ya existían en el sitio (sus campos "bloqueados" no se pueden cambiar).
+let savedItems = new WeakSet();
+const autoSlugs = new WeakMap();
+function slugify(t) {
+  return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
 let pendingBodyHtml = ''; // contenido a cargar cuando el iframe termine de montar
 
 function pw(){ return sessionStorage.getItem('cms_pw') || ''; }
@@ -1165,7 +1240,7 @@ function renderSideMenu() {
   const groupsHtml = groups.map(g => {
     let heading = '';
     if (g.section && g.section !== lastSection) {
-      heading = `<div class="side-heading">${g.section}<small>en el orden de la página</small></div>`;
+      heading = `<div class="side-heading">${g.section}${g.sectionHint === undefined ? '<small>en el orden de la página</small>' : (g.sectionHint ? `<small>${g.sectionHint}</small>` : '')}</div>`;
     }
     lastSection = g.section || null;
     const active = g.items.some(it => it.key === currentContentType);
@@ -1277,7 +1352,8 @@ async function loadDataBlock(key) {
     const clientCfg = (SITES[site].dataBlocks.find(b => b.key === key) || {});
     const singleton = !!(res.singleton || clientCfg.singleton);
     const fixedRows = !!res.fixedRows;
-    currentDataBlock = { key, label: res.label, fields: res.fields, items: res.items, singleton, fixedRows, autoIdField: res.autoIdField || null, richStyles: res.richStyles || [], pageCss: res.pageCss || '' };
+    currentDataBlock = { key, label: res.label, fields: res.fields, items: res.items, singleton, fixedRows, autoIdField: res.autoIdField || null, richStyles: res.richStyles || [], pageCss: res.pageCss || '', uploadDir: res.uploadDir || '', kind: res.kind || '' };
+    savedItems = new WeakSet(res.items);
     document.getElementById('dataBlockLabel').textContent = res.label + ' · ' + SITES[site].label;
     document.getElementById('dbAddBtn').style.display = (singleton || fixedRows) ? 'none' : '';
     currentRichFocus = null;
@@ -1349,7 +1425,7 @@ function renderDataBlockItems() {
         <div class="reorder">
           <button type="button" title="Subir" aria-label="Subir" onclick="moveDataBlockItem(${i}, -1)" ${i === 0 ? 'disabled' : ''}>${ICON_UP}</button>
           <button type="button" title="Bajar" aria-label="Bajar" onclick="moveDataBlockItem(${i}, 1)" ${i === currentDataBlock.items.length - 1 ? 'disabled' : ''}>${ICON_DOWN}</button>
-          ${fixedRows ? '' : `<button type="button" class="danger" onclick="removeDataBlockItem(${i})">Eliminar</button>`}
+          ${fixedRows ? '' : `<button type="button" onclick="dupDataBlockItem(${i})">Duplicar</button><button type="button" class="danger" onclick="removeDataBlockItem(${i})">Eliminar</button>`}
         </div>
       </div>
       `}
@@ -1410,19 +1486,25 @@ function renderDataBlockField(item, i, f) {
   // cierto valor (ej. "precio" solo aplica si "tipo" es "flat"). Mismo
   // patrón de re-render-al-cambiar que ya usan tipo/nombre de eventos.
   if (f.showIf && item[f.showIf.key] !== f.showIf.equals) return '';
-  if (f.readOnly) {
+  if (f.readOnly || (f.readOnlyIfSaved && savedItems.has(item))) {
     return `<div class="field">
       <div class="field-label">${f.label}</div>
-      <div class="readonly-value">${(item[f.key] ?? '')}</div>
-      <span class="hint">Este valor es interno (lo usa el código del sitio para identificar esta fila) — no se puede editar.</span>
+      <div class="readonly-value">${escapeHtmlAttr(item[f.key] ?? '')}</div>
+      <span class="hint">${f.readOnly ? 'Este valor es interno (lo usa el código del sitio para identificar esta fila) — no se puede editar.' : (f.hint || '')}</span>
     </div>`;
   }
   if (f.image) {
     const v = item[f.key] || '';
+    const isPending = v.startsWith('/') && pendingUploads[v.slice(1)];
     return `<div class="img-field">
       <label>${f.label}
-        <input value="${escapeHtmlAttr(v)}" oninput="updateDataBlockField(${i}, '${f.key}', this.value); refreshImgPrev(this)" placeholder="https://res.cloudinary.com/...">
-        <span class="hint">Pega el enlace de la foto. Se ve a la derecha mientras escribes.</span>
+        <input value="${escapeHtmlAttr(v)}" oninput="updateDataBlockField(${i}, '${f.key}', this.value); refreshImgPrev(this)" placeholder="https://...">
+        <span class="hint">${f.hint || 'Sube una foto desde tu computador o pega un enlace. Se ve a la derecha.'}</span>
+        <span class="img-up">
+          <button type="button" class="ghost" onclick="event.preventDefault(); pickImage(${i}, '${f.key}')">Subir foto</button>
+          ${v ? `<button type="button" class="ghost" onclick="event.preventDefault(); clearImage(${i}, '${f.key}')">Quitar</button>` : ''}
+          ${isPending ? '<span class="pending">Foto nueva, se sube al guardar</span>' : ''}
+        </span>
       </label>
       <div class="img-prev">${v ? `<img src="${escapeHtmlAttr(previewUrl(v))}" alt="" onerror="this.parentNode.textContent='No carga'">` : 'Sin foto'}</div>
     </div>`;
@@ -1467,18 +1549,18 @@ function renderDataBlockField(item, i, f) {
   if (f.lineBreaks) {
     const display = (item[f.key] || '').replace(/<br\s*\/?>/gi, '\n');
     return `<label>${f.label}
-      <textarea style="min-height:44px" oninput="updateDataBlockField(${i}, '${f.key}', this.value)">${display}</textarea>
+      <textarea style="min-height:44px" data-key="${f.key}" oninput="updateDataBlockField(${i}, '${f.key}', this.value)">${escapeHtmlAttr(display)}</textarea>
       <span class="hint">Si escribís 2 líneas, se muestran en 2 líneas en la página — no hace falta escribir ninguna etiqueta.</span>
     </label>`;
   }
   if (f.long) {
     return `<label>${f.label}
-      <textarea style="min-height:60px" oninput="updateDataBlockField(${i}, '${f.key}', this.value)">${item[f.key] || ''}</textarea>
+      <textarea style="min-height:${f.tall ? 220 : 60}px" data-key="${f.key}" oninput="updateDataBlockField(${i}, '${f.key}', this.value)">${escapeHtmlAttr(item[f.key] || '')}</textarea>
       ${f.hint ? `<span class="hint">${f.hint}</span>` : ''}
     </label>`;
   }
   return `<label>${f.label}
-    <input value="${(item[f.key] || '').replace(/"/g,'&quot;')}" oninput="updateDataBlockField(${i}, '${f.key}', this.value)">
+    <input value="${escapeHtmlAttr(item[f.key] || '')}" data-key="${f.key}" oninput="updateDataBlockField(${i}, '${f.key}', this.value)">
     ${f.hint ? `<span class="hint">${f.hint}</span>` : ''}
   </label>`;
 }
@@ -1836,6 +1918,69 @@ function updateDataBlockField(i, key, value) {
   } else {
     currentDataBlock.items[i][key] = value;
   }
+  // slug automático desde el nombre mientras el curso es nuevo
+  const slugF = (currentDataBlock.fields || []).find(x => x.autoSlugFrom === key);
+  const it = currentDataBlock.items[i];
+  if (slugF && !savedItems.has(it) && (!it[slugF.key] || it[slugF.key] === autoSlugs.get(it))) {
+    const sl = slugify(value);
+    it[slugF.key] = sl; autoSlugs.set(it, sl);
+    const box = document.querySelector(`.db-item[data-i="${i}"] [data-key="${slugF.key}"]`);
+    if (box) box.value = sl;
+  }
+}
+
+// ── Fotos: se reducen en el navegador y viajan con "Guardar cambios" ──
+function pickImage(i, key) {
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = 'image/*';
+  inp.onchange = async () => {
+    const file = inp.files && inp.files[0];
+    if (!file) return;
+    try {
+      const bmp = await createImageBitmap(file);
+      const scale = Math.min(1, 1400 / bmp.width);
+      const c = document.createElement('canvas');
+      c.width = Math.max(1, Math.round(bmp.width * scale)); c.height = Math.max(1, Math.round(bmp.height * scale));
+      c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+      let ext = 'jpg', data = c.toDataURL('image/jpeg', 0.86);
+      if (file.type === 'image/png') {
+        const png = c.toDataURL('image/png');
+        if (png.length < 1.6e6) { ext = 'png'; data = png; }
+      }
+      const f = currentDataBlock.fields.find(x => x.key === key) || {};
+      const item = currentDataBlock.items[i];
+      const dir = (f.uploadDir || currentDataBlock.uploadDir || 'assets/img').replace(/\/+$/, '');
+      const stamp = Date.now().toString(36);
+      const base = (f.uploadName && item[f.uploadName]) ? slugify(item[f.uploadName]) : slugify(file.name.replace(/\.[^.]+$/, '')) || 'foto';
+      const path = `${dir}/${base}-${stamp}.${ext}`;
+      pendingUploads[path] = data;
+      updateDataBlockField(i, key, '/' + path);
+      renderDataBlockItems();
+      showToast('Foto lista. No olvides "Guardar cambios"');
+    } catch (e) {
+      banner('No se pudo leer esa imagen: ' + e.message, false);
+    }
+  };
+  inp.click();
+}
+function clearImage(i, key) {
+  updateDataBlockField(i, key, '');
+  renderDataBlockItems();
+}
+function dupDataBlockItem(i) {
+  const src = currentDataBlock.items[i];
+  const copy = JSON.parse(JSON.stringify(src));
+  const slugF = (currentDataBlock.fields || []).find(x => x.autoSlugFrom);
+  if (slugF) {
+    let n = 1, base = (src[slugF.key] || 'curso') + '-copia', cand = base;
+    while (currentDataBlock.items.some(x => x[slugF.key] === cand)) { n++; cand = base + '-' + n; }
+    copy[slugF.key] = cand; autoSlugs.set(copy, cand);
+    if ('publicado' in copy) copy.publicado = 'no';
+    if ('nombre' in copy) copy.nombre = (copy.nombre || '') + ' (copia)';
+  }
+  currentDataBlock.items.splice(i + 1, 0, copy);
+  renderDataBlockItems();
+  showToast('Copia creada. Está oculta hasta que la publiques');
 }
 // ── Arrastrar para reordenar ──
 // El arrastre solo se activa desde el asa (así nunca se arrastra una tarjeta
@@ -1888,6 +2033,10 @@ function dbDragEnd() {
 // Vista previa liviana de fotos de Cloudinary (si ya trae transformaciones, se respeta).
 function previewUrl(v) {
   v = String(v || '').trim();
+  if (v.startsWith('/')) {
+    if (pendingUploads[v.slice(1)]) return pendingUploads[v.slice(1)];
+    return 'https://' + SITES[currentSite].domain + v;
+  }
   if (v.indexOf('/image/upload/') !== -1 && v.indexOf('f_auto') === -1) {
     return v.replace('/image/upload/', '/image/upload/c_fill,w_300,h_300,q_auto,f_auto/');
   }
@@ -1949,11 +2098,17 @@ async function saveDataBlock() {
   btn.disabled = true;
   btn.textContent = 'Guardando…';
   try {
-    const res = await api('save-datablock', {
-      method: 'POST',
-      body: JSON.stringify({ site: currentSite, block: currentDataBlock.key, items: currentDataBlock.items }),
-    });
-    banner(`Guardado · <a href="${res.commitUrl}" target="_blank">ver commit</a>`, true);
+    const used = JSON.stringify(currentDataBlock.items);
+    const uploads = Object.keys(pendingUploads).filter(pth => used.includes('"/' + pth + '"')).map(pth => ({ path: pth, base64: pendingUploads[pth] }));
+    const payload = JSON.stringify({ site: currentSite, block: currentDataBlock.key, items: currentDataBlock.items, uploads });
+    if (payload.length > 5.4e6) throw new Error('Son demasiadas fotos nuevas juntas. Guarda primero una o dos y luego las demás.');
+    const res = await api('save-datablock', { method: 'POST', body: payload });
+    uploads.forEach(u => { delete pendingUploads[u.path]; });
+    currentDataBlock.items.forEach(x => savedItems.add(x));
+    const extra = res.archivos > 1 ? ` · ${res.archivos} archivos actualizados` : '';
+    const borr = res.borrados ? ` · ${res.borrados} página(s) retirada(s)` : '';
+    banner(`Guardado${extra}${borr} · <a href="${res.commitUrl}" target="_blank">ver commit</a>. En un minuto se ve en la web.`, true);
+    renderDataBlockItems();
   } catch (e) {
     banner('Error al guardar: ' + e.message, false);
   } finally {
