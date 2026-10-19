@@ -7,6 +7,7 @@
 //     el hub /cursos/ y una página por cada curso publicado.
 
 const HOME = require('./home-blocks.json');
+const PAGES = require('./page-blocks');
 
 const MARK = [{ label: '★ Resaltado dorado', tag: 'mark' }];
 const homeBlocks = {};
@@ -54,6 +55,12 @@ const listBlocks = {
       { key: 'p', label: 'Problema que dice la persona', hint: 'Es el botón de la izquierda. Ejemplo: No sé cuánto cobrar.' },
       { key: 'cursos', label: 'Cursos que lo resuelven', hint: 'Identificadores (slug) de los cursos separados por coma, por ejemplo marketing-para-fotografos, landing-pages-con-ia. Un curso que no esté publicado no se muestra.' },
       { key: 'nota', label: 'Nota extra (opcional)', long: true },
+    ],
+  },
+  cinta: {
+    label: 'Cinta de palabras', varName: 'CINTA', path: 'index.html',
+    fields: [
+      { key: 'w', label: 'Palabra', hint: 'Cada palabra aparece en la cinta que se mueve bajo la portada. Agrega, quita o reordena.' },
     ],
   },
   testimonios: {
@@ -227,7 +234,7 @@ const MENU = [
     it('cursos', 'Cursos: agregar, portadas y precios', '/cursos/'),
     it('cursosAjustes', 'Textos generales de cursos', '/cursos/'),
   ], { section: 'Contenido' }),
-  g('Menú y portada', [it('home_nav', 'Menú superior', '/'), it('home_hero', 'Portada', '/'), it('home_frase', 'Frase que se enciende', '/')], { num: 1, section: 'Página de inicio', sectionHint: 'en el orden de la página' }),
+  g('Menú y portada', [it('home_nav', 'Menú superior', '/'), it('home_hero', 'Portada', '/'), it('home_frase', 'Frase que se enciende', '/'), it('cinta', 'Cinta de palabras', '/'), it('home_vis', 'Mostrar u ocultar secciones', '/')], { num: 1, section: 'Página de inicio', sectionHint: 'en el orden de la página' }),
   g('Tres escenas', [it('home_escenas', 'Textos de las escenas', '/#escenas')], { num: 2, section: 'Página de inicio' }),
   g('El problema', [it('home_problema', 'Título y texto', '/#problema'), it('problemCards', 'Tarjetas', '/#problema'), it('stats', 'Cifras', '/#problema')], { num: 3, section: 'Página de inicio' }),
   g('Qué incluye', [it('home_incluye', 'Título y botón', '/#incluye'), it('includesCards', 'Tarjetas', '/#incluye')], { num: 4, section: 'Página de inicio' }),
@@ -245,7 +252,11 @@ const MENU = [
     it('textoPrivacidad', 'Privacidad · Textos', '/privacidad'),
     it('textoMasterclass', 'Masterclass · Textos', '/masterclass'),
     it('eventosMasterclass', 'Masterclass · Eventos', '/masterclass'),
+    it('pg_diagnostico', 'Diagnóstico · Textos', '/diagnostico/'),
+    it('pg_marketools', 'MarkeTools · Textos', '/marketools/'),
+    it('pg_calculadora', 'Calculadora de precio · Textos', '/marketools/calculadora/'),
+    it('pg_linkwpp', 'Link de WhatsApp · Textos', '/marketools/link-wpp/'),
   ], { section: 'Otras páginas', sectionHint: 'textos sueltos' }),
 ];
 
-module.exports = { blocks: { ...homeBlocks, ...listBlocks, ...cursosBlocks }, MENU };
+module.exports = { blocks: { ...homeBlocks, ...listBlocks, ...cursosBlocks, ...PAGES.mkt }, MENU };

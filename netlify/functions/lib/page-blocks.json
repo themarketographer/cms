@@ -1,0 +1,1991 @@
+{
+ "mkt": [
+  {
+   "key": "pg_diagnostico",
+   "label": "Diagnóstico",
+   "path": "diagnostico/index.html",
+   "bind": "pg_diagnostico",
+   "singleton": true,
+   "fixedRows": true,
+   "livePath": "/diagnostico/",
+   "fields": [
+    {
+     "key": "seoTitle",
+     "label": "Título de la pestaña y de Google",
+     "section": "Google y redes"
+    },
+    {
+     "key": "seoDesc",
+     "label": "Descripción para Google",
+     "long": true,
+     "section": "Google y redes"
+    },
+    {
+     "key": "t01",
+     "label": "Botón o enlace 1 · «the marketo g raphers»",
+     "section": "Página",
+     "rich": true
+    },
+    {
+     "key": "t02",
+     "label": "Párrafo 1 · «Inscripciones abiertas a la comunidad»",
+     "section": "Sección: hero"
+    },
+    {
+     "key": "t03",
+     "label": "Título principal 1 · «Tu cliente ideal ya eligió. Eligió al fo…»",
+     "section": "Sección: hero",
+     "rich": true,
+     "lineBreaks": true
+    },
+    {
+     "key": "t04",
+     "label": "Párrafo 2 · «Antes de que sigas de largo: mirá 90 seg…»",
+     "section": "Sección: hero",
+     "long": true
+    },
+    {
+     "key": "t05",
+     "label": "Párrafo 3 · «Con sonido. Sí, digo groserías.»",
+     "section": "Sección: hero"
+    },
+    {
+     "key": "t06",
+     "label": "Botón o enlace 2 · «Quiero mi llamada gratis»",
+     "section": "Sección: hero"
+    },
+    {
+     "key": "t07",
+     "label": "Párrafo 4 · «Si llegaste hasta acá es porque ya sabés…»",
+     "section": "Sección: bridge",
+     "rich": true
+    },
+    {
+     "key": "t08",
+     "label": "Párrafo 5 · «¿Te has sentido así?»",
+     "section": "Sección: problem section"
+    },
+    {
+     "key": "t09",
+     "label": "Título 1 · «El 95% de los fotógrafos fracasan en sus…»",
+     "section": "Sección: problem section",
+     "rich": true
+    },
+    {
+     "key": "t10",
+     "label": "Párrafo 6 · «Y no es porque sean malos fotógrafos. Es…»",
+     "section": "Sección: problem section",
+     "long": true
+    },
+    {
+     "key": "t11",
+     "label": "Párrafo 7 · «¿Qué incluye la membresía?»",
+     "section": "Sección: sección"
+    },
+    {
+     "key": "t12",
+     "label": "Título 2 · «Todo lo que necesitas para vivir de tu a…»",
+     "section": "Sección: sección",
+     "rich": true
+    },
+    {
+     "key": "t13",
+     "label": "Botón o enlace 3 · «Agendar llamada gratuita»",
+     "section": "Sección: sección"
+    },
+    {
+     "key": "t14",
+     "label": "Párrafo 8 · «Casos de éxito»",
+     "section": "Sección: sección"
+    },
+    {
+     "key": "t15",
+     "label": "Título 3 · «Marketographers que ya la están rompiendo»",
+     "section": "Sección: sección",
+     "rich": true
+    },
+    {
+     "key": "t16",
+     "label": "Botón o enlace 4 · «Agendar llamada gratuita»",
+     "section": "Sección: sección"
+    },
+    {
+     "key": "i1_src",
+     "label": "Imagen 1: Pablo Villarroel, The Marketographer",
+     "image": true,
+     "section": "Sección: sección"
+    },
+    {
+     "key": "i1_alt",
+     "label": "Texto alternativo de la imagen 1",
+     "section": "Sección: sección"
+    },
+    {
+     "key": "t17",
+     "label": "Texto 1 · «¿Quién te está hablando?»",
+     "section": "Sección: sección"
+    },
+    {
+     "key": "t18",
+     "label": "Título 4 · «Pablo Villarroel»",
+     "section": "Sección: sección"
+    },
+    {
+     "key": "t19",
+     "label": "Párrafo 9 · «@themarketographer»",
+     "section": "Sección: sección"
+    },
+    {
+     "key": "t20",
+     "label": "Párrafo 10 · «Lic. en Marketing & Publicidad, TEDx spe…»",
+     "section": "Sección: sección"
+    },
+    {
+     "key": "t21",
+     "label": "Párrafo 11 · «Lo único importante sobre mí es que no v…»",
+     "section": "Sección: sección",
+     "rich": true,
+     "long": true
+    },
+    {
+     "key": "t22",
+     "label": "Párrafo 12 · «Antes de que preguntes»",
+     "section": "Sección: sección"
+    },
+    {
+     "key": "t23",
+     "label": "Título 5 · «Preguntas frecuentes»",
+     "section": "Sección: sección"
+    },
+    {
+     "key": "t24",
+     "label": "Párrafo 13 · «Última llamada»",
+     "section": "Sección: final cta"
+    },
+    {
+     "key": "t25",
+     "label": "Título 6 · «¿Vas a seguir editando solo hasta las 3a…»",
+     "section": "Sección: final cta",
+     "rich": true
+    },
+    {
+     "key": "t26",
+     "label": "Botón o enlace 5 · «Agendar llamada gratuita →»",
+     "section": "Sección: final cta"
+    },
+    {
+     "key": "t27",
+     "label": "Párrafo 14 · «+200 fotógrafos ya están adentro. ¿Y tú?»",
+     "section": "Sección: final cta"
+    },
+    {
+     "key": "t28",
+     "label": "Texto 2 · «the marketo g raphers»",
+     "section": "Pie de página",
+     "rich": true
+    },
+    {
+     "key": "t29",
+     "label": "Párrafo 15 · «© 2026 The Marketographers.»",
+     "section": "Pie de página"
+    }
+   ],
+   "richStyles": [
+    {
+     "label": "★ Resaltado dorado",
+     "tag": "mark"
+    }
+   ]
+  },
+  {
+   "key": "pg_marketools",
+   "label": "MarkeTools",
+   "path": "marketools/index.html",
+   "bind": "pg_marketools",
+   "singleton": true,
+   "fixedRows": true,
+   "livePath": "/marketools/",
+   "fields": [
+    {
+     "key": "seoTitle",
+     "label": "Título de la pestaña y de Google",
+     "section": "Google y redes"
+    },
+    {
+     "key": "seoDesc",
+     "label": "Descripción para Google",
+     "long": true,
+     "section": "Google y redes"
+    },
+    {
+     "key": "t01",
+     "label": "Botón o enlace 1 · «the marketo g raphers»",
+     "section": "Encabezado",
+     "rich": true
+    },
+    {
+     "key": "h1",
+     "label": "Enlace de: the marketo g raphers",
+     "section": "Encabezado",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t02",
+     "label": "Botón o enlace 2 · «WhatsApp»",
+     "section": "Encabezado"
+    },
+    {
+     "key": "h2",
+     "label": "Enlace de: WhatsApp",
+     "section": "Encabezado",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t03",
+     "label": "Botón o enlace 3 · «Únete»",
+     "section": "Encabezado"
+    },
+    {
+     "key": "h3",
+     "label": "Enlace de: Únete",
+     "section": "Encabezado",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t04",
+     "label": "Párrafo 1 · «· MarkeTools · Gratis, sin registro ·»",
+     "section": "Sección: tools hero"
+    },
+    {
+     "key": "t05",
+     "label": "Título principal 1 · «Herramientas para que vendas más rápido»",
+     "section": "Sección: tools hero",
+     "rich": true
+    },
+    {
+     "key": "t06",
+     "label": "Párrafo 2 · «Nada de formularios eternos ni \"déjanos …»",
+     "section": "Sección: tools hero",
+     "long": true
+    },
+    {
+     "key": "t07",
+     "label": "Texto 1 · «Diseño web»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t08",
+     "label": "Título 1 · «Generador de Wireframes»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t09",
+     "label": "Párrafo 3 · «Arma la estructura de tu web o landing a…»",
+     "section": "Sección: tools section",
+     "long": true
+    },
+    {
+     "key": "t10",
+     "label": "Texto 2 · «Abrir herramienta →»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t11",
+     "label": "Texto 3 · «Ventas»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t12",
+     "label": "Título 2 · «Generador de Links de WhatsApp»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t13",
+     "label": "Párrafo 4 · «Crea tu link wa.me con mensaje precargad…»",
+     "section": "Sección: tools section",
+     "long": true
+    },
+    {
+     "key": "t14",
+     "label": "Texto 4 · «Abrir herramienta →»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t15",
+     "label": "Texto 5 · «Meta Ads»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t16",
+     "label": "Título 3 · «Dashboard de Meta Ads»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t17",
+     "label": "Párrafo 5 · «Conecta tu cuenta de Facebook y mira el …»",
+     "section": "Sección: tools section",
+     "long": true
+    },
+    {
+     "key": "t18",
+     "label": "Texto 6 · «Abrir herramienta →»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t19",
+     "label": "Texto 7 · «Nuevo · Precios»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t20",
+     "label": "Título 4 · «Calculadora de precio por sesión»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t21",
+     "label": "Párrafo 6 · «Mete tu sueldo deseado, tus gastos y tus…»",
+     "section": "Sección: tools section",
+     "long": true
+    },
+    {
+     "key": "t22",
+     "label": "Texto 8 · «Abrir herramienta →»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t23",
+     "label": "Texto 9 · «Propuesta»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t24",
+     "label": "Título 5 · «Cotizador en un link»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t25",
+     "label": "Párrafo 7 · «Armas tus paquetes una vez y compartes u…»",
+     "section": "Sección: tools section",
+     "long": true
+    },
+    {
+     "key": "t26",
+     "label": "Texto 10 · «Propuesta»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t27",
+     "label": "Título 6 · «Diagnóstico de portafolio»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t28",
+     "label": "Párrafo 8 · «Subes tus 12 mejores fotos y respondes s…»",
+     "section": "Sección: tools section",
+     "long": true
+    },
+    {
+     "key": "t29",
+     "label": "Texto 11 · «Propuesta»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t30",
+     "label": "Título 7 · «Simulador de embudo»",
+     "section": "Sección: tools section"
+    },
+    {
+     "key": "t31",
+     "label": "Párrafo 9 · «Cuántos clics, mensajes y cierres necesi…»",
+     "section": "Sección: tools section",
+     "long": true
+    },
+    {
+     "key": "t32",
+     "label": "Párrafo 10 · «The Marketographers»",
+     "section": "Sección: community cta"
+    },
+    {
+     "key": "t33",
+     "label": "Título 8 · «Las herramientas ayudan. La comunidad te…»",
+     "section": "Sección: community cta"
+    },
+    {
+     "key": "t34",
+     "label": "Párrafo 11 · «MarkeTools resuelve lo puntual. Para ven…»",
+     "section": "Sección: community cta",
+     "long": true
+    },
+    {
+     "key": "t35",
+     "label": "Botón o enlace 4 · «Únete a la comunidad →»",
+     "section": "Sección: community cta"
+    },
+    {
+     "key": "h35",
+     "label": "Enlace de: Únete a la comunidad →",
+     "section": "Sección: community cta",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t36",
+     "label": "Texto 12 · «the marketo g raphers»",
+     "section": "Pie de página",
+     "rich": true
+    },
+    {
+     "key": "t37",
+     "label": "Botón o enlace 5 · «Blog»",
+     "section": "Pie de página"
+    },
+    {
+     "key": "h37",
+     "label": "Enlace de: Blog",
+     "section": "Pie de página",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t38",
+     "label": "Botón o enlace 6 · «Comunidad»",
+     "section": "Pie de página"
+    },
+    {
+     "key": "h38",
+     "label": "Enlace de: Comunidad",
+     "section": "Pie de página",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t39",
+     "label": "Botón o enlace 7 · «Privacidad»",
+     "section": "Pie de página"
+    },
+    {
+     "key": "h39",
+     "label": "Enlace de: Privacidad",
+     "section": "Pie de página",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t40",
+     "label": "Párrafo 12 · «© 2026 The Marketographers. Todos los pu…»",
+     "section": "Pie de página"
+    }
+   ],
+   "richStyles": [
+    {
+     "label": "★ Resaltado dorado",
+     "tag": "mark"
+    }
+   ]
+  },
+  {
+   "key": "pg_calculadora",
+   "label": "Calculadora",
+   "path": "marketools/calculadora/index.html",
+   "bind": "pg_calculadora",
+   "singleton": true,
+   "fixedRows": true,
+   "livePath": "/marketools/calculadora/",
+   "fields": [
+    {
+     "key": "seoTitle",
+     "label": "Título de la pestaña y de Google",
+     "section": "Google y redes"
+    },
+    {
+     "key": "seoDesc",
+     "label": "Descripción para Google",
+     "long": true,
+     "section": "Google y redes"
+    },
+    {
+     "key": "t01",
+     "label": "Botón o enlace 1 · «the marketo g raphers»",
+     "section": "Encabezado",
+     "rich": true
+    },
+    {
+     "key": "h1",
+     "label": "Enlace de: the marketo g raphers",
+     "section": "Encabezado",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t02",
+     "label": "Botón o enlace 2 · «Inicio»",
+     "section": "Encabezado"
+    },
+    {
+     "key": "h2",
+     "label": "Enlace de: Inicio",
+     "section": "Encabezado",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t03",
+     "label": "Botón o enlace 3 · «Cursos»",
+     "section": "Encabezado"
+    },
+    {
+     "key": "h3",
+     "label": "Enlace de: Cursos",
+     "section": "Encabezado",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t04",
+     "label": "Botón o enlace 4 · «MarkeTools»",
+     "section": "Encabezado"
+    },
+    {
+     "key": "h4",
+     "label": "Enlace de: MarkeTools",
+     "section": "Encabezado",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t05",
+     "label": "Botón o enlace 5 · «Blog»",
+     "section": "Encabezado"
+    },
+    {
+     "key": "h5",
+     "label": "Enlace de: Blog",
+     "section": "Encabezado",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t06",
+     "label": "Botón o enlace 6 · «WhatsApp»",
+     "section": "Encabezado"
+    },
+    {
+     "key": "h6",
+     "label": "Enlace de: WhatsApp",
+     "section": "Encabezado",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t07",
+     "label": "Botón o enlace 7 · «Únete»",
+     "section": "Encabezado"
+    },
+    {
+     "key": "h7",
+     "label": "Enlace de: Únete",
+     "section": "Encabezado",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t08",
+     "label": "Párrafo 1 · «· MarkeTools · Gratis, sin registro ·»",
+     "section": "Sección: calc hero"
+    },
+    {
+     "key": "t09",
+     "label": "Título principal 1 · «Calcula cuánto cobrar por sesión , con t…»",
+     "section": "Sección: calc hero",
+     "rich": true
+    },
+    {
+     "key": "t10",
+     "label": "Párrafo 2 · «Copiar el precio de otro fotógrafo es he…»",
+     "section": "Sección: calc hero",
+     "long": true
+    },
+    {
+     "key": "t11",
+     "label": "Título 1 · «Tus números»",
+     "section": "Sección: calc sec"
+    },
+    {
+     "key": "t12",
+     "label": "Párrafo 3 · «Mueve el control o escribe el valor. El …»",
+     "section": "Sección: calc sec"
+    },
+    {
+     "key": "t13",
+     "label": "Etiqueta 1 · «Lo que quieres ganar al mes»",
+     "section": "Sección: calc sec"
+    },
+    {
+     "key": "t14",
+     "label": "Párrafo 4 · «Tu sueldo, limpio, después de pagar todo…»",
+     "section": "Sección: calc sec",
+     "long": true
+    },
+    {
+     "key": "t15",
+     "label": "Etiqueta 2 · «Costos fijos al mes»",
+     "section": "Sección: calc sec"
+    },
+    {
+     "key": "t16",
+     "label": "Párrafo 5 · «Equipo, software, estudio, transporte, i…»",
+     "section": "Sección: calc sec",
+     "long": true
+    },
+    {
+     "key": "t17",
+     "label": "Etiqueta 3 · «Sesiones al mes que puedes hacer de verdad»",
+     "section": "Sección: calc sec"
+    },
+    {
+     "key": "t18",
+     "label": "Texto 1 · «ses.»",
+     "section": "Sección: calc sec"
+    },
+    {
+     "key": "t19",
+     "label": "Párrafo 6 · «Pon las que has hecho en tus meses bueno…»",
+     "section": "Sección: calc sec",
+     "long": true
+    },
+    {
+     "key": "t20",
+     "label": "Etiqueta 4 · «Horas totales por sesión»",
+     "section": "Sección: calc sec"
+    },
+    {
+     "key": "t21",
+     "label": "Párrafo 7 · «Suma preproducción, sesión, edición, ent…»",
+     "section": "Sección: calc sec",
+     "long": true
+    },
+    {
+     "key": "t22",
+     "label": "Etiqueta 5 · «Costos variables por sesión»",
+     "section": "Sección: calc sec"
+    },
+    {
+     "key": "t23",
+     "label": "Párrafo 8 · «Impresiones, locación, modelo, asistente…»",
+     "section": "Sección: calc sec"
+    },
+    {
+     "key": "t24",
+     "label": "Etiqueta 6 · «Impuestos y comisiones»",
+     "section": "Sección: calc sec"
+    },
+    {
+     "key": "t25",
+     "label": "Párrafo 9 · «Lo que se queda el gobierno o la platafo…»",
+     "section": "Sección: calc sec"
+    },
+    {
+     "key": "t26",
+     "label": "Etiqueta 7 · «Margen para crecer»",
+     "section": "Sección: calc sec"
+    },
+    {
+     "key": "t27",
+     "label": "Párrafo 10 · «Para renovar equipo, tomar un curso o to…»",
+     "section": "Sección: calc sec"
+    },
+    {
+     "key": "t28",
+     "label": "Párrafo 11 · «The Marketographers»",
+     "section": "Sección: calc cta"
+    },
+    {
+     "key": "t29",
+     "label": "Título 2 · «¿Te asustó tu número?»",
+     "section": "Sección: calc cta"
+    },
+    {
+     "key": "t30",
+     "label": "Párrafo 12 · «Calcularlo es la mitad. La otra mitad es…»",
+     "section": "Sección: calc cta",
+     "long": true
+    },
+    {
+     "key": "t31",
+     "label": "Botón o enlace 8 · «Únete a la comunidad →»",
+     "section": "Sección: calc cta"
+    },
+    {
+     "key": "h31",
+     "label": "Enlace de: Únete a la comunidad →",
+     "section": "Sección: calc cta",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t32",
+     "label": "Texto 2 · «the marketo g raphers»",
+     "section": "Pie de página",
+     "rich": true
+    },
+    {
+     "key": "t33",
+     "label": "Botón o enlace 9 · «Blog»",
+     "section": "Pie de página"
+    },
+    {
+     "key": "h33",
+     "label": "Enlace de: Blog",
+     "section": "Pie de página",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t34",
+     "label": "Botón o enlace 10 · «Comunidad»",
+     "section": "Pie de página"
+    },
+    {
+     "key": "h34",
+     "label": "Enlace de: Comunidad",
+     "section": "Pie de página",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t35",
+     "label": "Botón o enlace 11 · «MarkeTools»",
+     "section": "Pie de página"
+    },
+    {
+     "key": "h35",
+     "label": "Enlace de: MarkeTools",
+     "section": "Pie de página",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t36",
+     "label": "Párrafo 13 · «© 2026 The Marketographers.»",
+     "section": "Pie de página"
+    }
+   ],
+   "richStyles": [
+    {
+     "label": "★ Resaltado dorado",
+     "tag": "mark"
+    }
+   ]
+  },
+  {
+   "key": "pg_linkwpp",
+   "label": "LinkWpp",
+   "path": "marketools/link-wpp/index.html",
+   "bind": "pg_linkwpp",
+   "singleton": true,
+   "fixedRows": true,
+   "livePath": "/marketools/link-wpp/",
+   "fields": [
+    {
+     "key": "seoTitle",
+     "label": "Título de la pestaña y de Google",
+     "section": "Google y redes"
+    },
+    {
+     "key": "seoDesc",
+     "label": "Descripción para Google",
+     "long": true,
+     "section": "Google y redes"
+    },
+    {
+     "key": "t01",
+     "label": "Botón o enlace 1 · «the marketo g raphers»",
+     "section": "Encabezado",
+     "rich": true
+    },
+    {
+     "key": "h1",
+     "label": "Enlace de: the marketo g raphers",
+     "section": "Encabezado",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t02",
+     "label": "Botón o enlace 2 · «WhatsApp»",
+     "section": "Encabezado"
+    },
+    {
+     "key": "h2",
+     "label": "Enlace de: WhatsApp",
+     "section": "Encabezado",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t03",
+     "label": "Botón o enlace 3 · «Únete»",
+     "section": "Encabezado"
+    },
+    {
+     "key": "h3",
+     "label": "Enlace de: Únete",
+     "section": "Encabezado",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t04",
+     "label": "Párrafo 1 · «· MarkeTools · Gratis, sin registro ·»",
+     "section": "Sección: tool hero"
+    },
+    {
+     "key": "t05",
+     "label": "Título principal 1 · «Tu link de WhatsApp, listo para pegar en…»",
+     "section": "Sección: tool hero",
+     "rich": true
+    },
+    {
+     "key": "t06",
+     "label": "Párrafo 2 · «Arma el link con el código de tu país, u…»",
+     "section": "Sección: tool hero",
+     "long": true
+    },
+    {
+     "key": "t07",
+     "label": "Texto 1 · «Datos del negocio»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t08",
+     "label": "Etiqueta 1 · «Nombre a mostrar»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t09",
+     "label": "Texto 2 · «Se usa en la preview y también puedes in…»",
+     "section": "Sección: tool section",
+     "rich": true
+    },
+    {
+     "key": "t10",
+     "label": "Texto 3 · «Número de WhatsApp»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t11",
+     "label": "Etiqueta 2 · «Código de país»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t12",
+     "label": "Etiqueta 3 · «Número (sin el código de país)»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t13",
+     "label": "Texto 4 · «Sin espacios, sin +, sin el 0 inicial. E…»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t14",
+     "label": "Texto 5 · «Mensaje precargado»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t15",
+     "label": "Etiqueta 4 · «Qué va a ver la persona al abrir el chat»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t16",
+     "label": "Botón 1 · «Cotizar sesión»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t17",
+     "label": "Botón 2 · «Consultar disponibilidad»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t18",
+     "label": "Botón 3 · «Plan mensual»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t19",
+     "label": "Botón 4 · «Vengo de Instagram»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t20",
+     "label": "Etiqueta 5 · «Tu link»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t21",
+     "label": "Párrafo 3 · «Así se ve en WhatsApp»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t22",
+     "label": "Texto 6 · «en línea»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t23",
+     "label": "Párrafo 4 · «Hoy»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t24",
+     "label": "Texto 7 · «Mensaje»",
+     "section": "Sección: tool section"
+    },
+    {
+     "key": "t25",
+     "label": "Texto 8 · «the marketo g raphers»",
+     "section": "Pie de página",
+     "rich": true
+    },
+    {
+     "key": "t26",
+     "label": "Botón o enlace 4 · «Blog»",
+     "section": "Pie de página"
+    },
+    {
+     "key": "h26",
+     "label": "Enlace de: Blog",
+     "section": "Pie de página",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t27",
+     "label": "Botón o enlace 5 · «Comunidad»",
+     "section": "Pie de página"
+    },
+    {
+     "key": "h27",
+     "label": "Enlace de: Comunidad",
+     "section": "Pie de página",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t28",
+     "label": "Botón o enlace 6 · «Privacidad»",
+     "section": "Pie de página"
+    },
+    {
+     "key": "h28",
+     "label": "Enlace de: Privacidad",
+     "section": "Pie de página",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t29",
+     "label": "Párrafo 5 · «MarkeTool gratuita de The Marketographer…»",
+     "section": "Pie de página"
+    }
+   ],
+   "richStyles": [
+    {
+     "label": "★ Resaltado dorado",
+     "tag": "mark"
+    }
+   ]
+  }
+ ],
+ "eg": [
+  {
+   "key": "pg_precios",
+   "label": "Precios",
+   "path": "precios/index.html",
+   "bind": "pg_precios",
+   "singleton": true,
+   "fixedRows": true,
+   "livePath": "/precios/",
+   "fields": [
+    {
+     "key": "seoTitle",
+     "label": "Título de la pestaña y de Google",
+     "section": "Google y redes"
+    },
+    {
+     "key": "seoDesc",
+     "label": "Descripción para Google",
+     "long": true,
+     "section": "Google y redes"
+    },
+    {
+     "key": "i1_src",
+     "label": "Imagen 1: Estudio Graphica",
+     "image": true,
+     "section": "Menú"
+    },
+    {
+     "key": "i1_alt",
+     "label": "Texto alternativo de la imagen 1",
+     "section": "Menú"
+    },
+    {
+     "key": "i2_src",
+     "label": "Imagen 2: logo-mark-white.png",
+     "image": true,
+     "section": "Menú"
+    },
+    {
+     "key": "i2_alt",
+     "label": "Texto alternativo de la imagen 2",
+     "section": "Menú"
+    },
+    {
+     "key": "t01",
+     "label": "Botón o enlace 1 · «Volver al inicio»",
+     "section": "Menú"
+    },
+    {
+     "key": "h1",
+     "label": "Enlace de: Volver al inicio",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t02",
+     "label": "Título principal 1 · «Configura tu paquete y reserva tu fecha.»",
+     "section": "Página",
+     "rich": true
+    },
+    {
+     "key": "t03",
+     "label": "Párrafo 1 · «Elige entre una sesión puntual o un plan…»",
+     "section": "Página",
+     "rich": true,
+     "long": true
+    },
+    {
+     "key": "t04",
+     "label": "Párrafo 2 · «Extras (opcional)»",
+     "section": "Página"
+    },
+    {
+     "key": "t05",
+     "label": "Texto 1 · «Precio referencial. Se confirma en tu se…»",
+     "section": "Página"
+    },
+    {
+     "key": "i3_src",
+     "label": "Imagen 3: Estudio Graphica",
+     "image": true,
+     "section": "Pie de página"
+    },
+    {
+     "key": "i3_alt",
+     "label": "Texto alternativo de la imagen 3",
+     "section": "Pie de página"
+    },
+    {
+     "key": "t06",
+     "label": "Párrafo 3 · «© 2026 Estudio Graphica · Cochabamba, Bo…»",
+     "section": "Pie de página",
+     "rich": true
+    },
+    {
+     "key": "t07",
+     "label": "Botón o enlace 2 · «Precios»",
+     "section": "Menú"
+    },
+    {
+     "key": "h7",
+     "label": "Enlace de: Precios",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t08",
+     "label": "Botón o enlace 3 · «Empieza aquí»",
+     "section": "Menú"
+    },
+    {
+     "key": "h8",
+     "label": "Enlace de: Empieza aquí",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t09",
+     "label": "Botón o enlace 4 · «Blog»",
+     "section": "Menú"
+    },
+    {
+     "key": "h9",
+     "label": "Enlace de: Blog",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    }
+   ]
+  },
+  {
+   "key": "pg_empezar",
+   "label": "Empezar",
+   "path": "empezar/index.html",
+   "bind": "pg_empezar",
+   "singleton": true,
+   "fixedRows": true,
+   "livePath": "/empezar/",
+   "fields": [
+    {
+     "key": "seoTitle",
+     "label": "Título de la pestaña y de Google",
+     "section": "Google y redes"
+    },
+    {
+     "key": "seoDesc",
+     "label": "Descripción para Google",
+     "long": true,
+     "section": "Google y redes"
+    },
+    {
+     "key": "i1_src",
+     "label": "Imagen 1: Estudio Graphica",
+     "image": true,
+     "section": "Menú"
+    },
+    {
+     "key": "i1_alt",
+     "label": "Texto alternativo de la imagen 1",
+     "section": "Menú"
+    },
+    {
+     "key": "i2_src",
+     "label": "Imagen 2: logo-mark-white.png",
+     "image": true,
+     "section": "Menú"
+    },
+    {
+     "key": "i2_alt",
+     "label": "Texto alternativo de la imagen 2",
+     "section": "Menú"
+    },
+    {
+     "key": "t01",
+     "label": "Botón o enlace 1 · «Volver al inicio»",
+     "section": "Menú"
+    },
+    {
+     "key": "h1",
+     "label": "Enlace de: Volver al inicio",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t02",
+     "label": "Título principal 1 · «Así de simple es trabajar conmigo .»",
+     "section": "Página",
+     "rich": true
+    },
+    {
+     "key": "t03",
+     "label": "Párrafo 1 · «Cuatro pasos, todos desde esta página.»",
+     "section": "Página"
+    },
+    {
+     "key": "t04",
+     "label": "Texto 1 · «Arma tu paquete y reserva tu fecha»",
+     "section": "Página"
+    },
+    {
+     "key": "t05",
+     "label": "Párrafo 2 · «Precio al instante. Dos minutos.»",
+     "section": "Página"
+    },
+    {
+     "key": "i3_src",
+     "label": "Imagen 3: Estudio Graphica",
+     "image": true,
+     "section": "Pie de página"
+    },
+    {
+     "key": "i3_alt",
+     "label": "Texto alternativo de la imagen 3",
+     "section": "Pie de página"
+    },
+    {
+     "key": "t06",
+     "label": "Párrafo 3 · «© 2026 Estudio Graphica · Cochabamba, Bo…»",
+     "section": "Pie de página",
+     "rich": true
+    },
+    {
+     "key": "t07",
+     "label": "Botón o enlace 2 · «Precios»",
+     "section": "Menú"
+    },
+    {
+     "key": "h7",
+     "label": "Enlace de: Precios",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t08",
+     "label": "Botón o enlace 3 · «Empieza aquí»",
+     "section": "Menú"
+    },
+    {
+     "key": "h8",
+     "label": "Enlace de: Empieza aquí",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t09",
+     "label": "Botón o enlace 4 · «Blog»",
+     "section": "Menú"
+    },
+    {
+     "key": "h9",
+     "label": "Enlace de: Blog",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    }
+   ]
+  },
+  {
+   "key": "pg_reto",
+   "label": "Reto",
+   "path": "reto/index.html",
+   "bind": "pg_reto",
+   "singleton": true,
+   "fixedRows": true,
+   "livePath": "/reto/",
+   "fields": [
+    {
+     "key": "seoTitle",
+     "label": "Título de la pestaña y de Google",
+     "section": "Google y redes"
+    },
+    {
+     "key": "seoDesc",
+     "label": "Descripción para Google",
+     "long": true,
+     "section": "Google y redes"
+    },
+    {
+     "key": "i1_src",
+     "label": "Imagen 1: Estudio Graphica",
+     "image": true,
+     "section": "Menú"
+    },
+    {
+     "key": "i1_alt",
+     "label": "Texto alternativo de la imagen 1",
+     "section": "Menú"
+    },
+    {
+     "key": "i2_src",
+     "label": "Imagen 2: logo-mark-white.png",
+     "image": true,
+     "section": "Menú"
+    },
+    {
+     "key": "i2_alt",
+     "label": "Texto alternativo de la imagen 2",
+     "section": "Menú"
+    },
+    {
+     "key": "t01",
+     "label": "Botón o enlace 1 · «Programa»",
+     "section": "Menú"
+    },
+    {
+     "key": "t02",
+     "label": "Botón o enlace 2 · «Acceso»",
+     "section": "Menú"
+    },
+    {
+     "key": "t03",
+     "label": "Botón o enlace 3 · «Preguntas»",
+     "section": "Menú"
+    },
+    {
+     "key": "t04",
+     "label": "Botón o enlace 4 · «Entrar al reto»",
+     "section": "Menú"
+    },
+    {
+     "key": "t05",
+     "label": "Botón o enlace 5 · «Entrar al reto»",
+     "section": "Página"
+    },
+    {
+     "key": "t06",
+     "label": "Título principal 1 · «Tu menú lo cocinas tú. Tu marketing tamb…»",
+     "section": "Sección: s paper",
+     "rich": true
+    },
+    {
+     "key": "t07",
+     "label": "Párrafo 1 · «Doce clases grabadas para dueños de rest…»",
+     "section": "Sección: s paper",
+     "long": true
+    },
+    {
+     "key": "t08",
+     "label": "Botón o enlace 6 · «Quiero el reto»",
+     "section": "Sección: s paper"
+    },
+    {
+     "key": "t09",
+     "label": "Botón o enlace 7 · «Ver el programa»",
+     "section": "Sección: s paper"
+    },
+    {
+     "key": "t10",
+     "label": "Párrafo 2 · «Gratis con tu plan mensual de Estudio Gr…»",
+     "section": "Sección: s paper",
+     "rich": true
+    },
+    {
+     "key": "t11",
+     "label": "Subtítulo 1 · «Tu diferenciador»",
+     "section": "Sección: s paper"
+    },
+    {
+     "key": "t12",
+     "label": "Texto 1 · «Semana 1, disponible»",
+     "section": "Sección: s paper"
+    },
+    {
+     "key": "t13",
+     "label": "Subtítulo 2 · «Tu Problema, tu Proceso y tu Promesa»",
+     "section": "Sección: s paper"
+    },
+    {
+     "key": "t14",
+     "label": "Texto 2 · «Semana 2, se abre pronto»",
+     "section": "Sección: s paper"
+    },
+    {
+     "key": "t15",
+     "label": "Texto 3 · «Semana 2, abierta»",
+     "section": "Sección: s paper"
+    },
+    {
+     "key": "t16",
+     "label": "Subtítulo 3 · «Tu cliente ideal»",
+     "section": "Sección: s paper"
+    },
+    {
+     "key": "t17",
+     "label": "Texto 4 · «Semana 3, se abre pronto»",
+     "section": "Sección: s paper"
+    },
+    {
+     "key": "t18",
+     "label": "Título 1 · «Imagina que son las 11 de la noche»",
+     "section": "Sección: problema"
+    },
+    {
+     "key": "t19",
+     "label": "Párrafo 3 · «Cerraste la cocina, contaste la caja y t…»",
+     "section": "Sección: problema",
+     "long": true
+    },
+    {
+     "key": "t20",
+     "label": "Subtítulo 4 · «Final 1: todo igual»",
+     "section": "Sección: problema"
+    },
+    {
+     "key": "t21",
+     "label": "Párrafo 4 · «Otro sigue decidiendo cómo se ve, cómo s…»",
+     "section": "Sección: problema",
+     "long": true
+    },
+    {
+     "key": "t22",
+     "label": "Subtítulo 5 · «Final 2: lo haces solo»",
+     "section": "Sección: problema"
+    },
+    {
+     "key": "t23",
+     "label": "Párrafo 5 · «Ves tutoriales sueltos a las 2 de la mañ…»",
+     "section": "Sección: problema",
+     "long": true
+    },
+    {
+     "key": "t24",
+     "label": "Subtítulo 6 · «Final 3: lo haces con el reto»",
+     "section": "Sección: problema"
+    },
+    {
+     "key": "t25",
+     "label": "Párrafo 6 · «12 clases en orden, una misión por seman…»",
+     "section": "Sección: problema",
+     "long": true
+    },
+    {
+     "key": "t26",
+     "label": "Párrafo 7 · «¿Cuál de los tres estás escribiendo esta…»",
+     "section": "Sección: problema"
+    },
+    {
+     "key": "t27",
+     "label": "Título 2 · «12 clases en tres fases»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t28",
+     "label": "Párrafo 8 · «Cada clase trae una misión concreta. Si …»",
+     "section": "Sección: programa",
+     "long": true
+    },
+    {
+     "key": "t29",
+     "label": "Subtítulo 7 · «Fase 1. Fundamentos»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t30",
+     "label": "Texto 5 · «Semanas 1 a 5»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t31",
+     "label": "Subtítulo 8 · «Tu diferenciador»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t32",
+     "label": "Párrafo 9 · «Misión: escribir en una frase qué hace t…»",
+     "section": "Sección: programa",
+     "rich": true,
+     "long": true
+    },
+    {
+     "key": "t33",
+     "label": "Texto 6 · «Semana 1»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t34",
+     "label": "Subtítulo 9 · «Tu Problema, tu Proceso y tu Promesa»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t35",
+     "label": "Párrafo 10 · «Misión: dejar por escrito los tres, en l…»",
+     "section": "Sección: programa",
+     "rich": true
+    },
+    {
+     "key": "t36",
+     "label": "Texto 7 · «Semana 2»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t37",
+     "label": "Subtítulo 10 · «Tu cliente ideal»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t38",
+     "label": "Párrafo 11 · «Misión: con un asistente de IA que te en…»",
+     "section": "Sección: programa",
+     "rich": true,
+     "long": true
+    },
+    {
+     "key": "t39",
+     "label": "Texto 8 · «Semana 3»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t40",
+     "label": "Subtítulo 11 · «Tu oferta»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t41",
+     "label": "Párrafo 12 · «Misión: armar un plato o paquete con nom…»",
+     "section": "Sección: programa",
+     "rich": true
+    },
+    {
+     "key": "t42",
+     "label": "Texto 9 · «Semana 4»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t43",
+     "label": "Subtítulo 12 · «Tu voz y tus colores»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t44",
+     "label": "Párrafo 13 · «Misión: elegir tono y paleta con ayuda d…»",
+     "section": "Sección: programa",
+     "rich": true,
+     "long": true
+    },
+    {
+     "key": "t45",
+     "label": "Texto 10 · «Semana 5»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t46",
+     "label": "Subtítulo 13 · «Fase 2. Presencia y venta»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t47",
+     "label": "Texto 11 · «Semanas 6 a 9»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t48",
+     "label": "Subtítulo 14 · «Instagram con propósito»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t49",
+     "label": "Párrafo 14 · «Misión: ordenar tu perfil para que funci…»",
+     "section": "Sección: programa",
+     "rich": true
+    },
+    {
+     "key": "t50",
+     "label": "Texto 12 · «Semana 6»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t51",
+     "label": "Subtítulo 15 · «Tu propio copy»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t52",
+     "label": "Párrafo 15 · «Misión: escribir captions, ofertas y des…»",
+     "section": "Sección: programa",
+     "rich": true,
+     "long": true
+    },
+    {
+     "key": "t53",
+     "label": "Texto 13 · «Semana 7»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t54",
+     "label": "Subtítulo 16 · «Tu web y tu tienda virtual»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t55",
+     "label": "Párrafo 16 · «Misión: revisar qué le falta a tu página…»",
+     "section": "Sección: programa",
+     "rich": true,
+     "long": true
+    },
+    {
+     "key": "t56",
+     "label": "Texto 14 · «Semana 8»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t57",
+     "label": "Subtítulo 17 · «Reservas con Cal.com»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t58",
+     "label": "Párrafo 17 · «Misión: dejar activa una agenda que acep…»",
+     "section": "Sección: programa",
+     "rich": true
+    },
+    {
+     "key": "t59",
+     "label": "Texto 15 · «Semana 9»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t60",
+     "label": "Subtítulo 18 · «Fase 3. Autonomía»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t61",
+     "label": "Texto 16 · «Semanas 10 a 12»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t62",
+     "label": "Subtítulo 19 · «Contenido programado»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t63",
+     "label": "Párrafo 18 · «Misión: grabar en un solo día y dejar ag…»",
+     "section": "Sección: programa",
+     "rich": true
+    },
+    {
+     "key": "t64",
+     "label": "Texto 17 · «Semana 10»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t65",
+     "label": "Subtítulo 20 · «Tus propios anuncios»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t66",
+     "label": "Párrafo 19 · «Misión: lanzar tu primera campaña en Met…»",
+     "section": "Sección: programa",
+     "rich": true,
+     "long": true
+    },
+    {
+     "key": "t67",
+     "label": "Texto 18 · «Semana 11»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t68",
+     "label": "Subtítulo 21 · «Automatiza y toma el control»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t69",
+     "label": "Párrafo 20 · «Misión: crear atajos en tu iPhone (si ti…»",
+     "section": "Sección: programa",
+     "rich": true,
+     "long": true
+    },
+    {
+     "key": "t70",
+     "label": "Texto 19 · «Semana 12»",
+     "section": "Sección: programa"
+    },
+    {
+     "key": "t71",
+     "label": "Título 3 · «Una clase por semana»",
+     "section": "Sección: ritmo"
+    },
+    {
+     "key": "t72",
+     "label": "Párrafo 21 · «Las clases ya están grabadas y se abren …»",
+     "section": "Sección: ritmo",
+     "long": true
+    },
+    {
+     "key": "t73",
+     "label": "Texto 20 · «Fundamentos»",
+     "section": "Sección: ritmo"
+    },
+    {
+     "key": "t74",
+     "label": "Texto 21 · «Semanas 1 a 5»",
+     "section": "Sección: ritmo"
+    },
+    {
+     "key": "t75",
+     "label": "Texto 22 · «Presencia y venta»",
+     "section": "Sección: ritmo"
+    },
+    {
+     "key": "t76",
+     "label": "Texto 23 · «Semanas 6 a 9»",
+     "section": "Sección: ritmo"
+    },
+    {
+     "key": "t77",
+     "label": "Texto 24 · «Autonomía»",
+     "section": "Sección: ritmo"
+    },
+    {
+     "key": "t78",
+     "label": "Texto 25 · «Semanas 10 a 12»",
+     "section": "Sección: ritmo"
+    },
+    {
+     "key": "t79",
+     "label": "Párrafo 22 · «Mientras tu plan mensual siga activo, el…»",
+     "section": "Sección: ritmo"
+    },
+    {
+     "key": "t80",
+     "label": "Título 4 · «Dos formas de entrar»",
+     "section": "Sección: acceso"
+    },
+    {
+     "key": "t81",
+     "label": "Párrafo 23 · «El reto se vende por separado. Si eres c…»",
+     "section": "Sección: acceso",
+     "long": true
+    },
+    {
+     "key": "t82",
+     "label": "Subtítulo 22 · «Compra el reto»",
+     "section": "Sección: acceso"
+    },
+    {
+     "key": "t83",
+     "label": "Párrafo 24 · «Pagas en NAS y empiezas con la clase 1. …»",
+     "section": "Sección: acceso"
+    },
+    {
+     "key": "t84",
+     "label": "Subtítulo 23 · «Tengo plan mensual»",
+     "section": "Sección: acceso"
+    },
+    {
+     "key": "t85",
+     "label": "Párrafo 25 · «Pega tu cupón y te llevamos al reto. El …»",
+     "section": "Sección: acceso"
+    },
+    {
+     "key": "t86",
+     "label": "Párrafo 26 · «¿Sin cupón? Escríbele a Pablo por WhatsA…»",
+     "section": "Sección: acceso",
+     "rich": true,
+     "long": true
+    },
+    {
+     "key": "t87",
+     "label": "Título 5 · «Preguntas frecuentes»",
+     "section": "Sección: faq"
+    },
+    {
+     "key": "t88",
+     "label": "Botón 1 · «¿Qué es exactamente el reto?»",
+     "section": "Sección: faq",
+     "rich": true
+    },
+    {
+     "key": "t89",
+     "label": "Párrafo 27 · «Un programa de 12 clases grabadas en NAS…»",
+     "section": "Sección: faq",
+     "long": true
+    },
+    {
+     "key": "t90",
+     "label": "Botón 2 · «¿Cuánto cuesta?»",
+     "section": "Sección: faq",
+     "rich": true
+    },
+    {
+     "key": "t91",
+     "label": "Párrafo 28 · «El reto se vende por separado y el preci…»",
+     "section": "Sección: faq",
+     "long": true
+    },
+    {
+     "key": "t92",
+     "label": "Botón 3 · «¿Qué pasa si dejo mi plan mensual?»",
+     "section": "Sección: faq",
+     "rich": true
+    },
+    {
+     "key": "t93",
+     "label": "Párrafo 29 · «El acceso con cupón se retira cuando ter…»",
+     "section": "Sección: faq",
+     "long": true
+    },
+    {
+     "key": "t94",
+     "label": "Botón 4 · «¿Necesito saber de marketing?»",
+     "section": "Sección: faq",
+     "rich": true
+    },
+    {
+     "key": "t95",
+     "label": "Párrafo 30 · «Empiezas desde cero. Cada clase se apoya…»",
+     "section": "Sección: faq",
+     "long": true
+    },
+    {
+     "key": "t96",
+     "label": "Título 6 · «¿Qué restaurante quieres tener en 12 sem…»",
+     "section": "Sección: faq"
+    },
+    {
+     "key": "t97",
+     "label": "Párrafo 31 · «Entra con tu cupón o compra el reto y em…»",
+     "section": "Sección: faq"
+    },
+    {
+     "key": "t98",
+     "label": "Botón o enlace 8 · «Entrar al reto»",
+     "section": "Sección: faq"
+    },
+    {
+     "key": "i3_src",
+     "label": "Imagen 3: Estudio Graphica",
+     "image": true,
+     "section": "Pie de página"
+    },
+    {
+     "key": "i3_alt",
+     "label": "Texto alternativo de la imagen 3",
+     "section": "Pie de página"
+    },
+    {
+     "key": "t99",
+     "label": "Párrafo 32 · «© 2026 Estudio Graphica · Cochabamba, Bo…»",
+     "section": "Pie de página",
+     "rich": true
+    },
+    {
+     "key": "t100",
+     "label": "Botón o enlace 9 · «Inicio»",
+     "section": "Menú"
+    },
+    {
+     "key": "h100",
+     "label": "Enlace de: Inicio",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t101",
+     "label": "Botón o enlace 10 · «Precios»",
+     "section": "Menú"
+    },
+    {
+     "key": "h101",
+     "label": "Enlace de: Precios",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    }
+   ]
+  },
+  {
+   "key": "pg_jornada",
+   "label": "Jornada",
+   "path": "jornada/index.html",
+   "bind": "pg_jornada",
+   "singleton": true,
+   "fixedRows": true,
+   "livePath": "/jornada/",
+   "fields": [
+    {
+     "key": "seoTitle",
+     "label": "Título de la pestaña y de Google",
+     "section": "Google y redes"
+    },
+    {
+     "key": "seoDesc",
+     "label": "Descripción para Google",
+     "long": true,
+     "section": "Google y redes"
+    },
+    {
+     "key": "i1_src",
+     "label": "Imagen 1: Estudio Graphica",
+     "image": true,
+     "section": "Menú"
+    },
+    {
+     "key": "i1_alt",
+     "label": "Texto alternativo de la imagen 1",
+     "section": "Menú"
+    },
+    {
+     "key": "i2_src",
+     "label": "Imagen 2: logo-mark-white.png",
+     "image": true,
+     "section": "Menú"
+    },
+    {
+     "key": "i2_alt",
+     "label": "Texto alternativo de la imagen 2",
+     "section": "Menú"
+    },
+    {
+     "key": "t01",
+     "label": "Botón o enlace 1 · «Volver al inicio»",
+     "section": "Menú"
+    },
+    {
+     "key": "h1",
+     "label": "Enlace de: Volver al inicio",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t02",
+     "label": "Título principal 1 · «Ajusta las horas y reserva tu fecha.»",
+     "section": "Página",
+     "rich": true
+    },
+    {
+     "key": "t03",
+     "label": "Párrafo 1 · «Ya trabajamos juntos antes, así que vamo…»",
+     "section": "Página",
+     "long": true
+    },
+    {
+     "key": "t04",
+     "label": "Texto 1 · «Horas de trabajo»",
+     "section": "Página"
+    },
+    {
+     "key": "t05",
+     "label": "Párrafo 2 · «Antes de reservar»",
+     "section": "Página"
+    },
+    {
+     "key": "t06",
+     "label": "Párrafo 3 · «Esta jornada es sesión de fotos por hora…»",
+     "section": "Página",
+     "long": true
+    },
+    {
+     "key": "t07",
+     "label": "Texto 2 · «Jornada de trabajo»",
+     "section": "Sección: paqueteLabel"
+    },
+    {
+     "key": "t08",
+     "label": "Texto 3 · «Precio referencial. Se confirma en tu se…»",
+     "section": "Página"
+    },
+    {
+     "key": "i3_src",
+     "label": "Imagen 3: Estudio Graphica",
+     "image": true,
+     "section": "Pie de página"
+    },
+    {
+     "key": "i3_alt",
+     "label": "Texto alternativo de la imagen 3",
+     "section": "Pie de página"
+    },
+    {
+     "key": "t09",
+     "label": "Párrafo 4 · «© 2026 Estudio Graphica · Cochabamba, Bo…»",
+     "section": "Pie de página",
+     "rich": true
+    },
+    {
+     "key": "t10",
+     "label": "Botón o enlace 2 · «Precios»",
+     "section": "Menú"
+    },
+    {
+     "key": "h10",
+     "label": "Enlace de: Precios",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t11",
+     "label": "Botón o enlace 3 · «Empieza aquí»",
+     "section": "Menú"
+    },
+    {
+     "key": "h11",
+     "label": "Enlace de: Empieza aquí",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    },
+    {
+     "key": "t12",
+     "label": "Botón o enlace 4 · «Blog»",
+     "section": "Menú"
+    },
+    {
+     "key": "h12",
+     "label": "Enlace de: Blog",
+     "section": "Menú",
+     "hint": "Dirección a la que lleva este botón."
+    }
+   ]
+  }
+ ]
+}

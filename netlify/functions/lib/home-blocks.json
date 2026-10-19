@@ -366,22 +366,17 @@
    },
    {
     "key": "t08",
-    "label": "Párrafo 3",
+    "label": "Chat de WhatsApp · mensaje 1",
     "section": "Bloque 2"
    },
    {
     "key": "t09",
-    "label": "Párrafo 4",
+    "label": "Chat de WhatsApp · mensaje 2",
     "section": "Bloque 2"
    },
    {
     "key": "t10",
-    "label": "Párrafo 5",
-    "section": "Bloque 2"
-   },
-   {
-    "key": "t11",
-    "label": "Texto 2",
+    "label": "Chat de WhatsApp · mensaje 3",
     "section": "Bloque 2"
    },
    {
@@ -417,6 +412,43 @@
    {
     "key": "t18",
     "label": "Párrafo 7",
+    "section": "Bloque 4"
+   },
+   {
+    "key": "t19",
+    "label": "Chat de WhatsApp · nombre del grupo",
+    "section": "Bloque 2"
+   },
+   {
+    "key": "t20",
+    "label": "Chat de WhatsApp · quiénes están",
+    "section": "Bloque 2"
+   },
+   {
+    "key": "t21",
+    "label": "Chat de WhatsApp · nombre del primer mensaje",
+    "section": "Bloque 2"
+   },
+   {
+    "key": "t22",
+    "label": "Chat de WhatsApp · nombre del segundo mensaje",
+    "section": "Bloque 2"
+   },
+   {
+    "key": "t23",
+    "label": "Chat de WhatsApp · nombre del tercer mensaje",
+    "section": "Bloque 2"
+   },
+   {
+    "key": "i2_src",
+    "label": "Imagen del bloque Recursos y plantillas",
+    "image": true,
+    "section": "Bloque 4",
+    "hint": "Mejor 1600 x 870. Lo importante va al centro: en móvil se recorta a los lados."
+   },
+   {
+    "key": "i2_alt",
+    "label": "Texto alternativo de la imagen de Recursos",
     "section": "Bloque 4"
    }
   ]
@@ -548,11 +580,6 @@
     "section": "Duda 1"
    },
    {
-    "key": "t05",
-    "label": "Texto 3",
-    "section": "Duda 1"
-   },
-   {
     "key": "t06",
     "label": "Párrafo 1",
     "long": true,
@@ -566,11 +593,6 @@
    {
     "key": "t08",
     "label": "Texto 5",
-    "section": "Duda 2"
-   },
-   {
-    "key": "t09",
-    "label": "Texto 6",
     "section": "Duda 2"
    },
    {
@@ -590,11 +612,6 @@
     "section": "Duda 3"
    },
    {
-    "key": "t13",
-    "label": "Texto 9",
-    "section": "Duda 3"
-   },
-   {
     "key": "t14",
     "label": "Párrafo 3",
     "long": true,
@@ -611,11 +628,6 @@
     "section": "Duda 4"
    },
    {
-    "key": "t17",
-    "label": "Texto 12",
-    "section": "Duda 4"
-   },
-   {
     "key": "t18",
     "label": "Párrafo 4",
     "long": true,
@@ -629,11 +641,6 @@
    {
     "key": "t20",
     "label": "Texto 14",
-    "section": "Duda 5"
-   },
-   {
-    "key": "t21",
-    "label": "Texto 15",
     "section": "Duda 5"
    },
    {
@@ -816,6 +823,221 @@
    {
     "key": "t01",
     "label": "Botón 1"
+   }
+  ]
+ },
+ {
+  "key": "home_vis",
+  "label": "Mostrar u ocultar secciones",
+  "path": "index.html",
+  "bind": "home_vis",
+  "singleton": true,
+  "fixedRows": true,
+  "livePath": "/",
+  "fields": [
+   {
+    "key": "ticker",
+    "label": "Cinta de palabras",
+    "type": "select",
+    "options": [
+     {
+      "value": "no",
+      "label": "Visible"
+     },
+     {
+      "value": "si",
+      "label": "Oculta"
+     }
+    ],
+    "section": "Secciones de la página",
+    "hint": "Oculta deja la sección fuera de la página sin borrar sus textos."
+   },
+   {
+    "key": "statement",
+    "label": "Frase que se enciende",
+    "type": "select",
+    "options": [
+     {
+      "value": "no",
+      "label": "Visible"
+     },
+     {
+      "value": "si",
+      "label": "Oculta"
+     }
+    ],
+    "section": "Secciones de la página",
+    "hint": "Oculta deja la sección fuera de la página sin borrar sus textos."
+   },
+   {
+    "key": "escenas",
+    "label": "Tres escenas",
+    "type": "select",
+    "options": [
+     {
+      "value": "no",
+      "label": "Visible"
+     },
+     {
+      "value": "si",
+      "label": "Oculta"
+     }
+    ],
+    "section": "Secciones de la página",
+    "hint": "Oculta deja la sección fuera de la página sin borrar sus textos."
+   },
+   {
+    "key": "problema",
+    "label": "El problema",
+    "type": "select",
+    "options": [
+     {
+      "value": "no",
+      "label": "Visible"
+     },
+     {
+      "value": "si",
+      "label": "Oculta"
+     }
+    ],
+    "section": "Secciones de la página",
+    "hint": "Oculta deja la sección fuera de la página sin borrar sus textos."
+   },
+   {
+    "key": "incluye",
+    "label": "Qué incluye",
+    "type": "select",
+    "options": [
+     {
+      "value": "no",
+      "label": "Visible"
+     },
+     {
+      "value": "si",
+      "label": "Oculta"
+     }
+    ],
+    "section": "Secciones de la página",
+    "hint": "Oculta deja la sección fuera de la página sin borrar sus textos."
+   },
+   {
+    "key": "dentro",
+    "label": "Por dentro",
+    "type": "select",
+    "options": [
+     {
+      "value": "no",
+      "label": "Visible"
+     },
+     {
+      "value": "si",
+      "label": "Oculta"
+     }
+    ],
+    "section": "Secciones de la página",
+    "hint": "Oculta deja la sección fuera de la página sin borrar sus textos."
+   },
+   {
+    "key": "mapa",
+    "label": "Mapa de cursos",
+    "type": "select",
+    "options": [
+     {
+      "value": "no",
+      "label": "Visible"
+     },
+     {
+      "value": "si",
+      "label": "Oculta"
+     }
+    ],
+    "section": "Secciones de la página",
+    "hint": "Oculta deja la sección fuera de la página sin borrar sus textos."
+   },
+   {
+    "key": "casos",
+    "label": "Casos de miembros",
+    "type": "select",
+    "options": [
+     {
+      "value": "no",
+      "label": "Visible"
+     },
+     {
+      "value": "si",
+      "label": "Oculta"
+     }
+    ],
+    "section": "Secciones de la página",
+    "hint": "Oculta deja la sección fuera de la página sin borrar sus textos."
+   },
+   {
+    "key": "sobre",
+    "label": "Sobre Pablo",
+    "type": "select",
+    "options": [
+     {
+      "value": "no",
+      "label": "Visible"
+     },
+     {
+      "value": "si",
+      "label": "Oculta"
+     }
+    ],
+    "section": "Secciones de la página",
+    "hint": "Oculta deja la sección fuera de la página sin borrar sus textos."
+   },
+   {
+    "key": "dudas",
+    "label": "Dudas honestas",
+    "type": "select",
+    "options": [
+     {
+      "value": "no",
+      "label": "Visible"
+     },
+     {
+      "value": "si",
+      "label": "Oculta"
+     }
+    ],
+    "section": "Secciones de la página",
+    "hint": "Oculta deja la sección fuera de la página sin borrar sus textos."
+   },
+   {
+    "key": "faq",
+    "label": "Preguntas frecuentes",
+    "type": "select",
+    "options": [
+     {
+      "value": "no",
+      "label": "Visible"
+     },
+     {
+      "value": "si",
+      "label": "Oculta"
+     }
+    ],
+    "section": "Secciones de la página",
+    "hint": "Oculta deja la sección fuera de la página sin borrar sus textos."
+   },
+   {
+    "key": "cierre",
+    "label": "Cierre",
+    "type": "select",
+    "options": [
+     {
+      "value": "no",
+      "label": "Visible"
+     },
+     {
+      "value": "si",
+      "label": "Oculta"
+     }
+    ],
+    "section": "Secciones de la página",
+    "hint": "Oculta deja la sección fuera de la página sin borrar sus textos."
    }
   ]
  }

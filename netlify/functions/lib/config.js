@@ -111,6 +111,7 @@ const SITES = {
     // Marcador exacto dentro de blog/index.html después del cual se inserta la tarjeta nueva.
     cardAnchor: '<div class="posts" id="blog-posts">',
     dataBlocks: {
+      ...require('./page-blocks').eg,
       faqs: {
         label: 'Preguntas frecuentes',
         varName: 'faqs',
