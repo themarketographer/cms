@@ -405,7 +405,7 @@
   </header>
   <div class="wrap">
     <div class="tabs">
-      <div class="tab" data-site="mkt" onclick="switchSite('mkt')"><img src="https://res.cloudinary.com/dplhu2z6j/image/upload/v1755314905/Marketographers_Negro_S_F_tgh9z2.png" alt="">The Marketographers</div>
+      <div class="tab" data-site="mkt" onclick="switchSite('mkt')"><img src="https://res.cloudinary.com/dplhu2z6j/image/upload/f_auto,q_auto,w_1000/v1755314905/Marketographers_Negro_S_F_tgh9z2.png" alt="">The Marketographers</div>
       <div class="tab" data-site="eg" onclick="switchSite('eg')"><img src="https://estudiographica.com/assets/logo-black.png" alt="">Estudio Graphica</div>
     </div>
     <div class="subtabs" id="subtabs"></div>
@@ -1528,7 +1528,7 @@ function renderDataBlockField(item, i, f) {
           ${isPending ? '<span class="pending">Foto nueva, se sube al guardar</span>' : ''}
         </span>
       </label>
-      <div class="img-prev">${v ? `<img src="${escapeHtmlAttr(previewUrl(v))}" alt="" onerror="this.parentNode.textContent='No carga'">` : 'Sin foto'}</div>
+      <div class="img-prev">${v ? `<img loading="lazy" decoding="async" src="${escapeHtmlAttr(previewUrl(v))}" alt="" onerror="this.parentNode.textContent='No carga'">` : 'Sin foto'}</div>
     </div>`;
   }
   if (f.rich) return renderRichField(item, i, f);
@@ -2163,7 +2163,7 @@ async function loadPosts() {
     });
     const rowHtml = (p) => `
       <div class="post-row">
-        <img src="${p.coverImageUrl}" onerror="this.style.visibility='hidden'">
+        <img loading="lazy" decoding="async" src="${p.coverImageUrl}" onerror="this.style.visibility='hidden'">
         <div class="info">
           <b>${p.title}</b>
           <span>/blog/${p.slug}/</span>
