@@ -4,13 +4,16 @@
 // es migrar a Netlify Identity, pero eso suma una capa de configuración que
 // hoy no hace falta.
 
+const { timingSafeEqual } = require('crypto');
+const same = (a, b) => a.length === b.length && timingSafeEqual(Buffer.from(a), Buffer.from(b));
+
 function checkAuth(event) {
   const expected = process.env.ADMIN_PASSWORD;
   if (!expected) {
     return { ok: false, statusCode: 500, error: 'Falta ADMIN_PASSWORD en las variables de entorno de Netlify' };
   }
   const provided = event.headers['x-admin-password'] || '';
-  if (provided !== expected) {
+  if (!same(String(provided), expected)) {
     return { ok: false, statusCode: 401, error: 'Contraseña incorrecta' };
   }
   return { ok: true };
