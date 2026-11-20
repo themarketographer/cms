@@ -96,7 +96,7 @@ function head(title, desc, canonical, ogImg, pageCfg) {
 <link rel="icon" type="image/png" href="https://res.cloudinary.com/dplhu2z6j/image/upload/q_auto,f_auto,w_64,h_64/v1755314905/Marketographers_Negro_S_F_tgh9z2.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"></noscript>
 <link rel="stylesheet" href="/assets/global.css">
 <link rel="stylesheet" href="/cursos/assets/cursos.css">
 
@@ -304,6 +304,8 @@ function hubPage(cursos, aj) {
   const tk = palabras.concat(palabras).map((p) => `<span>${E(p)}</span><i></i>`).join('');
   const desc = aj.hubDescripcion || 'Cursos online de fotografía, marketing y negocio. Pago único y acceso de por vida.';
   const h = [head(aj.hubTitle, desc, 'https://marketographers.com/cursos/', BANNER, { tipo: 'hub' })];
+  const lista = { '@context': 'https://schema.org', '@type': 'ItemList', name: 'Cursos online de Pablo Villarroel', itemListElement: pub.map((c, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://marketographers.com/cursos/${c.slug}/`, name: c.nombre })) };
+  h.push(`<script type="application/ld+json">${JSON.stringify(lista)}</script>`);
   h.push(`
 <section class="c-hero hub-hero">${RINGS}
   <div class="wrap center fade-in">
